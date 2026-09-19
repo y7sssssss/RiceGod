@@ -1,0 +1,2 @@
+# Editable install from the dependency metadata in pyproject.toml.
+-e .

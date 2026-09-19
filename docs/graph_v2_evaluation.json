@@ -1,0 +1,2698 @@
+{
+  "evaluated_at": "2026-09-19T03:32:48.957173+00:00",
+  "scope": "24 fixed deterministic retrieval cases; no LLM or end-to-end answer scoring.",
+  "suite_version": "1.0",
+  "suite_sha256": "b1fd3812bfd612ac0a167b962e228d98bc0753a674528edad48f3ef1e76a166e",
+  "recipe_sha256": "14012bdbaa2d65b8c57aaf93f810c818944552279fe46ae719602ac821d56e81",
+  "recipe_count": 19669,
+  "case_count": 24,
+  "repeats": 10,
+  "v1_projection": {
+    "dish_count": 19669,
+    "input_relationship_count": 155230,
+    "setup_ms": 10348.87
+  },
+  "primary_comparison": {
+    "baseline": "json_v1",
+    "candidate": "graph_v2",
+    "exact_match_improvement_pp": 87.5,
+    "macro_recall_improvement_pp": 77.204,
+    "additional_supported_cases": 10,
+    "p50_delta_ms": 7.557
+  },
+  "summary": {
+    "graph_v1": {
+      "cases": 24,
+      "supported_cases": 14,
+      "exact_matches": 3,
+      "exact_match_rate": 0.125,
+      "macro_precision": 0.558333,
+      "macro_recall": 0.227961,
+      "micro_recall": 0.056673,
+      "latency_ms": {
+        "samples": 140,
+        "mean": 13.751,
+        "p50": 11.3,
+        "p95": 36.462
+      }
+    },
+    "graph_v2": {
+      "cases": 24,
+      "supported_cases": 24,
+      "exact_matches": 24,
+      "exact_match_rate": 1.0,
+      "macro_precision": 1.0,
+      "macro_recall": 1.0,
+      "micro_recall": 1.0,
+      "latency_ms": {
+        "samples": 240,
+        "mean": 54.551,
+        "p50": 25.622,
+        "p95": 168.115
+      }
+    },
+    "json_v1": {
+      "cases": 24,
+      "supported_cases": 14,
+      "exact_matches": 3,
+      "exact_match_rate": 0.125,
+      "macro_precision": 0.558333,
+      "macro_recall": 0.227961,
+      "micro_recall": 0.056673,
+      "latency_ms": {
+        "samples": 140,
+        "mean": 27.148,
+        "p50": 18.065,
+        "p95": 73.154
+      }
+    },
+    "json_v2": {
+      "cases": 24,
+      "supported_cases": 24,
+      "exact_matches": 24,
+      "exact_match_rate": 1.0,
+      "macro_precision": 1.0,
+      "macro_recall": 1.0,
+      "micro_recall": 1.0,
+      "latency_ms": {
+        "samples": 240,
+        "mean": 135.068,
+        "p50": 19.794,
+        "p95": 493.505
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "alias_tomato",
+      "category": "ingredient_alias",
+      "question": "查找使用番茄的菜谱",
+      "expected_count": 827,
+      "expected_hash": "c6b4670fe9e5315f0de398cbe0e725422f791afe54c70e12d7d4131a7804ba1f",
+      "expected_sample": [
+        " 牛肉牛排酱炒意面",
+        " 番茄牛肉意面",
+        " 茄汁炖鸭血粉丝",
+        "#ACA烘焙明星大赛# 荆芥鸡蛋捞面",
+        "#ACA第四届烘焙大赛#造色情怀 意式培根鲜虾披萨"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 391,
+          "expected": 827,
+          "true_positive": 391,
+          "precision": 1.0,
+          "recall": 0.472793,
+          "exact_match": false,
+          "result_hash": "14de0f5a8ea37e74821356959607aae1dd4bb09ff1374d16f95f2202bebcb106",
+          "sample": [
+            " 番茄牛肉意面",
+            " 茄汁炖鸭血粉丝",
+            "#信任之美#感恩节烤鸡",
+            "#信任之美#迷迭香烤牛肉",
+            "#信任之美#酿番茄"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 36.149,
+            "p50": 36.677,
+            "p95": 43.531
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 827,
+          "expected": 827,
+          "true_positive": 827,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "c6b4670fe9e5315f0de398cbe0e725422f791afe54c70e12d7d4131a7804ba1f",
+          "sample": [
+            " 牛肉牛排酱炒意面",
+            " 番茄牛肉意面",
+            " 茄汁炖鸭血粉丝",
+            "#ACA烘焙明星大赛# 荆芥鸡蛋捞面",
+            "#ACA第四届烘焙大赛#造色情怀 意式培根鲜虾披萨"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 53.755,
+            "p50": 52.107,
+            "p95": 62.648
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 391,
+          "expected": 827,
+          "true_positive": 391,
+          "precision": 1.0,
+          "recall": 0.472793,
+          "exact_match": false,
+          "result_hash": "14de0f5a8ea37e74821356959607aae1dd4bb09ff1374d16f95f2202bebcb106",
+          "sample": [
+            " 番茄牛肉意面",
+            " 茄汁炖鸭血粉丝",
+            "#信任之美#感恩节烤鸡",
+            "#信任之美#迷迭香烤牛肉",
+            "#信任之美#酿番茄"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 18.361,
+            "p50": 18.088,
+            "p95": 21.427
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 827,
+          "expected": 827,
+          "true_positive": 827,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "c6b4670fe9e5315f0de398cbe0e725422f791afe54c70e12d7d4131a7804ba1f",
+          "sample": [
+            " 牛肉牛排酱炒意面",
+            " 番茄牛肉意面",
+            " 茄汁炖鸭血粉丝",
+            "#ACA烘焙明星大赛# 荆芥鸡蛋捞面",
+            "#ACA第四届烘焙大赛#造色情怀 意式培根鲜虾披萨"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 18.561,
+            "p50": 18.222,
+            "p95": 22.052
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_potato",
+      "category": "ingredient_alias",
+      "question": "查找使用马铃薯的菜谱",
+      "expected_count": 981,
+      "expected_hash": "70234ed993ed4591e8500a5a8720522d8d6c8a194d80e58671bb15b902d66e93",
+      "expected_sample": [
+        " 焗土豆泥",
+        "#ACA烘焙明星大赛# 鲜虾可乐饼",
+        "#ACA烘焙明星大赛#土豆烤羊排",
+        "#ACA烘焙明星大赛#香烤羊排",
+        "#ACA第四届烘焙大赛＃造色情怀 芝士培根焗土豆"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 8,
+          "expected": 981,
+          "true_positive": 8,
+          "precision": 1.0,
+          "recall": 0.008155,
+          "exact_match": false,
+          "result_hash": "7b3b685aad971f04c8b584af1030422a73e1a400a8ecc96e698f1ca38712e0a3",
+          "sample": [
+            "【广东】鸡肉鲜蔬奶油浓汤",
+            "印度传统土豆小食",
+            "咖喱魔鬼鱼",
+            "尼斯轻食三文治",
+            "泰式咖喱鸡片"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 5.853,
+            "p50": 5.931,
+            "p95": 6.747
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 981,
+          "expected": 981,
+          "true_positive": 981,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "70234ed993ed4591e8500a5a8720522d8d6c8a194d80e58671bb15b902d66e93",
+          "sample": [
+            " 焗土豆泥",
+            "#ACA烘焙明星大赛# 鲜虾可乐饼",
+            "#ACA烘焙明星大赛#土豆烤羊排",
+            "#ACA烘焙明星大赛#香烤羊排",
+            "#ACA第四届烘焙大赛＃造色情怀 芝士培根焗土豆"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 51.764,
+            "p50": 51.318,
+            "p95": 62.075
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 8,
+          "expected": 981,
+          "true_positive": 8,
+          "precision": 1.0,
+          "recall": 0.008155,
+          "exact_match": false,
+          "result_hash": "7b3b685aad971f04c8b584af1030422a73e1a400a8ecc96e698f1ca38712e0a3",
+          "sample": [
+            "【广东】鸡肉鲜蔬奶油浓汤",
+            "印度传统土豆小食",
+            "咖喱魔鬼鱼",
+            "尼斯轻食三文治",
+            "泰式咖喱鸡片"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 18.466,
+            "p50": 17.884,
+            "p95": 24.317
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 981,
+          "expected": 981,
+          "true_positive": 981,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "70234ed993ed4591e8500a5a8720522d8d6c8a194d80e58671bb15b902d66e93",
+          "sample": [
+            " 焗土豆泥",
+            "#ACA烘焙明星大赛# 鲜虾可乐饼",
+            "#ACA烘焙明星大赛#土豆烤羊排",
+            "#ACA烘焙明星大赛#香烤羊排",
+            "#ACA第四届烘焙大赛＃造色情怀 芝士培根焗土豆"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 19.029,
+            "p50": 18.873,
+            "p95": 21.707
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_yangyu",
+      "category": "ingredient_alias",
+      "question": "查找使用洋芋的菜谱",
+      "expected_count": 981,
+      "expected_hash": "70234ed993ed4591e8500a5a8720522d8d6c8a194d80e58671bb15b902d66e93",
+      "expected_sample": [
+        " 焗土豆泥",
+        "#ACA烘焙明星大赛# 鲜虾可乐饼",
+        "#ACA烘焙明星大赛#土豆烤羊排",
+        "#ACA烘焙明星大赛#香烤羊排",
+        "#ACA第四届烘焙大赛＃造色情怀 芝士培根焗土豆"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 8,
+          "expected": 981,
+          "true_positive": 8,
+          "precision": 1.0,
+          "recall": 0.008155,
+          "exact_match": false,
+          "result_hash": "22ecff7c826cbb0ecee1173ff8f2e111ac635fd6ae2ec1f40c742479efd6b098",
+          "sample": [
+            "【闽菜】－－阿嬷洋芋餅",
+            "土家烤鱼",
+            "教你做筋道好吃的特色小吃——陕北洋芋擦擦",
+            "洋芋叉叉",
+            "老奶洋芋"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 6.321,
+            "p50": 6.467,
+            "p95": 7.833
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 981,
+          "expected": 981,
+          "true_positive": 981,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "70234ed993ed4591e8500a5a8720522d8d6c8a194d80e58671bb15b902d66e93",
+          "sample": [
+            " 焗土豆泥",
+            "#ACA烘焙明星大赛# 鲜虾可乐饼",
+            "#ACA烘焙明星大赛#土豆烤羊排",
+            "#ACA烘焙明星大赛#香烤羊排",
+            "#ACA第四届烘焙大赛＃造色情怀 芝士培根焗土豆"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 51.089,
+            "p50": 50.003,
+            "p95": 59.15
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 8,
+          "expected": 981,
+          "true_positive": 8,
+          "precision": 1.0,
+          "recall": 0.008155,
+          "exact_match": false,
+          "result_hash": "22ecff7c826cbb0ecee1173ff8f2e111ac635fd6ae2ec1f40c742479efd6b098",
+          "sample": [
+            "【闽菜】－－阿嬷洋芋餅",
+            "土家烤鱼",
+            "教你做筋道好吃的特色小吃——陕北洋芋擦擦",
+            "洋芋叉叉",
+            "老奶洋芋"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 17.582,
+            "p50": 16.933,
+            "p95": 20.231
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 981,
+          "expected": 981,
+          "true_positive": 981,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "70234ed993ed4591e8500a5a8720522d8d6c8a194d80e58671bb15b902d66e93",
+          "sample": [
+            " 焗土豆泥",
+            "#ACA烘焙明星大赛# 鲜虾可乐饼",
+            "#ACA烘焙明星大赛#土豆烤羊排",
+            "#ACA烘焙明星大赛#香烤羊排",
+            "#ACA第四届烘焙大赛＃造色情怀 芝士培根焗土豆"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 18.812,
+            "p50": 19.099,
+            "p95": 20.608
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_scallion",
+      "category": "ingredient_alias",
+      "question": "查找使用青葱的菜谱",
+      "expected_count": 526,
+      "expected_hash": "98d0a0bd366dca485dfced7f245556db0da0703ecf052a4fbdc3f2bf962df99d",
+      "expected_sample": [
+        "#ACA北美电器试用#南瓜浓汤&香葱面包条",
+        "#ACA烘焙明星大赛#无油香菇酿肉末鹌鹑",
+        "#ACA第四届烘焙大赛#造色情怀 锡纸花甲粉丝",
+        "#信任之美#大补气血牛尾汤",
+        "#信任之美#白萝卜猪肉馅蒸饺"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 23,
+          "expected": 526,
+          "true_positive": 23,
+          "precision": 1.0,
+          "recall": 0.043726,
+          "exact_match": false,
+          "result_hash": "285c03dd861db14a373d1f3ae876eb015b94b4e2640b533d367859702257b3ca",
+          "sample": [
+            "【京酱肉丝】",
+            "【今日早餐】鲜虾馄饨+一块蛋糕",
+            "【山西】洋芋擦擦",
+            "【广东】脆皮萝卜糕",
+            "【每日新品】自制盐水鸭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 6.671,
+            "p50": 6.709,
+            "p95": 7.8
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 526,
+          "expected": 526,
+          "true_positive": 526,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "98d0a0bd366dca485dfced7f245556db0da0703ecf052a4fbdc3f2bf962df99d",
+          "sample": [
+            "#ACA北美电器试用#南瓜浓汤&香葱面包条",
+            "#ACA烘焙明星大赛#无油香菇酿肉末鹌鹑",
+            "#ACA第四届烘焙大赛#造色情怀 锡纸花甲粉丝",
+            "#信任之美#大补气血牛尾汤",
+            "#信任之美#白萝卜猪肉馅蒸饺"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 29.768,
+            "p50": 29.964,
+            "p95": 32.251
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 23,
+          "expected": 526,
+          "true_positive": 23,
+          "precision": 1.0,
+          "recall": 0.043726,
+          "exact_match": false,
+          "result_hash": "285c03dd861db14a373d1f3ae876eb015b94b4e2640b533d367859702257b3ca",
+          "sample": [
+            "【京酱肉丝】",
+            "【今日早餐】鲜虾馄饨+一块蛋糕",
+            "【山西】洋芋擦擦",
+            "【广东】脆皮萝卜糕",
+            "【每日新品】自制盐水鸭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 20.022,
+            "p50": 20.288,
+            "p95": 23.272
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 526,
+          "expected": 526,
+          "true_positive": 526,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "98d0a0bd366dca485dfced7f245556db0da0703ecf052a4fbdc3f2bf962df99d",
+          "sample": [
+            "#ACA北美电器试用#南瓜浓汤&香葱面包条",
+            "#ACA烘焙明星大赛#无油香菇酿肉末鹌鹑",
+            "#ACA第四届烘焙大赛#造色情怀 锡纸花甲粉丝",
+            "#信任之美#大补气血牛尾汤",
+            "#信任之美#白萝卜猪肉馅蒸饺"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 19.855,
+            "p50": 20.243,
+            "p95": 22.285
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_ginger",
+      "category": "ingredient_alias",
+      "question": "查找使用姜末的菜谱",
+      "expected_count": 5157,
+      "expected_hash": "0540dde33b763b084be31d14d85fd4fc1d778a178b55cae5ce3441b36db39a75",
+      "expected_sample": [
+        "      🌿鲜虾清汤面🌿",
+        " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+        " 台式卤肉饭",
+        " 本色蒸狮子头",
+        " 焖子炒胡萝卜"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 290,
+          "expected": 5157,
+          "true_positive": 290,
+          "precision": 1.0,
+          "recall": 0.056234,
+          "exact_match": false,
+          "result_hash": "12af99b4abc85a062f5ae048e7c9ae53aad0ffb95832dcb5ae8f2ead51bbe6f1",
+          "sample": [
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            "#ACA烘焙明星大赛#蒜末肉泥烤茄子",
+            "#信任之美#千张肉卷",
+            "#信任之美#宫廷牛肉饼",
+            "#信任之美#鲜肉豇豆锅贴"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 20.154,
+            "p50": 19.692,
+            "p95": 24.134
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 5157,
+          "expected": 5157,
+          "true_positive": 5157,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "0540dde33b763b084be31d14d85fd4fc1d778a178b55cae5ce3441b36db39a75",
+          "sample": [
+            "      🌿鲜虾清汤面🌿",
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            " 台式卤肉饭",
+            " 本色蒸狮子头",
+            " 焖子炒胡萝卜"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 245.059,
+            "p50": 243.113,
+            "p95": 271.511
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 290,
+          "expected": 5157,
+          "true_positive": 290,
+          "precision": 1.0,
+          "recall": 0.056234,
+          "exact_match": false,
+          "result_hash": "12af99b4abc85a062f5ae048e7c9ae53aad0ffb95832dcb5ae8f2ead51bbe6f1",
+          "sample": [
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            "#ACA烘焙明星大赛#蒜末肉泥烤茄子",
+            "#信任之美#千张肉卷",
+            "#信任之美#宫廷牛肉饼",
+            "#信任之美#鲜肉豇豆锅贴"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 17.457,
+            "p50": 16.696,
+            "p95": 22.341
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 5157,
+          "expected": 5157,
+          "true_positive": 5157,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "0540dde33b763b084be31d14d85fd4fc1d778a178b55cae5ce3441b36db39a75",
+          "sample": [
+            "      🌿鲜虾清汤面🌿",
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            " 台式卤肉饭",
+            " 本色蒸狮子头",
+            " 焖子炒胡萝卜"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 18.838,
+            "p50": 18.852,
+            "p95": 20.706
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_garlic",
+      "category": "ingredient_alias",
+      "question": "查找使用蒜瓣的菜谱",
+      "expected_count": 1638,
+      "expected_hash": "d458d227e9070cdcb4bff394a2c9712912a09f8f8de0ad49b5e55f95f6895632",
+      "expected_sample": [
+        " 茄汁炖鸭血粉丝",
+        "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）",
+        "#ACA烘焙明星大赛#意式番茄肉酱",
+        "#ACA烘焙明星大赛#芙蓉蟹斗",
+        "#ACA烘焙明星大赛#蒜烤生蚝"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 194,
+          "expected": 1638,
+          "true_positive": 194,
+          "precision": 1.0,
+          "recall": 0.118437,
+          "exact_match": false,
+          "result_hash": "402fc616ed7e28c635afbe9d799c5840b82ff07909c8b7df18429ff9ac73e541",
+          "sample": [
+            "#ACA烘焙明星大赛#蒜蓉烤茄子",
+            "#信任之美#法式迷迭香烤小羊排",
+            "#少油版地三鲜#",
+            "#御寒美食#黑椒牛排",
+            "#第四届烘焙大赛暨爱吃节#蜜汁叉烧"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 14.211,
+            "p50": 14.081,
+            "p95": 15.623
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 1638,
+          "expected": 1638,
+          "true_positive": 1638,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "d458d227e9070cdcb4bff394a2c9712912a09f8f8de0ad49b5e55f95f6895632",
+          "sample": [
+            " 茄汁炖鸭血粉丝",
+            "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）",
+            "#ACA烘焙明星大赛#意式番茄肉酱",
+            "#ACA烘焙明星大赛#芙蓉蟹斗",
+            "#ACA烘焙明星大赛#蒜烤生蚝"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 77.88,
+            "p50": 77.991,
+            "p95": 81.524
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 194,
+          "expected": 1638,
+          "true_positive": 194,
+          "precision": 1.0,
+          "recall": 0.118437,
+          "exact_match": false,
+          "result_hash": "402fc616ed7e28c635afbe9d799c5840b82ff07909c8b7df18429ff9ac73e541",
+          "sample": [
+            "#ACA烘焙明星大赛#蒜蓉烤茄子",
+            "#信任之美#法式迷迭香烤小羊排",
+            "#少油版地三鲜#",
+            "#御寒美食#黑椒牛排",
+            "#第四届烘焙大赛暨爱吃节#蜜汁叉烧"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 17.517,
+            "p50": 17.483,
+            "p95": 19.482
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 1638,
+          "expected": 1638,
+          "true_positive": 1638,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "d458d227e9070cdcb4bff394a2c9712912a09f8f8de0ad49b5e55f95f6895632",
+          "sample": [
+            " 茄汁炖鸭血粉丝",
+            "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）",
+            "#ACA烘焙明星大赛#意式番茄肉酱",
+            "#ACA烘焙明星大赛#芙蓉蟹斗",
+            "#ACA烘焙明星大赛#蒜烤生蚝"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 17.051,
+            "p50": 17.007,
+            "p95": 17.962
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_egg_liquid",
+      "category": "ingredient_alias",
+      "question": "查找使用鸡蛋液的菜谱",
+      "expected_count": 3319,
+      "expected_hash": "3637c18482992e665180385057b3b8547d439d6c1263412516137c9b4a0cea21",
+      "expected_sample": [
+        "      🌿鲜虾清汤面🌿",
+        " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+        " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+        " 本色蒸狮子头",
+        " 杏仁小酥饼"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 81,
+          "expected": 3319,
+          "true_positive": 81,
+          "precision": 1.0,
+          "recall": 0.024405,
+          "exact_match": false,
+          "result_hash": "b2bcee327828f4cc118fc4daf7278ca2eb309cef706da53153cb8b9da7ac60ab",
+          "sample": [
+            "9个月以上辅食胡萝卜花朵厚蛋烧",
+            "[菜谱换礼2]椰蓉墨西哥包",
+            "【台湾】炸香酥鸡排",
+            "【香脆番薯卷】",
+            "中秋必吃的梅干菜鲜肉月饼"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 8.792,
+            "p50": 8.546,
+            "p95": 10.384
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 3319,
+          "expected": 3319,
+          "true_positive": 3319,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3637c18482992e665180385057b3b8547d439d6c1263412516137c9b4a0cea21",
+          "sample": [
+            "      🌿鲜虾清汤面🌿",
+            " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+            " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+            " 本色蒸狮子头",
+            " 杏仁小酥饼"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 162.496,
+            "p50": 156.844,
+            "p95": 195.022
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 81,
+          "expected": 3319,
+          "true_positive": 81,
+          "precision": 1.0,
+          "recall": 0.024405,
+          "exact_match": false,
+          "result_hash": "b2bcee327828f4cc118fc4daf7278ca2eb309cef706da53153cb8b9da7ac60ab",
+          "sample": [
+            "9个月以上辅食胡萝卜花朵厚蛋烧",
+            "[菜谱换礼2]椰蓉墨西哥包",
+            "【台湾】炸香酥鸡排",
+            "【香脆番薯卷】",
+            "中秋必吃的梅干菜鲜肉月饼"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 17.733,
+            "p50": 17.307,
+            "p95": 22.135
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 3319,
+          "expected": 3319,
+          "true_positive": 3319,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3637c18482992e665180385057b3b8547d439d6c1263412516137c9b4a0cea21",
+          "sample": [
+            "      🌿鲜虾清汤面🌿",
+            " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+            " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+            " 本色蒸狮子头",
+            " 杏仁小酥饼"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 18.933,
+            "p50": 18.896,
+            "p95": 20.805
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_egg",
+      "category": "ingredient_alias",
+      "question": "查找使用蛋液的菜谱",
+      "expected_count": 3319,
+      "expected_hash": "3637c18482992e665180385057b3b8547d439d6c1263412516137c9b4a0cea21",
+      "expected_sample": [
+        "      🌿鲜虾清汤面🌿",
+        " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+        " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+        " 本色蒸狮子头",
+        " 杏仁小酥饼"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 115,
+          "expected": 3319,
+          "true_positive": 115,
+          "precision": 1.0,
+          "recall": 0.034649,
+          "exact_match": false,
+          "result_hash": "1a0010cfdcf4df9791ef0d9aa708ff8a28dd8e45c914a97a7179603ae31ddaf6",
+          "sample": [
+            " 杏仁小酥饼",
+            " 淡奶油吐司",
+            "70后记忆中的老味道——港式土司",
+            "“开口笑”的巧克力裂纹曲奇",
+            "【港式蛋挞】——不用“叠被子”的蛋挞"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 10.152,
+            "p50": 10.011,
+            "p95": 12.496
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 3319,
+          "expected": 3319,
+          "true_positive": 3319,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3637c18482992e665180385057b3b8547d439d6c1263412516137c9b4a0cea21",
+          "sample": [
+            "      🌿鲜虾清汤面🌿",
+            " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+            " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+            " 本色蒸狮子头",
+            " 杏仁小酥饼"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 157.216,
+            "p50": 157.131,
+            "p95": 165.203
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 115,
+          "expected": 3319,
+          "true_positive": 115,
+          "precision": 1.0,
+          "recall": 0.034649,
+          "exact_match": false,
+          "result_hash": "1a0010cfdcf4df9791ef0d9aa708ff8a28dd8e45c914a97a7179603ae31ddaf6",
+          "sample": [
+            " 杏仁小酥饼",
+            " 淡奶油吐司",
+            "70后记忆中的老味道——港式土司",
+            "“开口笑”的巧克力裂纹曲奇",
+            "【港式蛋挞】——不用“叠被子”的蛋挞"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 17.062,
+            "p50": 16.631,
+            "p95": 19.579
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 3319,
+          "expected": 3319,
+          "true_positive": 3319,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3637c18482992e665180385057b3b8547d439d6c1263412516137c9b4a0cea21",
+          "sample": [
+            "      🌿鲜虾清汤面🌿",
+            " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+            " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+            " 本色蒸狮子头",
+            " 杏仁小酥饼"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 17.822,
+            "p50": 17.707,
+            "p95": 19.133
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_peanut",
+      "category": "ingredient_alias",
+      "question": "查找使用花生米的菜谱",
+      "expected_count": 438,
+      "expected_hash": "484be5ca7bb10c75137766704cc497cb08883fb1e591c185abad3e85a372d088",
+      "expected_sample": [
+        " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+        " 口水鸡块",
+        " 福州年糕",
+        " 肋排炖花生米",
+        "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 136,
+          "expected": 438,
+          "true_positive": 136,
+          "precision": 1.0,
+          "recall": 0.310502,
+          "exact_match": false,
+          "result_hash": "ba77b80ac351a518b9d9fde6f5667d4e6237832b8f1b5610eb408c20e734334f",
+          "sample": [
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            " 口水鸡块",
+            " 肋排炖花生米",
+            "#东菱魔法云面包机之花生酱#",
+            "#春食野菜香#香椿肉松寿司"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 10.882,
+            "p50": 10.87,
+            "p95": 12.294
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 438,
+          "expected": 438,
+          "true_positive": 438,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "484be5ca7bb10c75137766704cc497cb08883fb1e591c185abad3e85a372d088",
+          "sample": [
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            " 口水鸡块",
+            " 福州年糕",
+            " 肋排炖花生米",
+            "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 23.27,
+            "p50": 23.207,
+            "p95": 24.702
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 136,
+          "expected": 438,
+          "true_positive": 136,
+          "precision": 1.0,
+          "recall": 0.310502,
+          "exact_match": false,
+          "result_hash": "ba77b80ac351a518b9d9fde6f5667d4e6237832b8f1b5610eb408c20e734334f",
+          "sample": [
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            " 口水鸡块",
+            " 肋排炖花生米",
+            "#东菱魔法云面包机之花生酱#",
+            "#春食野菜香#香椿肉松寿司"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 16.966,
+            "p50": 16.032,
+            "p95": 22.273
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 438,
+          "expected": 438,
+          "true_positive": 438,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "484be5ca7bb10c75137766704cc497cb08883fb1e591c185abad3e85a372d088",
+          "sample": [
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            " 口水鸡块",
+            " 福州年糕",
+            " 肋排炖花生米",
+            "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 16.767,
+            "p50": 16.799,
+            "p95": 17.25
+          }
+        }
+      }
+    },
+    {
+      "id": "alias_soybean",
+      "category": "ingredient_alias",
+      "question": "查找使用黄豆的菜谱",
+      "expected_count": 167,
+      "expected_hash": "0ecf70b6be0ec5a7de39629bf7afe1d4932242a9591c7f560307921517b3ad6e",
+      "expected_sample": [
+        "#懒人快手餐#酸辣粉",
+        "#春食野菜香#豆沫",
+        "【可口可乐—健康家庭火锅】韩国泡菜火锅",
+        "【豆沫油条】独具河南特色的美味早餐",
+        "【闽菜】兴化早餐：豆浆米粉"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 166,
+          "expected": 167,
+          "true_positive": 166,
+          "precision": 1.0,
+          "recall": 0.994012,
+          "exact_match": false,
+          "result_hash": "ee775c7c6234d28f999d4ba42f610aa9e727b5befafc1966257839b58f3551df",
+          "sample": [
+            "#懒人快手餐#酸辣粉",
+            "#春食野菜香#豆沫",
+            "【可口可乐—健康家庭火锅】韩国泡菜火锅",
+            "【豆沫油条】独具河南特色的美味早餐",
+            "【闽菜】兴化早餐：豆浆米粉"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 12.38,
+            "p50": 12.085,
+            "p95": 14.348
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 167,
+          "expected": 167,
+          "true_positive": 167,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "0ecf70b6be0ec5a7de39629bf7afe1d4932242a9591c7f560307921517b3ad6e",
+          "sample": [
+            "#懒人快手餐#酸辣粉",
+            "#春食野菜香#豆沫",
+            "【可口可乐—健康家庭火锅】韩国泡菜火锅",
+            "【豆沫油条】独具河南特色的美味早餐",
+            "【闽菜】兴化早餐：豆浆米粉"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 11.861,
+            "p50": 11.911,
+            "p95": 12.607
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 166,
+          "expected": 167,
+          "true_positive": 166,
+          "precision": 1.0,
+          "recall": 0.994012,
+          "exact_match": false,
+          "result_hash": "ee775c7c6234d28f999d4ba42f610aa9e727b5befafc1966257839b58f3551df",
+          "sample": [
+            "#懒人快手餐#酸辣粉",
+            "#春食野菜香#豆沫",
+            "【可口可乐—健康家庭火锅】韩国泡菜火锅",
+            "【豆沫油条】独具河南特色的美味早餐",
+            "【闽菜】兴化早餐：豆浆米粉"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 16.548,
+            "p50": 16.241,
+            "p95": 19.33
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 167,
+          "expected": 167,
+          "true_positive": 167,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "0ecf70b6be0ec5a7de39629bf7afe1d4932242a9591c7f560307921517b3ad6e",
+          "sample": [
+            "#懒人快手餐#酸辣粉",
+            "#春食野菜香#豆沫",
+            "【可口可乐—健康家庭火锅】韩国泡菜火锅",
+            "【豆沫油条】独具河南特色的美味早餐",
+            "【闽菜】兴化早餐：豆浆米粉"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 16.541,
+            "p50": 16.663,
+            "p95": 16.918
+          }
+        }
+      }
+    },
+    {
+      "id": "allergen_egg",
+      "category": "allergen",
+      "question": "哪些菜包含蛋类过敏原",
+      "expected_count": 3667,
+      "expected_hash": "0c1831566079253eff5b12a9e4a6acd6c3ef8d7a44d44bf5cb494925556861c1",
+      "expected_sample": [
+        "      🌿鲜虾清汤面🌿",
+        " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+        " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+        " 【万圣节】搞怪蛋白糖",
+        " 本色蒸狮子头"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 3667,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 3667,
+          "expected": 3667,
+          "true_positive": 3667,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "0c1831566079253eff5b12a9e4a6acd6c3ef8d7a44d44bf5cb494925556861c1",
+          "sample": [
+            "      🌿鲜虾清汤面🌿",
+            " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+            " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+            " 【万圣节】搞怪蛋白糖",
+            " 本色蒸狮子头"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 164.854,
+            "p50": 164.995,
+            "p95": 168.115
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 3667,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 3667,
+          "expected": 3667,
+          "true_positive": 3667,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "0c1831566079253eff5b12a9e4a6acd6c3ef8d7a44d44bf5cb494925556861c1",
+          "sample": [
+            "      🌿鲜虾清汤面🌿",
+            " #第四届烘焙大赛暨是爱吃节#蔓越莓玛德琳",
+            " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+            " 【万圣节】搞怪蛋白糖",
+            " 本色蒸狮子头"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 448.353,
+            "p50": 437.407,
+            "p95": 512.045
+          }
+        }
+      }
+    },
+    {
+      "id": "allergen_milk",
+      "category": "allergen",
+      "question": "哪些菜包含乳类过敏原",
+      "expected_count": 2256,
+      "expected_hash": "35bbe9e076ef27ed72f8bd6aea6d5dfc67be7d4444a14320c777339a04912734",
+      "expected_sample": [
+        " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+        " 杏仁小酥饼",
+        " 淡奶油吐司",
+        " 焗土豆泥",
+        " 网红芒果脏脏茶的做法"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 2256,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 2256,
+          "expected": 2256,
+          "true_positive": 2256,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "35bbe9e076ef27ed72f8bd6aea6d5dfc67be7d4444a14320c777339a04912734",
+          "sample": [
+            " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+            " 杏仁小酥饼",
+            " 淡奶油吐司",
+            " 焗土豆泥",
+            " 网红芒果脏脏茶的做法"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 105.631,
+            "p50": 104.653,
+            "p95": 109.631
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 2256,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 2256,
+          "expected": 2256,
+          "true_positive": 2256,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "35bbe9e076ef27ed72f8bd6aea6d5dfc67be7d4444a14320c777339a04912734",
+          "sample": [
+            " #第四届烘焙大赛暨是爱吃节#铜锣烧",
+            " 杏仁小酥饼",
+            " 淡奶油吐司",
+            " 焗土豆泥",
+            " 网红芒果脏脏茶的做法"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 476.841,
+            "p50": 461.388,
+            "p95": 539.322
+          }
+        }
+      }
+    },
+    {
+      "id": "allergen_peanut",
+      "category": "allergen",
+      "question": "哪些菜包含花生过敏原",
+      "expected_count": 482,
+      "expected_hash": "80898b103d74078cb4e67d562e7b82018a66a6739ee47eb84e29e04717f689ec",
+      "expected_sample": [
+        " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+        " 口水鸡块",
+        " 福州年糕",
+        " 肋排炖花生米",
+        "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 482,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 482,
+          "expected": 482,
+          "true_positive": 482,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "80898b103d74078cb4e67d562e7b82018a66a6739ee47eb84e29e04717f689ec",
+          "sample": [
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            " 口水鸡块",
+            " 福州年糕",
+            " 肋排炖花生米",
+            "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 24.425,
+            "p50": 24.26,
+            "p95": 26.717
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 482,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 482,
+          "expected": 482,
+          "true_positive": 482,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "80898b103d74078cb4e67d562e7b82018a66a6739ee47eb84e29e04717f689ec",
+          "sample": [
+            " #信任之美#一碗地道的【鸭血粉丝】让人一天神清气爽",
+            " 口水鸡块",
+            " 福州年糕",
+            " 肋排炖花生米",
+            "#ACA烘焙明星大赛# 爽口凉皮（免洗面零失败）"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 495.091,
+            "p50": 487.638,
+            "p95": 565.425
+          }
+        }
+      }
+    },
+    {
+      "id": "allergen_soy",
+      "category": "allergen",
+      "question": "哪些菜包含大豆过敏原",
+      "expected_count": 653,
+      "expected_hash": "24fd65ea2bfd895298c015f65e92e03e1a58ea3099af1d95f892f57260f10ac0",
+      "expected_sample": [
+        "#ACA烘焙明星大赛#韩式辣酱烤脆皮豆腐",
+        "#信任之美#仙乡豆腐圆",
+        "#信任之美#十四夜羹",
+        "#信任之美#千张肉卷",
+        "#信任之美#海鲜鸳鸯火锅"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 653,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 653,
+          "expected": 653,
+          "true_positive": 653,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "24fd65ea2bfd895298c015f65e92e03e1a58ea3099af1d95f892f57260f10ac0",
+          "sample": [
+            "#ACA烘焙明星大赛#韩式辣酱烤脆皮豆腐",
+            "#信任之美#仙乡豆腐圆",
+            "#信任之美#十四夜羹",
+            "#信任之美#千张肉卷",
+            "#信任之美#海鲜鸳鸯火锅"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 36.904,
+            "p50": 34.42,
+            "p95": 53.833
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 653,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 653,
+          "expected": 653,
+          "true_positive": 653,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "24fd65ea2bfd895298c015f65e92e03e1a58ea3099af1d95f892f57260f10ac0",
+          "sample": [
+            "#ACA烘焙明星大赛#韩式辣酱烤脆皮豆腐",
+            "#信任之美#仙乡豆腐圆",
+            "#信任之美#十四夜羹",
+            "#信任之美#千张肉卷",
+            "#信任之美#海鲜鸳鸯火锅"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 475.072,
+            "p50": 470.578,
+            "p95": 506.13
+          }
+        }
+      }
+    },
+    {
+      "id": "allergen_shellfish",
+      "category": "allergen",
+      "question": "哪些菜包含甲壳类水产过敏原",
+      "expected_count": 513,
+      "expected_hash": "e20e83c27ce45e44e94b1834f6e456d205eeef0064ad5c088ccacad90c910cfc",
+      "expected_sample": [
+        "#ACA烘焙明星大赛#芝士焗龙虾",
+        "#便当任务#巨无霸汉堡",
+        "#信任之美#海鲜大狂欢披萨——家庭版（冷藏发酵）",
+        "#信任之美#秦淮依旧",
+        "#信任之美#美味火锅"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 513,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 513,
+          "expected": 513,
+          "true_positive": 513,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "e20e83c27ce45e44e94b1834f6e456d205eeef0064ad5c088ccacad90c910cfc",
+          "sample": [
+            "#ACA烘焙明星大赛#芝士焗龙虾",
+            "#便当任务#巨无霸汉堡",
+            "#信任之美#海鲜大狂欢披萨——家庭版（冷藏发酵）",
+            "#信任之美#秦淮依旧",
+            "#信任之美#美味火锅"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 25.822,
+            "p50": 25.832,
+            "p95": 26.4
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 513,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 513,
+          "expected": 513,
+          "true_positive": 513,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "e20e83c27ce45e44e94b1834f6e456d205eeef0064ad5c088ccacad90c910cfc",
+          "sample": [
+            "#ACA烘焙明星大赛#芝士焗龙虾",
+            "#便当任务#巨无霸汉堡",
+            "#信任之美#海鲜大狂欢披萨——家庭版（冷藏发酵）",
+            "#信任之美#秦淮依旧",
+            "#信任之美#美味火锅"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 472.364,
+            "p50": 472.119,
+            "p95": 484.935
+          }
+        }
+      }
+    },
+    {
+      "id": "allergen_fish",
+      "category": "allergen",
+      "question": "哪些菜包含鱼类过敏原",
+      "expected_count": 267,
+      "expected_hash": "3e6b777757c9f62c46692666d6c7b3f27ced5e84f05a290ce9b4e4c1422c6935",
+      "expected_sample": [
+        "#信任之美#豆腐味增汤",
+        "#信任之美#香煎三文鱼",
+        "#信任之美#鱼子酱三文鱼意面",
+        "#简单生活，简单菜# 清蒸鲈鱼",
+        "“萝卜”萝卜鲫鱼浓汤"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 267,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 267,
+          "expected": 267,
+          "true_positive": 267,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3e6b777757c9f62c46692666d6c7b3f27ced5e84f05a290ce9b4e4c1422c6935",
+          "sample": [
+            "#信任之美#豆腐味增汤",
+            "#信任之美#香煎三文鱼",
+            "#信任之美#鱼子酱三文鱼意面",
+            "#简单生活，简单菜# 清蒸鲈鱼",
+            "“萝卜”萝卜鲫鱼浓汤"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 16.026,
+            "p50": 15.961,
+            "p95": 16.557
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 267,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 267,
+          "expected": 267,
+          "true_positive": 267,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3e6b777757c9f62c46692666d6c7b3f27ced5e84f05a290ce9b4e4c1422c6935",
+          "sample": [
+            "#信任之美#豆腐味增汤",
+            "#信任之美#香煎三文鱼",
+            "#信任之美#鱼子酱三文鱼意面",
+            "#简单生活，简单菜# 清蒸鲈鱼",
+            "“萝卜”萝卜鲫鱼浓汤"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 492.98,
+            "p50": 486.504,
+            "p95": 518.42
+          }
+        }
+      }
+    },
+    {
+      "id": "sub_corn_starch",
+      "category": "substitution",
+      "question": "玉米淀粉可以用什么替代",
+      "expected_count": 1,
+      "expected_hash": "7a2af352afb62b03b4a1e7797af84c5c6e0c044cbd5f94a6626408664a9576a8",
+      "expected_sample": [
+        "马铃薯淀粉"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 1,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 1,
+          "expected": 1,
+          "true_positive": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "7a2af352afb62b03b4a1e7797af84c5c6e0c044cbd5f94a6626408664a9576a8",
+          "sample": [
+            "马铃薯淀粉"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 4.362,
+            "p50": 4.116,
+            "p95": 7.039
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 1,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 1,
+          "expected": 1,
+          "true_positive": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "7a2af352afb62b03b4a1e7797af84c5c6e0c044cbd5f94a6626408664a9576a8",
+          "sample": [
+            "马铃薯淀粉"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 0.01,
+            "p50": 0.01,
+            "p95": 0.012
+          }
+        }
+      }
+    },
+    {
+      "id": "sub_potato_starch",
+      "category": "substitution",
+      "question": "马铃薯淀粉可以用什么替代",
+      "expected_count": 1,
+      "expected_hash": "40852457ab4a7b5a909d7c99152aff051defd095d18145768cc2408152bba3d1",
+      "expected_sample": [
+        "玉米淀粉"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 1,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 1,
+          "expected": 1,
+          "true_positive": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "40852457ab4a7b5a909d7c99152aff051defd095d18145768cc2408152bba3d1",
+          "sample": [
+            "玉米淀粉"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 3.334,
+            "p50": 3.184,
+            "p95": 4.09
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 1,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 1,
+          "expected": 1,
+          "true_positive": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "40852457ab4a7b5a909d7c99152aff051defd095d18145768cc2408152bba3d1",
+          "sample": [
+            "玉米淀粉"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 0.011,
+            "p50": 0.011,
+            "p95": 0.012
+          }
+        }
+      }
+    },
+    {
+      "id": "sub_sugar",
+      "category": "substitution",
+      "question": "白砂糖可以用什么替代",
+      "expected_count": 1,
+      "expected_hash": "3a0d165c1a085f03bba37a500e60ed560ba82f792c51fb2b050497149982f0a9",
+      "expected_sample": [
+        "冰糖"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 1,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 1,
+          "expected": 1,
+          "true_positive": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3a0d165c1a085f03bba37a500e60ed560ba82f792c51fb2b050497149982f0a9",
+          "sample": [
+            "冰糖"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 3.419,
+            "p50": 3.487,
+            "p95": 4.329
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 1,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 1,
+          "expected": 1,
+          "true_positive": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3a0d165c1a085f03bba37a500e60ed560ba82f792c51fb2b050497149982f0a9",
+          "sample": [
+            "冰糖"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 0.011,
+            "p50": 0.011,
+            "p95": 0.013
+          }
+        }
+      }
+    },
+    {
+      "id": "sub_rock_sugar",
+      "category": "substitution",
+      "question": "冰糖可以用什么替代",
+      "expected_count": 1,
+      "expected_hash": "cfa141b87b85e7ecc952ba0741e14a702cd86e0c2441b02e3f905bbb10dce51a",
+      "expected_sample": [
+        "白砂糖"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 1,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 1,
+          "expected": 1,
+          "true_positive": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "cfa141b87b85e7ecc952ba0741e14a702cd86e0c2441b02e3f905bbb10dce51a",
+          "sample": [
+            "白砂糖"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 3.33,
+            "p50": 3.182,
+            "p95": 4.375
+          }
+        },
+        "json_v1": {
+          "supported": false,
+          "returned": 0,
+          "expected": 1,
+          "true_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "exact_match": false,
+          "result_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "sample": [],
+          "latency_ms": {
+            "samples": 0,
+            "mean": null,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 1,
+          "expected": 1,
+          "true_positive": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "cfa141b87b85e7ecc952ba0741e14a702cd86e0c2441b02e3f905bbb10dce51a",
+          "sample": [
+            "白砂糖"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 0.011,
+            "p50": 0.011,
+            "p95": 0.012
+          }
+        }
+      }
+    },
+    {
+      "id": "similar_sausage",
+      "category": "similar_recipe",
+      "question": "找一些和香肠炒菜干类似的菜",
+      "expected_count": 5,
+      "expected_hash": "c1a1b77734d6609281fb080fd9dd66b85d92be084253f5babec7e2427bdd4614",
+      "expected_sample": [
+        "家庭快手肠粉",
+        "烧卖",
+        "石锅拌饭",
+        "酸豇豆香肠炒饭",
+        "香煎红酒八宝鸭"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "c1a1b77734d6609281fb080fd9dd66b85d92be084253f5babec7e2427bdd4614",
+          "sample": [
+            "家庭快手肠粉",
+            "烧卖",
+            "石锅拌饭",
+            "酸豇豆香肠炒饭",
+            "香煎红酒八宝鸭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 24.992,
+            "p50": 21.143,
+            "p95": 42.764
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "c1a1b77734d6609281fb080fd9dd66b85d92be084253f5babec7e2427bdd4614",
+          "sample": [
+            "家庭快手肠粉",
+            "烧卖",
+            "石锅拌饭",
+            "酸豇豆香肠炒饭",
+            "香煎红酒八宝鸭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 16.619,
+            "p50": 15.51,
+            "p95": 23.473
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "c1a1b77734d6609281fb080fd9dd66b85d92be084253f5babec7e2427bdd4614",
+          "sample": [
+            "家庭快手肠粉",
+            "烧卖",
+            "石锅拌饭",
+            "酸豇豆香肠炒饭",
+            "香煎红酒八宝鸭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 61.326,
+            "p50": 56.301,
+            "p95": 81.117
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "c1a1b77734d6609281fb080fd9dd66b85d92be084253f5babec7e2427bdd4614",
+          "sample": [
+            "家庭快手肠粉",
+            "烧卖",
+            "石锅拌饭",
+            "酸豇豆香肠炒饭",
+            "香煎红酒八宝鸭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 55.497,
+            "p50": 54.801,
+            "p95": 58.532
+          }
+        }
+      }
+    },
+    {
+      "id": "similar_tomato_egg",
+      "category": "similar_recipe",
+      "question": "找一些和西红柿炒鸡蛋类似的菜",
+      "expected_count": 5,
+      "expected_hash": "fe206919836c6bd33c78da07e7ac1fca154f3f536145ef5ed1239edc91b48ab0",
+      "expected_sample": [
+        "#鸡蛋#虾滑番茄豆腐蛋花羹",
+        "家常，炒蛋",
+        "炒拉条",
+        "番茄鸡蛋玉米面条",
+        "白玉菇豆腐汤"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 2,
+          "precision": 0.4,
+          "recall": 0.4,
+          "exact_match": false,
+          "result_hash": "ede9b552013f8832014384d2aeb35cf883feb9a6c5f4fde7972607494261e7da",
+          "sample": [
+            "家常，炒蛋",
+            "炒拉条",
+            "西红柿鸡蛋木耳炒米线",
+            "金针菇榨菜蛋花汤",
+            "金针菇西红柿汤"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 13.929,
+            "p50": 13.92,
+            "p95": 14.537
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "fe206919836c6bd33c78da07e7ac1fca154f3f536145ef5ed1239edc91b48ab0",
+          "sample": [
+            "#鸡蛋#虾滑番茄豆腐蛋花羹",
+            "家常，炒蛋",
+            "炒拉条",
+            "番茄鸡蛋玉米面条",
+            "白玉菇豆腐汤"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 15.702,
+            "p50": 15.365,
+            "p95": 18.436
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 2,
+          "precision": 0.4,
+          "recall": 0.4,
+          "exact_match": false,
+          "result_hash": "ede9b552013f8832014384d2aeb35cf883feb9a6c5f4fde7972607494261e7da",
+          "sample": [
+            "家常，炒蛋",
+            "炒拉条",
+            "西红柿鸡蛋木耳炒米线",
+            "金针菇榨菜蛋花汤",
+            "金针菇西红柿汤"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 40.497,
+            "p50": 40.38,
+            "p95": 44.642
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "fe206919836c6bd33c78da07e7ac1fca154f3f536145ef5ed1239edc91b48ab0",
+          "sample": [
+            "#鸡蛋#虾滑番茄豆腐蛋花羹",
+            "家常，炒蛋",
+            "炒拉条",
+            "番茄鸡蛋玉米面条",
+            "白玉菇豆腐汤"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 41.684,
+            "p50": 41.483,
+            "p95": 44.284
+          }
+        }
+      }
+    },
+    {
+      "id": "similar_tomato_potato",
+      "category": "similar_recipe",
+      "question": "找一些和番茄土豆焖排骨类似的菜",
+      "expected_count": 5,
+      "expected_hash": "3e16a7fb13ede9deecdc9cd547f8d90783f52c14d2c76b927081b854760e4ba4",
+      "expected_sample": [
+        "薯仔番茄排骨汤",
+        "牛肉炒面片",
+        "揪面片",
+        "炒面片——新疆味道",
+        "羊肉焖饭——新疆手抓饭"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3e16a7fb13ede9deecdc9cd547f8d90783f52c14d2c76b927081b854760e4ba4",
+          "sample": [
+            "薯仔番茄排骨汤",
+            "牛肉炒面片",
+            "揪面片",
+            "炒面片——新疆味道",
+            "羊肉焖饭——新疆手抓饭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 17.412,
+            "p50": 17.216,
+            "p95": 18.94
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3e16a7fb13ede9deecdc9cd547f8d90783f52c14d2c76b927081b854760e4ba4",
+          "sample": [
+            "薯仔番茄排骨汤",
+            "牛肉炒面片",
+            "揪面片",
+            "炒面片——新疆味道",
+            "羊肉焖饭——新疆手抓饭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 20.365,
+            "p50": 18.324,
+            "p95": 33.856
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3e16a7fb13ede9deecdc9cd547f8d90783f52c14d2c76b927081b854760e4ba4",
+          "sample": [
+            "薯仔番茄排骨汤",
+            "牛肉炒面片",
+            "揪面片",
+            "炒面片——新疆味道",
+            "羊肉焖饭——新疆手抓饭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 74.034,
+            "p50": 73.359,
+            "p95": 78.01
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "3e16a7fb13ede9deecdc9cd547f8d90783f52c14d2c76b927081b854760e4ba4",
+          "sample": [
+            "薯仔番茄排骨汤",
+            "牛肉炒面片",
+            "揪面片",
+            "炒面片——新疆味道",
+            "羊肉焖饭——新疆手抓饭"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 74.72,
+            "p50": 74.483,
+            "p95": 78.746
+          }
+        }
+      }
+    },
+    {
+      "id": "similar_peanut",
+      "category": "similar_recipe",
+      "question": "找一些和花生米拌茼蒿类似的菜",
+      "expected_count": 5,
+      "expected_hash": "2b0d9c06375151498805c6e395b7668052a56b9186f30558563ee772c99bf4e2",
+      "expected_sample": [
+        "#信任之美#【香辣牛肉酱】",
+        "#信任之美#海鲜鸳鸯火锅",
+        "“凉拌”凉拌花生米",
+        "“凉菜”凉拌胡萝卜",
+        "【可口可乐—健康家庭火锅】韩国泡菜火锅"
+      ],
+      "backends": {
+        "graph_v1": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "2b0d9c06375151498805c6e395b7668052a56b9186f30558563ee772c99bf4e2",
+          "sample": [
+            "#信任之美#【香辣牛肉酱】",
+            "#信任之美#海鲜鸳鸯火锅",
+            "“凉拌”凉拌花生米",
+            "“凉菜”凉拌胡萝卜",
+            "【可口可乐—健康家庭火锅】韩国泡菜火锅"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 4.621,
+            "p50": 4.535,
+            "p95": 5.906
+          }
+        },
+        "graph_v2": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "2b0d9c06375151498805c6e395b7668052a56b9186f30558563ee772c99bf4e2",
+          "sample": [
+            "#信任之美#【香辣牛肉酱】",
+            "#信任之美#海鲜鸳鸯火锅",
+            "“凉拌”凉拌花生米",
+            "“凉菜”凉拌胡萝卜",
+            "【可口可乐—健康家庭火锅】韩国泡菜火锅"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 4.281,
+            "p50": 4.281,
+            "p95": 4.675
+          }
+        },
+        "json_v1": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "2b0d9c06375151498805c6e395b7668052a56b9186f30558563ee772c99bf4e2",
+          "sample": [
+            "#信任之美#【香辣牛肉酱】",
+            "#信任之美#海鲜鸳鸯火锅",
+            "“凉拌”凉拌花生米",
+            "“凉菜”凉拌胡萝卜",
+            "【可口可乐—健康家庭火锅】韩国泡菜火锅"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 26.509,
+            "p50": 26.35,
+            "p95": 27.35
+          }
+        },
+        "json_v2": {
+          "supported": true,
+          "returned": 5,
+          "expected": 5,
+          "true_positive": 5,
+          "precision": 1.0,
+          "recall": 1.0,
+          "exact_match": true,
+          "result_hash": "2b0d9c06375151498805c6e395b7668052a56b9186f30558563ee772c99bf4e2",
+          "sample": [
+            "#信任之美#【香辣牛肉酱】",
+            "#信任之美#海鲜鸳鸯火锅",
+            "“凉拌”凉拌花生米",
+            "“凉菜”凉拌胡萝卜",
+            "【可口可乐—健康家庭火锅】韩国泡菜火锅"
+          ],
+          "latency_ms": {
+            "samples": 10,
+            "mean": 26.788,
+            "p50": 26.756,
+            "p95": 28.17
+          }
+        }
+      }
+    }
+  ],
+  "category_summary": {
+    "allergen": {
+      "backends": {
+        "graph_v1": {
+          "cases": 6,
+          "supported_cases": 0,
+          "exact_matches": 0,
+          "macro_recall": 0.0,
+          "case_p50_median_ms": null
+        },
+        "graph_v2": {
+          "cases": 6,
+          "supported_cases": 6,
+          "exact_matches": 6,
+          "macro_recall": 1.0,
+          "case_p50_median_ms": 30.126
+        },
+        "json_v1": {
+          "cases": 6,
+          "supported_cases": 0,
+          "exact_matches": 0,
+          "macro_recall": 0.0,
+          "case_p50_median_ms": null
+        },
+        "json_v2": {
+          "cases": 6,
+          "supported_cases": 6,
+          "exact_matches": 6,
+          "macro_recall": 1.0,
+          "case_p50_median_ms": 471.349
+        }
+      },
+      "graph_v2_speedup_vs_enriched_json": 15.646
+    },
+    "ingredient_alias": {
+      "backends": {
+        "graph_v1": {
+          "cases": 10,
+          "supported_cases": 10,
+          "exact_matches": 0,
+          "macro_recall": 0.207107,
+          "case_p50_median_ms": 10.441
+        },
+        "graph_v2": {
+          "cases": 10,
+          "supported_cases": 10,
+          "exact_matches": 10,
+          "macro_recall": 1.0,
+          "case_p50_median_ms": 51.712
+        },
+        "json_v1": {
+          "cases": 10,
+          "supported_cases": 10,
+          "exact_matches": 0,
+          "macro_recall": 0.207107,
+          "case_p50_median_ms": 17.12
+        },
+        "json_v2": {
+          "cases": 10,
+          "supported_cases": 10,
+          "exact_matches": 10,
+          "macro_recall": 1.0,
+          "case_p50_median_ms": 18.537
+        }
+      },
+      "graph_v2_speedup_vs_enriched_json": 0.358
+    },
+    "similar_recipe": {
+      "backends": {
+        "graph_v1": {
+          "cases": 4,
+          "supported_cases": 4,
+          "exact_matches": 3,
+          "macro_recall": 0.85,
+          "case_p50_median_ms": 15.568
+        },
+        "graph_v2": {
+          "cases": 4,
+          "supported_cases": 4,
+          "exact_matches": 4,
+          "macro_recall": 1.0,
+          "case_p50_median_ms": 15.438
+        },
+        "json_v1": {
+          "cases": 4,
+          "supported_cases": 4,
+          "exact_matches": 3,
+          "macro_recall": 0.85,
+          "case_p50_median_ms": 48.341
+        },
+        "json_v2": {
+          "cases": 4,
+          "supported_cases": 4,
+          "exact_matches": 4,
+          "macro_recall": 1.0,
+          "case_p50_median_ms": 48.142
+        }
+      },
+      "graph_v2_speedup_vs_enriched_json": 3.118
+    },
+    "substitution": {
+      "backends": {
+        "graph_v1": {
+          "cases": 4,
+          "supported_cases": 0,
+          "exact_matches": 0,
+          "macro_recall": 0.0,
+          "case_p50_median_ms": null
+        },
+        "graph_v2": {
+          "cases": 4,
+          "supported_cases": 4,
+          "exact_matches": 4,
+          "macro_recall": 1.0,
+          "case_p50_median_ms": 3.336
+        },
+        "json_v1": {
+          "cases": 4,
+          "supported_cases": 0,
+          "exact_matches": 0,
+          "macro_recall": 0.0,
+          "case_p50_median_ms": null
+        },
+        "json_v2": {
+          "cases": 4,
+          "supported_cases": 4,
+          "exact_matches": 4,
+          "macro_recall": 1.0,
+          "case_p50_median_ms": 0.011
+        }
+      },
+      "graph_v2_speedup_vs_enriched_json": 0.003
+    }
+  },
+  "v1_to_v2_comparison": {
+    "all_cases": {
+      "case_count": 24,
+      "v1_supported": 14,
+      "v2_supported": 24,
+      "additional_supported_cases": 10,
+      "v1_exact_matches": 3,
+      "v2_exact_matches": 24,
+      "exact_match_improvement_pp": 87.5,
+      "macro_recall_improvement_pp": 77.204
+    },
+    "overlapping_cases": {
+      "case_count": 14,
+      "graph_v1": {
+        "exact_matches": 3,
+        "macro_recall": 0.390791,
+        "case_p50_median_ms": 11.477
+      },
+      "graph_v2": {
+        "exact_matches": 14,
+        "macro_recall": 1.0,
+        "case_p50_median_ms": 39.983
+      },
+      "macro_recall_improvement_pp": 60.921,
+      "p50_delta_ms": 28.506
+    },
+    "by_category": {
+      "allergen": {
+        "graph_v1_recall": 0.0,
+        "graph_v2_recall": 1.0,
+        "graph_v1_case_p50_ms": null,
+        "graph_v2_case_p50_ms": 30.126
+      },
+      "ingredient_alias": {
+        "graph_v1_recall": 0.207107,
+        "graph_v2_recall": 1.0,
+        "graph_v1_case_p50_ms": 10.441,
+        "graph_v2_case_p50_ms": 51.712
+      },
+      "similar_recipe": {
+        "graph_v1_recall": 0.85,
+        "graph_v2_recall": 1.0,
+        "graph_v1_case_p50_ms": 15.568,
+        "graph_v2_case_p50_ms": 15.438
+      },
+      "substitution": {
+        "graph_v1_recall": 0.0,
+        "graph_v2_recall": 1.0,
+        "graph_v1_case_p50_ms": null,
+        "graph_v2_case_p50_ms": 3.336
+      }
+    }
+  }
+}

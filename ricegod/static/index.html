@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RiceGod · GraphRAG 菜谱助手</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fffaf0;
+      --ink: #231f1a;
+      --muted: #71695e;
+      --line: #e7dcc9;
+      --accent: #b8442f;
+      --accent-dark: #8d3020;
+      --leaf: #3d6b4f;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(184, 68, 47, .13), transparent 28rem),
+        radial-gradient(circle at 88% 92%, rgba(61, 107, 79, .12), transparent 30rem),
+        var(--paper);
+    }
+
+    main { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 56px; }
+    header { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 26px; }
+    .eyebrow { color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 6px 0 4px; font-family: Georgia, "Noto Serif SC", serif; font-size: clamp(34px, 6vw, 62px); line-height: .96; }
+    .subtitle { color: var(--muted); margin: 10px 0 0; max-width: 660px; line-height: 1.65; }
+    .status { display: flex; align-items: center; gap: 8px; color: var(--leaf); font-size: 13px; white-space: nowrap; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #c49b37; box-shadow: 0 0 0 5px rgba(196, 155, 55, .12); }
+    .dot.ok { background: #3c8d5b; box-shadow: 0 0 0 5px rgba(60, 141, 91, .12); }
+
+    .shell { display: grid; grid-template-columns: minmax(0, 1fr) 300px; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: rgba(255,255,255,.72); box-shadow: 0 28px 80px rgba(73, 48, 29, .12); backdrop-filter: blur(14px); }
+    .chat { min-height: 650px; display: flex; flex-direction: column; }
+    .messages { flex: 1; padding: 26px; overflow: auto; max-height: 560px; }
+    .message { max-width: 86%; margin-bottom: 18px; padding: 14px 16px; border-radius: 18px; white-space: pre-wrap; line-height: 1.65; }
+    .assistant { background: #fff; border: 1px solid var(--line); border-top-left-radius: 5px; }
+    .user { margin-left: auto; background: var(--accent); color: white; border-bottom-right-radius: 5px; }
+    .meta { margin-top: 9px; color: var(--muted); font-size: 12px; }
+    .user .meta { color: rgba(255,255,255,.74); }
+
+    form { padding: 18px; border-top: 1px solid var(--line); background: rgba(255,255,255,.8); }
+    .composer { display: flex; gap: 10px; }
+    textarea, input { width: 100%; border: 1px solid var(--line); background: white; color: var(--ink); border-radius: 13px; padding: 12px 13px; font: inherit; outline: none; }
+    textarea { min-height: 50px; max-height: 140px; resize: vertical; }
+    textarea:focus, input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184, 68, 47, .09); }
+    button { border: 0; border-radius: 13px; background: var(--accent); color: white; padding: 0 20px; font-weight: 750; cursor: pointer; }
+    button:hover { background: var(--accent-dark); }
+    button:disabled { opacity: .55; cursor: wait; }
+
+    aside { padding: 24px; border-left: 1px solid var(--line); background: rgba(249, 242, 229, .76); }
+    aside h2 { margin: 0 0 18px; font-size: 15px; }
+    label { display: block; margin: 14px 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .quick { display: grid; gap: 8px; margin-top: 22px; }
+    .quick button { min-height: 40px; padding: 9px 10px; text-align: left; background: transparent; color: var(--ink); border: 1px solid var(--line); font-weight: 600; }
+    .quick button:hover { border-color: var(--accent); color: var(--accent); }
+    .facts { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.7; }
+    a { color: var(--accent-dark); }
+
+    @media (max-width: 780px) {
+      header { align-items: start; flex-direction: column; }
+      .shell { grid-template-columns: 1fr; }
+      aside { border-left: 0; border-top: 1px solid var(--line); }
+      .chat { min-height: 580px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <div class="eyebrow">GraphRAG · Long-term memory · Evidence</div>
+        <h1>RiceGod</h1>
+        <p class="subtitle">从菜谱图谱、饮食文化知识库和可追溯用户记忆中组织答案。</p>
+      </div>
+      <div class="status"><span class="dot" id="status-dot"></span><span id="status-text">正在检查服务</span></div>
+    </header>
+
+    <section class="shell">
+      <div class="chat">
+        <div class="messages" id="messages">
+          <div class="message assistant">你好，我可以按食材、口味、过敏原或烹饪方式推荐菜谱，也能记住你明确表达的偏好。<div class="meta">RiceGod · 本地演示</div></div>
+        </div>
+        <form id="chat-form">
+          <div class="composer">
+            <textarea id="message" required placeholder="例如：我不吃辣，用鸡蛋推荐两道家常菜"></textarea>
+            <button id="send" type="submit">发送</button>
+          </div>
+        </form>
+      </div>
+
+      <aside>
+        <h2>会话配置</h2>
+        <label for="user-id">用户 ID</label>
+        <input id="user-id" value="portfolio-demo" maxlength="128">
+        <label for="conversation-id">会话 ID</label>
+        <input id="conversation-id" value="browser-demo" maxlength="128">
+
+        <div class="quick">
+          <button type="button" data-question="我不吃辣，用鸡蛋推荐两道家常菜">条件菜谱推荐</button>
+          <button type="button" data-question="第二道菜怎么做？">多轮序号追问</button>
+          <button type="button" data-question="我对花生过敏，请记住">可追溯长期记忆</button>
+        </div>
+
+        <div class="facts">
+          <div>接口文档：<a href="/docs">/docs</a></div>
+          <div>回答会展示 route、sources 和服务内耗时。</div>
+          <div>注意：当前仅用于受信任的本地演示，不应直接公开到互联网。</div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const messages = document.querySelector('#messages');
+    const form = document.querySelector('#chat-form');
+    const input = document.querySelector('#message');
+    const send = document.querySelector('#send');
+
+    function addMessage(kind, text, meta) {
+      const node = document.createElement('div');
+      node.className = `message ${kind}`;
+      node.append(document.createTextNode(text));
+      if (meta) {
+        const detail = document.createElement('div');
+        detail.className = 'meta';
+        detail.textContent = meta;
+        node.append(detail);
+      }
+      messages.append(node);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    async function checkHealth() {
+      try {
+        const response = await fetch('/health');
+        if (!response.ok) throw new Error('unhealthy');
+        document.querySelector('#status-dot').classList.add('ok');
+        document.querySelector('#status-text').textContent = '服务已就绪';
+      } catch (_) {
+        document.querySelector('#status-text').textContent = '服务不可用';
+      }
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+      addMessage('user', message, '你');
+      input.value = '';
+      send.disabled = true;
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            user_id: document.querySelector('#user-id').value || 'portfolio-demo',
+            conversation_id: document.querySelector('#conversation-id').value || 'browser-demo',
+            message
+          })
+        });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.detail || `HTTP ${response.status}`);
+        const sourceText = payload.sources?.length ? ` · ${payload.sources.length} 个来源` : '';
+        const latency = payload.performance?.total_ms ? ` · ${Math.round(payload.performance.total_ms)} ms` : '';
+        addMessage('assistant', payload.answer, `${payload.route}${sourceText}${latency}`);
+      } catch (error) {
+        addMessage('assistant', `请求失败：${error.message}`, '本地演示');
+      } finally {
+        send.disabled = false;
+        input.focus();
+      }
+    });
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        form.requestSubmit();
+      }
+    });
+
+    document.querySelectorAll('[data-question]').forEach((button) => {
+      button.addEventListener('click', () => {
+        input.value = button.dataset.question;
+        input.focus();
+      });
+    });
+
+    checkHealth();
+  </script>
+</body>
+</html>

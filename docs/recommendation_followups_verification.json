@@ -1,0 +1,3781 @@
+{
+  "verified_at": "2026-09-18T08:25:40.105388+00:00",
+  "scope": "Opt-in live checks: real chat/model/databases, UUID users, cleanup on exit.\n\nRun: python -m scripts.verify_recommendation_followups\n",
+  "checks": [
+    {
+      "name": "recommend_three_history_matches",
+      "passed": true
+    },
+    {
+      "name": "three_ordered_recommendations",
+      "passed": true
+    },
+    {
+      "name": "thanks_history_matches",
+      "passed": true
+    },
+    {
+      "name": "thanks_keeps_list",
+      "passed": true
+    },
+    {
+      "name": "select_second_history_matches",
+      "passed": true
+    },
+    {
+      "name": "second_matches_original_list",
+      "passed": true
+    },
+    {
+      "name": "details_keep_list",
+      "passed": true
+    },
+    {
+      "name": "select_third_history_matches",
+      "passed": true
+    },
+    {
+      "name": "third_matches_original_list",
+      "passed": true
+    },
+    {
+      "name": "culture_history_matches",
+      "passed": true
+    },
+    {
+      "name": "culture_keeps_list",
+      "passed": true
+    },
+    {
+      "name": "real_culture_retrieval",
+      "passed": true
+    },
+    {
+      "name": "after_culture_history_matches",
+      "passed": true
+    },
+    {
+      "name": "selection_after_culture_matches_original",
+      "passed": true
+    },
+    {
+      "name": "new_grouped_list_history_matches",
+      "passed": true
+    },
+    {
+      "name": "new_list_replaces_previous_with_two_groups",
+      "passed": true
+    },
+    {
+      "name": "grouped_thanks_history_matches",
+      "passed": true
+    },
+    {
+      "name": "grouped_thanks_keeps_list",
+      "passed": true
+    },
+    {
+      "name": "ambiguous_group_history_matches",
+      "passed": true
+    },
+    {
+      "name": "ambiguous_group_clarifies",
+      "passed": true
+    },
+    {
+      "name": "dinner_second_history_matches",
+      "passed": true
+    },
+    {
+      "name": "dinner_uses_group_local_number",
+      "passed": true
+    },
+    {
+      "name": "breakfast_first_history_matches",
+      "passed": true
+    },
+    {
+      "name": "breakfast_selection_after_dinner_details",
+      "passed": true
+    },
+    {
+      "name": "repeated_group_details_keep_list",
+      "passed": true
+    },
+    {
+      "name": "out_of_range_history_matches",
+      "passed": true
+    },
+    {
+      "name": "out_of_range_clarifies",
+      "passed": true
+    },
+    {
+      "name": "other_conversation_history_matches",
+      "passed": true
+    },
+    {
+      "name": "other_conversation_has_no_list",
+      "passed": true
+    }
+  ],
+  "chats": [
+    {
+      "name": "recommend_three",
+      "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+      "elapsed_seconds": 26.64,
+      "response": {
+        "answer": "根据您的要求（使用鸡蛋、家常菜、不要香菜、不吃辣），为您推荐以下三道菜谱：\n\n1. **西红柿炒鸡蛋**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - **主要食材**：鸡蛋(2个)、西红柿(1个)\n\n2. **西红柿鸡蛋饼**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - **主要食材**：鸡蛋(两个)、西红柿(一个)\n\n3. **茼蒿鸡蛋饼**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - **主要食材**：面粉(20g)、鸡蛋(3个)、茼蒿(1把)\n\n请问您想查看哪道菜的详细材料和步骤？\n\n已保存长期记忆：不要香菜；不吃辣。",
+        "route": "recipe_query",
+        "logic": "用户明确要求推荐具体的菜品（用鸡蛋做的家常菜），并给出了具体的筛选条件（不要香菜、不吃辣）。这属于根据特定食材和口味偏好进行菜谱推荐，符合 recipe_query 的定义。",
+        "sources": [
+          "neo4j:Dish:西红柿炒鸡蛋",
+          "neo4j:Dish:西红柿鸡蛋饼",
+          "neo4j:Dish:茼蒿鸡蛋饼"
+        ],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 32,
+              "user_id": "recommendation-followups-3ea232c6cb9b4c99bc45437d9e6f22f5",
+              "type": "disliked_ingredient",
+              "content": "不要香菜",
+              "created_at": "2026-09-18T08:26:06.089620Z",
+              "updated_at": "2026-09-18T08:26:06.089620Z",
+              "source_message_id": 138,
+              "evidence": "不要香菜"
+            },
+            {
+              "id": 33,
+              "user_id": "recommendation-followups-3ea232c6cb9b4c99bc45437d9e6f22f5",
+              "type": "dietary_preference",
+              "content": "不吃辣",
+              "created_at": "2026-09-18T08:26:07.833718Z",
+              "updated_at": "2026-09-18T08:26:07.833718Z",
+              "source_message_id": 138,
+              "evidence": "不吃辣"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "saved"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_0",
+          "label": "推荐",
+          "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "茼蒿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。",
+              "主食材": [
+                {
+                  "amount": "20g",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1把",
+                  "name": "茼蒿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "植物油"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+            "depends_on": [],
+            "source_text": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "鸡蛋"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [
+                "家常菜"
+              ],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+              "recommendation": true,
+              "limit": 3,
+              "requested_count": 3,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [
+            "鸡蛋"
+          ],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [
+            "家常菜"
+          ],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+          "recommendation": true,
+          "limit": 3,
+          "requested_count": 3,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+          "status": "ok",
+          "content": "菜谱 1: 西红柿炒鸡蛋\n类型: ['家常菜']\n口味: ['咸香']\n工艺: ['炒']\n耗时: 十分钟\n主食材: 鸡蛋(2个)、西红柿(1个)\n辅料: 生抽(2匙)、葱(10g)、十三香(半匙)、盐(2匙)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n\n菜谱 2: 西红柿鸡蛋饼\n类型: ['家常菜']\n口味: ['咸鲜']\n工艺: ['其他']\n耗时: 十分钟\n主食材: 鸡蛋(两个)、西红柿(一个)\n辅料: 香葱(一棵)、五香粉(少许)、盐(适量)、面粉(两大勺)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n\n菜谱 3: 茼蒿鸡蛋饼\n类型: ['家常菜']\n口味: ['原味']\n工艺: ['煎']\n耗时: 十分钟\n主食材: 面粉(20g)、鸡蛋(3个)、茼蒿(1把)\n辅料: 盐(1匙)、植物油(1勺)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "茼蒿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。",
+              "主食材": [
+                {
+                  "amount": "20g",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1把",
+                  "name": "茼蒿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "植物油"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:西红柿炒鸡蛋",
+            "neo4j:Dish:西红柿鸡蛋饼",
+            "neo4j:Dish:茼蒿鸡蛋饼"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "thanks",
+      "question": "谢谢",
+      "elapsed_seconds": 4.44,
+      "response": {
+        "answer": "不客气！如果您还有其他食谱需求，随时告诉我。",
+        "route": "general_query",
+        "logic": "用户发送了“谢谢”，属于表达感谢的普通寒暄，符合 general_query 的定义。",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.31721176192328016
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.28024528974073426
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_0",
+          "label": "推荐",
+          "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "茼蒿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。",
+              "主食材": [
+                {
+                  "amount": "20g",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1把",
+                  "name": "茼蒿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "植物油"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "general_query",
+            "question": "谢谢",
+            "depends_on": [],
+            "source_text": "",
+            "constraints": null,
+            "recipe_request": null
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "谢谢",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "general_query",
+          "question": "谢谢",
+          "status": "ok",
+          "content": "不客气！如果您还有其他食谱需求，随时告诉我。",
+          "records": [],
+          "sources": [],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "select_second",
+      "question": "第二道菜怎么做？给出材料和步骤。",
+      "elapsed_seconds": 4.82,
+      "response": {
+        "answer": "以下是“西红柿鸡蛋饼”的详细材料和做法：\n\n**主要食材：**\n*   鸡蛋：2个\n*   西红柿：1个\n\n**辅料：**\n*   面粉：2大勺\n*   香葱：1棵\n*   盐：适量\n*   五香粉：少许\n*   水：少许\n*   油：少许（用于刷锅）\n\n**制作步骤：**\n1.  **备料**：将西红柿洗净、去皮并切碎；香葱切圈。\n2.  **调糊**：准备一个碗，放入切好的西红柿碎和香葱圈，打入鸡蛋，加入2大勺面粉、适量盐和少许五香粉。\n3.  **搅拌**：加入少许水，将所有材料搅拌均匀，调成面糊。\n4.  **煎制**：在饼铛或平底锅中预热，刷上少许油。倒入面糊，摊成圆形薄饼。\n5.  **翻面**：待上面的面糊凝固后，小心翻面。\n6.  **出锅**：再烙一两分钟至两面金黄即可出锅。\n\n这道菜口感咸鲜，制作简单快捷。希望您喜欢！",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:西红柿鸡蛋饼"
+        ],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.3724316815651194
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.36047365848801416
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_0",
+          "label": "推荐",
+          "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "茼蒿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。",
+              "主食材": [
+                {
+                  "amount": "20g",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1把",
+                  "name": "茼蒿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "植物油"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "第二道菜怎么做？给出材料和步骤。",
+            "depends_on": [],
+            "source_text": "第二道菜怎么做？给出材料和步骤。",
+            "constraints": {
+              "dish_name": "西红柿鸡蛋饼",
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "第二道菜怎么做？给出材料和步骤。",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": "西红柿鸡蛋饼",
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "第二道菜怎么做？给出材料和步骤。",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": "西红柿鸡蛋饼",
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "第二道菜怎么做？给出材料和步骤。",
+          "status": "ok",
+          "content": "[\n  {\n    \"菜名\": \"西红柿鸡蛋饼\",\n    \"耗时\": \"十分钟\",\n    \"做法\": \"1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦\",\n    \"主食材\": [\n      {\n        \"amount\": \"两个\",\n        \"name\": \"鸡蛋\"\n      },\n      {\n        \"amount\": \"一个\",\n        \"name\": \"西红柿\"\n      }\n    ],\n    \"辅料\": [\n      {\n        \"amount\": \"一棵\",\n        \"name\": \"香葱\"\n      },\n      {\n        \"amount\": \"少许\",\n        \"name\": \"五香粉\"\n      },\n      {\n        \"amount\": \"适量\",\n        \"name\": \"盐\"\n      },\n      {\n        \"amount\": \"两大勺\",\n        \"name\": \"面粉\"\n      }\n    ],\n    \"口味\": [\n      \"咸鲜\"\n    ],\n    \"工艺\": [\n      \"其他\"\n    ],\n    \"类型\": [\n      \"家常菜\"\n    ]\n  }\n]",
+          "records": [
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:西红柿鸡蛋饼"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "select_third",
+      "question": "再给我第三道菜的材料和步骤。",
+      "elapsed_seconds": 3.76,
+      "response": {
+        "answer": "以下是“茼蒿鸡蛋饼”的详细材料和做法：\n\n**主要食材：**\n*   面粉：20g\n*   鸡蛋：3个\n*   茼蒿：1把\n\n**辅料：**\n*   盐：1匙\n*   植物油：1勺（用于煎制）\n\n**制作步骤：**\n1.  **处理茼蒿**：将茼蒿洗净，切成小段。\n2.  **混合材料**：将切好的茼蒿放入碗中，打入鸡蛋，加入面粉和盐。\n3.  **搅拌面糊**：加入少许清水，将所有材料搅拌均匀，调成糊状。\n4.  **预热锅具**在电饼铛或平底锅中加入植物油并加热。\n5.  **煎制**：倒入面糊，用铲子铺平。\n6.  **完成**：煎至两面金黄即可出锅。\n\n这道菜口感清淡原味，制作简单。希望您喜欢！",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:茼蒿鸡蛋饼"
+        ],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.36558633371269633
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.3239401688080614
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_0",
+          "label": "推荐",
+          "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "茼蒿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。",
+              "主食材": [
+                {
+                  "amount": "20g",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1把",
+                  "name": "茼蒿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "植物油"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "再给我第三道菜的材料和步骤。",
+            "depends_on": [],
+            "source_text": "再给我第三道菜的材料和步骤。",
+            "constraints": {
+              "dish_name": "茼蒿鸡蛋饼",
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "再给我第三道菜的材料和步骤。",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": "茼蒿鸡蛋饼",
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "再给我第三道菜的材料和步骤。",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": "茼蒿鸡蛋饼",
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "再给我第三道菜的材料和步骤。",
+          "status": "ok",
+          "content": "[\n  {\n    \"菜名\": \"茼蒿鸡蛋饼\",\n    \"耗时\": \"十分钟\",\n    \"做法\": \"1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。\",\n    \"主食材\": [\n      {\n        \"amount\": \"20g\",\n        \"name\": \"面粉\"\n      },\n      {\n        \"amount\": \"3个\",\n        \"name\": \"鸡蛋\"\n      },\n      {\n        \"amount\": \"1把\",\n        \"name\": \"茼蒿\"\n      }\n    ],\n    \"辅料\": [\n      {\n        \"amount\": \"1匙\",\n        \"name\": \"盐\"\n      },\n      {\n        \"amount\": \"1勺\",\n        \"name\": \"植物油\"\n      }\n    ],\n    \"口味\": [\n      \"原味\"\n    ],\n    \"工艺\": [\n      \"煎\"\n    ],\n    \"类型\": [\n      \"家常菜\"\n    ]\n  }\n]",
+          "records": [
+            {
+              "菜名": "茼蒿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。",
+              "主食材": [
+                {
+                  "amount": "20g",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1把",
+                  "name": "茼蒿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "植物油"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:茼蒿鸡蛋饼"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "culture",
+      "question": "辣椒是什么时候传入中国的？请根据知识库回答。",
+      "elapsed_seconds": 12.53,
+      "response": {
+        "answer": "根据知识库记载，辣椒是在**明朝**时期传入中国的。\n\n具体细节如下：\n*   **引入时间与途径**：明朝时期，经由下南洋的商人引入中国。\n*   **早期名称与用途**：初时名为“卡晏辣椒”或“番椒”。由于具有独特的观赏价值，它最初被当作珍稀的景观盆栽点缀庭院，而非直接用于烹饪。\n*   **食用历史**：虽然明朝已引入，但直到清乾隆年间才开始在贵州、湖南等地被食用，普遍食用则更迟至道光以后。在此之前（如汉、唐等朝代），中国人是没有口福吃到辣椒的。",
+        "route": "food_knowledge",
+        "logic": "用户询问辣椒传入中国的时间，这属于饮食历史和文化范畴，符合 food_knowledge 的定义。",
+        "sources": [
+          "data.txt#4",
+          "data.txt#1",
+          "data.txt#12",
+          "data.txt#2"
+        ],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.3164533524124762
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.4292212184679225
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_0",
+          "label": "推荐",
+          "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "茼蒿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。",
+              "主食材": [
+                {
+                  "amount": "20g",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1把",
+                  "name": "茼蒿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "植物油"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "food_knowledge",
+            "question": "辣椒是什么时候传入中国的？请根据知识库回答。",
+            "depends_on": [],
+            "source_text": "辣椒是什么时候传入中国的？请根据知识库回答。",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "辣椒"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": null
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [
+            "辣椒"
+          ],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "辣椒是什么时候传入中国的？请根据知识库回答。",
+          "recommendation": true,
+          "limit": 3,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "food_knowledge",
+          "question": "辣椒是什么时候传入中国的？请根据知识库回答。",
+          "status": "ok",
+          "content": "片段 1\n来源: data.txt#4\n相似度: 0.9803614200359194\n内容: 元朝多了豇豆、金针菇等蔬菜。\n明朝引进的食物就更多了。此时期蔬菜品种进一步增加，如番茄（又名西红柿）、芋艿、卷心菜、苤蓝、南瓜、笋瓜、西葫芦、辣椒、芸豆、红薯、玉米、蕺菜（鱼腥草）、花生、胡萝卜（此时已有多种品种）、苦瓜等。其中，诸如番茄、辣椒、玉米等珍稀作物，均源自遥远的美洲大陆，被引入中国后逐渐成为了餐桌上的常客。\n如汉朝、唐朝、明朝、清朝等朝代，来自全球各地的番邦进贡为中华大地带来了诸多异域美食。\n许多蔬菜，其实很晚才被人们用于烹饪之中。\n例如辣椒，这一热辣之物，在明朝时期经由勇敢的下南洋商人之手，被引入中国，初时名为「卡晏辣椒」，亦或称「番椒」，因其独特的观赏价值，甚至一度被当作珍稀的景观盆栽，点缀于庭院之中。\n《遵生八笺》是这么描述辣椒：「番椒丛生，白花，果俨似秃笔头，味辣色红，甚可观。」\n戏曲家汤显祖的著作《牡丹亭·冥判》中也提到了辣椒：「凌霄花，阳壮的咍；辣椒花，把阴热窄；」\n所以，如果你穿越到古代，又喜欢吃辣，在明朝之前肯定是没有口福了。\n随着时间的推移，食物种类的丰富程度亦随之变化，现代人的餐桌琳琅满目，而回溯至更久远的时代，则往往显得单调而匮乏。\n\n片段 2\n来源: data.txt#1\n相似度: 0.7957389125197161\n内容: 在探讨古代饮食文化时，我们不得不注意到几个重要的历史节点。在明代之前，辣椒尚未传入中国，直到清乾隆年间才开始在贵州、湖南等地被食用，而普遍食用则更迟至道光以后。与此同时，红薯、土豆和玉米这些作物在清朝之前也未被广泛种植。更令人惊讶的是，在北宋之前，铁锅并未广泛普及于民间，这导致了烹饪方式与我们今天所熟悉的有着显著的差异。\n想了解古代吃什么，就得先知道古代有什么吃的。\n\n片段 3\n来源: data.txt#12\n相似度: 0.7729427980040582\n内容: 糖\n唐初，中国引进了印度的蔗糖加工技术，使得中国也能生产颗粒状的沙糖，彻底改变了过去仅能制造块状饴糖的历史。\n\n其他调味品\n梅子在古代也是重要的果醋类调味品。\n梅子性酸，能够去除食物中的腥膻之气，同时具有开胃消食的功效。\n此外，梅子还可以用于酿酒，以及制作干果或果脯。\n花椒，是中国本土特产的一种辛香料。它能产生麻辣感，刺激味觉和食欲。\n除了花椒，还有葱、姜、芥、薤、韭等本土辅助调味菜。\n豉，是汉代发明的调味品，主要用于菜肴的加工烹饪。到了魏晋时期，豉的制造技术迅速发展，并从国外引入了新的制作方法。\n魏晋南北朝时期还引进了胡椒。隋唐两宋时期，又增加了花椒、豆蔻、桂皮、橘皮、蜜、乳、酪、油等天然调味品。到了明清时期，又增添了虾油、鱼露、腐乳、草果、砂仁、苏叶、辣椒、大香、苗香等调味品。\n\n片段 4\n来源: data.txt#2\n相似度: 0.510501967686707\n内容: 蔬菜\n众所周知，张骞与郑和这两位伟大的探险家，如同慧眼识珠的伯乐，老祖宗严选的食物如同珍宝般被引入中原，不仅极大地丰富了中国的饮食文化，更如同璀璨的光芒，映照出中国古代对外贸易的辉煌与繁荣。\n要区分这些食物其实并不难，只需观察它们的名字便可见一斑。\n例如带洋字的，带番字的，带胡字的。\n玉米以前别名叫番麦，马铃薯也叫洋番芋，番仔薯，红薯 甘薯以前也叫番薯，包括现在很多地方也叫番薯。\n还有一些农作物也有一些产地特点，例如西瓜，为什么叫西瓜呢，因为是从西域带回来的，所以叫西瓜。\n胡萝卜之所以得名，是因为古代将北方外族称为胡人，而胡萝卜正是从阿富汗等地传入，故有此称，与打篮球的『胡人』并无关联。\n菠菜之名，并非因『对你放秋波』的戏谑，而是源于其从波斯引进的历史，故而得名。\n所以，食物的变化之一，就是中国自古以来对外贸易带来的变化。\n秦以及之前的蔬菜种类主要包括：莕菜、莼菜、蒌蒿、青菜（北方地区称之为白菜，但大白菜是后来才出现的）、大豆、葫芦、瓠子、萝卜、荠菜、黄花菜、花椒、蕨、枸杞、水芹、笋、荷（包括莲藕等）、芥菜、小蒜、芜菁（即蔓菁，也叫芥菜疙瘩，主要用来腌咸菜吃）、甜瓜、菱、甘蔗、芡实、荸荠、芋艿等。此外，还有大豆叶子、蒲菜、苦苣菜、冬寒菜（葵是冬葵，又名冬寒菜，是古代的重要蔬菜）、水蓼、款冬等现在不大吃的蔬菜。\n汉朝蔬菜种类有所增加，主要包括：芝麻、百合、薤（野蒜）、苋、生姜、木耳、茭白、冬瓜、茄子、豇豆、魔芋、山药、葱、旱芹、蕹菜、慈姑、酸浆、紫苏、木耳菜（又名落葵，古代重要蔬菜）、豌豆、扁豆、生菜等。此外，张骞从西域引进了紫花苜蓿、胡桃、芝麻（有争议）、蚕豆、黄瓜（当时叫胡瓜）、红花、大蒜、芫荽（香菜）、胡椒等蔬菜品种。\n隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。",
+          "records": [
+            {
+              "id": "data.txt_4",
+              "content": "元朝多了豇豆、金针菇等蔬菜。\n明朝引进的食物就更多了。此时期蔬菜品种进一步增加，如番茄（又名西红柿）、芋艿、卷心菜、苤蓝、南瓜、笋瓜、西葫芦、辣椒、芸豆、红薯、玉米、蕺菜（鱼腥草）、花生、胡萝卜（此时已有多种品种）、苦瓜等。其中，诸如番茄、辣椒、玉米等珍稀作物，均源自遥远的美洲大陆，被引入中国后逐渐成为了餐桌上的常客。\n如汉朝、唐朝、明朝、清朝等朝代，来自全球各地的番邦进贡为中华大地带来了诸多异域美食。\n许多蔬菜，其实很晚才被人们用于烹饪之中。\n例如辣椒，这一热辣之物，在明朝时期经由勇敢的下南洋商人之手，被引入中国，初时名为「卡晏辣椒」，亦或称「番椒」，因其独特的观赏价值，甚至一度被当作珍稀的景观盆栽，点缀于庭院之中。\n《遵生八笺》是这么描述辣椒：「番椒丛生，白花，果俨似秃笔头，味辣色红，甚可观。」\n戏曲家汤显祖的著作《牡丹亭·冥判》中也提到了辣椒：「凌霄花，阳壮的咍；辣椒花，把阴热窄；」\n所以，如果你穿越到古代，又喜欢吃辣，在明朝之前肯定是没有口福了。\n随着时间的推移，食物种类的丰富程度亦随之变化，现代人的餐桌琳琅满目，而回溯至更久远的时代，则往往显得单调而匮乏。",
+              "score": 0.9803614200359194,
+              "source": "data.txt",
+              "chunk_index": 4,
+              "vector_score": 0.6570839285850525
+            },
+            {
+              "id": "data.txt_1",
+              "content": "在探讨古代饮食文化时，我们不得不注意到几个重要的历史节点。在明代之前，辣椒尚未传入中国，直到清乾隆年间才开始在贵州、湖南等地被食用，而普遍食用则更迟至道光以后。与此同时，红薯、土豆和玉米这些作物在清朝之前也未被广泛种植。更令人惊讶的是，在北宋之前，铁锅并未广泛普及于民间，这导致了烹饪方式与我们今天所熟悉的有着显著的差异。\n想了解古代吃什么，就得先知道古代有什么吃的。",
+              "score": 0.7957389125197161,
+              "source": "data.txt",
+              "chunk_index": 1,
+              "vector_score": 0.5784297585487366
+            },
+            {
+              "id": "data.txt_12",
+              "content": "糖\n唐初，中国引进了印度的蔗糖加工技术，使得中国也能生产颗粒状的沙糖，彻底改变了过去仅能制造块状饴糖的历史。\n\n其他调味品\n梅子在古代也是重要的果醋类调味品。\n梅子性酸，能够去除食物中的腥膻之气，同时具有开胃消食的功效。\n此外，梅子还可以用于酿酒，以及制作干果或果脯。\n花椒，是中国本土特产的一种辛香料。它能产生麻辣感，刺激味觉和食欲。\n除了花椒，还有葱、姜、芥、薤、韭等本土辅助调味菜。\n豉，是汉代发明的调味品，主要用于菜肴的加工烹饪。到了魏晋时期，豉的制造技术迅速发展，并从国外引入了新的制作方法。\n魏晋南北朝时期还引进了胡椒。隋唐两宋时期，又增加了花椒、豆蔻、桂皮、橘皮、蜜、乳、酪、油等天然调味品。到了明清时期，又增添了虾油、鱼露、腐乳、草果、砂仁、苏叶、辣椒、大香、苗香等调味品。",
+              "score": 0.7729427980040582,
+              "source": "data.txt",
+              "chunk_index": 12,
+              "vector_score": 0.4373658001422882
+            },
+            {
+              "id": "data.txt_2",
+              "content": "蔬菜\n众所周知，张骞与郑和这两位伟大的探险家，如同慧眼识珠的伯乐，老祖宗严选的食物如同珍宝般被引入中原，不仅极大地丰富了中国的饮食文化，更如同璀璨的光芒，映照出中国古代对外贸易的辉煌与繁荣。\n要区分这些食物其实并不难，只需观察它们的名字便可见一斑。\n例如带洋字的，带番字的，带胡字的。\n玉米以前别名叫番麦，马铃薯也叫洋番芋，番仔薯，红薯 甘薯以前也叫番薯，包括现在很多地方也叫番薯。\n还有一些农作物也有一些产地特点，例如西瓜，为什么叫西瓜呢，因为是从西域带回来的，所以叫西瓜。\n胡萝卜之所以得名，是因为古代将北方外族称为胡人，而胡萝卜正是从阿富汗等地传入，故有此称，与打篮球的『胡人』并无关联。\n菠菜之名，并非因『对你放秋波』的戏谑，而是源于其从波斯引进的历史，故而得名。\n所以，食物的变化之一，就是中国自古以来对外贸易带来的变化。\n秦以及之前的蔬菜种类主要包括：莕菜、莼菜、蒌蒿、青菜（北方地区称之为白菜，但大白菜是后来才出现的）、大豆、葫芦、瓠子、萝卜、荠菜、黄花菜、花椒、蕨、枸杞、水芹、笋、荷（包括莲藕等）、芥菜、小蒜、芜菁（即蔓菁，也叫芥菜疙瘩，主要用来腌咸菜吃）、甜瓜、菱、甘蔗、芡实、荸荠、芋艿等。此外，还有大豆叶子、蒲菜、苦苣菜、冬寒菜（葵是冬葵，又名冬寒菜，是古代的重要蔬菜）、水蓼、款冬等现在不大吃的蔬菜。\n汉朝蔬菜种类有所增加，主要包括：芝麻、百合、薤（野蒜）、苋、生姜、木耳、茭白、冬瓜、茄子、豇豆、魔芋、山药、葱、旱芹、蕹菜、慈姑、酸浆、紫苏、木耳菜（又名落葵，古代重要蔬菜）、豌豆、扁豆、生菜等。此外，张骞从西域引进了紫花苜蓿、胡桃、芝麻（有争议）、蚕豆、黄瓜（当时叫胡瓜）、红花、大蒜、芫荽（香菜）、胡椒等蔬菜品种。\n隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。",
+              "score": 0.510501967686707,
+              "source": "data.txt",
+              "chunk_index": 2,
+              "vector_score": 0.46931296586990356
+            }
+          ],
+          "sources": [
+            "data.txt#4",
+            "data.txt#1",
+            "data.txt#12",
+            "data.txt#2"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "after_culture",
+      "question": "第一道菜怎么做？",
+      "elapsed_seconds": 4.36,
+      "response": {
+        "answer": "以下是“西红柿炒鸡蛋”的详细材料和做法：\n\n**主要食材：**\n*   鸡蛋：2个\n*   西红柿：1个\n\n**辅料：**\n*   葱：10g（切成丝）\n*   生抽：2匙\n*   盐：2匙\n*   十三香：半匙\n*   食用油：适量\n\n**制作步骤：**\n1.  **备料**：将西红柿切成小块，葱切成丝。\n2.  **打蛋**：将鸡蛋打入碗中，加入少许盐和十三香，搅拌均匀。\n3.  **炒蛋**：炒锅放油加热，倒入蛋液翻炒成团后盛出备用。\n4.  **爆香**：锅中放入一点油，放入葱丝爆香。\n5.  **炒西红柿**：放入西红柿块，加入生抽和盐进行翻炒。\n6.  **混合出锅**：待西红柿炒软后，加入之前炒好的鸡蛋，一起翻炒均匀即可出锅。\n\n这道菜口味咸香，属于家常菜，制作耗时约十分钟。希望您喜欢！",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:西红柿炒鸡蛋"
+        ],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.40285707190183384
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.4104972920968466
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_0",
+          "label": "推荐",
+          "question": "这是虚构测试用户的请求。用鸡蛋推荐三道家常菜，不要香菜，不吃辣。",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "茼蒿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:茼蒿切小段2:打入鸡蛋3:加入面粉和盐4:加入少许清水搅拌成糊状5:电饼铛加入植物油，倒入面糊，铺平，煎至两面金黄即可。",
+              "主食材": [
+                {
+                  "amount": "20g",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1把",
+                  "name": "茼蒿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "植物油"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "第一道菜怎么做？",
+            "depends_on": [],
+            "source_text": "第一道菜怎么做？",
+            "constraints": {
+              "dish_name": "西红柿炒鸡蛋",
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "第一道菜怎么做？",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": "西红柿炒鸡蛋",
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "第一道菜怎么做？",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": "西红柿炒鸡蛋",
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "第一道菜怎么做？",
+          "status": "ok",
+          "content": "[\n  {\n    \"菜名\": \"西红柿炒鸡蛋\",\n    \"耗时\": \"十分钟\",\n    \"做法\": \"1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。\",\n    \"主食材\": [\n      {\n        \"amount\": \"2个\",\n        \"name\": \"鸡蛋\"\n      },\n      {\n        \"amount\": \"1个\",\n        \"name\": \"西红柿\"\n      }\n    ],\n    \"辅料\": [\n      {\n        \"amount\": \"2匙\",\n        \"name\": \"生抽\"\n      },\n      {\n        \"amount\": \"10g\",\n        \"name\": \"葱\"\n      },\n      {\n        \"amount\": \"半匙\",\n        \"name\": \"十三香\"\n      },\n      {\n        \"amount\": \"2匙\",\n        \"name\": \"盐\"\n      }\n    ],\n    \"口味\": [\n      \"咸香\"\n    ],\n    \"工艺\": [\n      \"炒\"\n    ],\n    \"类型\": [\n      \"家常菜\"\n    ]\n  }\n]",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:西红柿炒鸡蛋"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "new_grouped_list",
+      "question": "早餐用鸡蛋推荐两道菜，晚餐用土豆推荐两道菜。",
+      "elapsed_seconds": 16.45,
+      "response": {
+        "answer": "根据您的要求，为您推荐以下菜谱：\n\n**早餐（鸡蛋）：**\n1. **鸡蛋羹**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - **主要食材**：鸡蛋(3个)\n\n2. **水煮鸡蛋**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - **主要食材**：鸡蛋(个)\n\n**晚餐（土豆）：**\n1. **拔丝土豆**\n   - **推荐理由**：指定食材用于主料：土豆；记录耗时：十分钟\n   - **主要食材**：土豆(3个)\n\n2. **芝士焗土豆**\n   - **推荐理由**：指定食材用于主料：土豆；记录耗时：十分钟\n   - **主要食材**：土豆(1个)\n\n请问您想查看哪道菜的详细材料和步骤？",
+        "route": "recipe_query",
+        "logic": "用户明确要求推荐早餐用鸡蛋的菜和晚餐用土豆的菜，属于具体的菜谱查询需求。",
+        "sources": [
+          "neo4j:Dish:鸡蛋羹",
+          "neo4j:Dish:水煮鸡蛋",
+          "neo4j:Dish:拔丝土豆",
+          "neo4j:Dish:芝士焗土豆"
+        ],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.3307052289496033
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.3252985845937334
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_1",
+          "label": "早餐",
+          "question": "早餐用鸡蛋推荐两道菜",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "水煮鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:锅里加水。2:鸡蛋冷水下锅，煮10分钟。3:用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。4:成品哟，不喜欢吃半熟的可以煮久一些。",
+              "主食材": [
+                {
+                  "amount": "个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "自来水"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "小吃"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "task_2",
+          "label": "晚餐",
+          "question": "晚餐用土豆推荐两道菜",
+          "records": [
+            {
+              "菜名": "拔丝土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆3个，刨去外皮后切成滚刀块，放入水中，洗净表面淀粉后捞出装入碗中。2:碗中加入适量的盐，抓均后腌制10分钟。3:锅中去适量的油，烧成高温油后下入土豆块，用勺子搅动，炸至土豆表面微黄变硬后倒出。重新将油烧成高温油，下入土豆块，炸至表面金黄后倒出备用。4: 锅中留底油，加入3勺白糖和1勺冷水，转小火，不停搅动，将糖熬化。白糖变色，未翻泡前，迅速倒入土豆块，翻炒均匀，即可起锅。（食用时，备一碗冷开水，蘸水趁热食用）5:成品图",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "白糖"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸甜"
+              ],
+              "工艺": [
+                "炸"
+              ],
+              "类型": [],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "芝士焗土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛",
+              "主食材": [
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝士碎"
+                },
+                {
+                  "amount": "10g",
+                  "name": "番茄酱"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "炼乳"
+                }
+              ],
+              "口味": [
+                "其他"
+              ],
+              "工艺": [
+                "烤"
+              ],
+              "类型": [
+                "西餐"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "recipe_query",
+            "question": "早餐用鸡蛋推荐两道菜，不要香菜，不吃辣。",
+            "depends_on": [],
+            "source_text": "早餐用鸡蛋推荐两道菜",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "鸡蛋"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "早餐用鸡蛋推荐两道菜",
+              "recommendation": true,
+              "limit": 2,
+              "requested_count": 2,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          },
+          {
+            "id": "task_2",
+            "route": "recipe_query",
+            "question": "晚餐用土豆推荐两道菜，不要香菜，不吃辣。",
+            "depends_on": [],
+            "source_text": "晚餐用土豆推荐两道菜",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "土豆"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "晚餐用土豆推荐两道菜",
+              "recommendation": true,
+              "limit": 2,
+              "requested_count": 2,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "早餐用鸡蛋推荐两道菜，晚餐用土豆推荐两道菜。",
+          "recommendation": true,
+          "limit": 2,
+          "requested_count": 2,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "recipe_query",
+          "question": "早餐用鸡蛋推荐两道菜，不要香菜，不吃辣。",
+          "status": "ok",
+          "content": "菜谱 1: 鸡蛋羹\n类型: ['汤羹']\n口味: ['清淡']\n工艺: ['蒸']\n耗时: 十分钟\n主食材: 鸡蛋(3个)\n辅料: 番茄沙司(适量)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n\n菜谱 2: 水煮鸡蛋\n类型: ['小吃']\n口味: ['原味']\n工艺: ['煮']\n耗时: 十分钟\n主食材: 鸡蛋(个)\n辅料: 自来水(适量)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "水煮鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:锅里加水。2:鸡蛋冷水下锅，煮10分钟。3:用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。4:成品哟，不喜欢吃半熟的可以煮久一些。",
+              "主食材": [
+                {
+                  "amount": "个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "自来水"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "小吃"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:鸡蛋羹",
+            "neo4j:Dish:水煮鸡蛋"
+          ],
+          "error_code": null
+        },
+        {
+          "task_id": "task_2",
+          "route": "recipe_query",
+          "question": "晚餐用土豆推荐两道菜，不要香菜，不吃辣。",
+          "status": "ok",
+          "content": "菜谱 1: 拔丝土豆\n类型: []\n口味: ['咸甜']\n工艺: ['炸']\n耗时: 十分钟\n主食材: 土豆(3个)\n辅料: 白糖(适量)、盐(适量)\n推荐理由: 指定食材用于主料：土豆；记录耗时：十分钟\n\n菜谱 2: 芝士焗土豆\n类型: ['西餐']\n口味: ['其他']\n工艺: ['烤']\n耗时: 十分钟\n主食材: 土豆(1个)\n辅料: 盐(少许)、芝士碎(适量)、番茄酱(10g)、炼乳(2勺)\n推荐理由: 指定食材用于主料：土豆；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "拔丝土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆3个，刨去外皮后切成滚刀块，放入水中，洗净表面淀粉后捞出装入碗中。2:碗中加入适量的盐，抓均后腌制10分钟。3:锅中去适量的油，烧成高温油后下入土豆块，用勺子搅动，炸至土豆表面微黄变硬后倒出。重新将油烧成高温油，下入土豆块，炸至表面金黄后倒出备用。4: 锅中留底油，加入3勺白糖和1勺冷水，转小火，不停搅动，将糖熬化。白糖变色，未翻泡前，迅速倒入土豆块，翻炒均匀，即可起锅。（食用时，备一碗冷开水，蘸水趁热食用）5:成品图",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "白糖"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸甜"
+              ],
+              "工艺": [
+                "炸"
+              ],
+              "类型": [],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "芝士焗土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛",
+              "主食材": [
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝士碎"
+                },
+                {
+                  "amount": "10g",
+                  "name": "番茄酱"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "炼乳"
+                }
+              ],
+              "口味": [
+                "其他"
+              ],
+              "工艺": [
+                "烤"
+              ],
+              "类型": [
+                "西餐"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:拔丝土豆",
+            "neo4j:Dish:芝士焗土豆"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "grouped_thanks",
+      "question": "谢谢",
+      "elapsed_seconds": 4.54,
+      "response": {
+        "answer": "不客气！如果您还有其他食谱需求，随时告诉我。",
+        "route": "general_query",
+        "logic": "用户发送了“谢谢”，属于表达感谢的普通寒暄，符合 general_query 的定义。",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.31721176192328016
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.28024528974073426
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_1",
+          "label": "早餐",
+          "question": "早餐用鸡蛋推荐两道菜",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "水煮鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:锅里加水。2:鸡蛋冷水下锅，煮10分钟。3:用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。4:成品哟，不喜欢吃半熟的可以煮久一些。",
+              "主食材": [
+                {
+                  "amount": "个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "自来水"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "小吃"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "task_2",
+          "label": "晚餐",
+          "question": "晚餐用土豆推荐两道菜",
+          "records": [
+            {
+              "菜名": "拔丝土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆3个，刨去外皮后切成滚刀块，放入水中，洗净表面淀粉后捞出装入碗中。2:碗中加入适量的盐，抓均后腌制10分钟。3:锅中去适量的油，烧成高温油后下入土豆块，用勺子搅动，炸至土豆表面微黄变硬后倒出。重新将油烧成高温油，下入土豆块，炸至表面金黄后倒出备用。4: 锅中留底油，加入3勺白糖和1勺冷水，转小火，不停搅动，将糖熬化。白糖变色，未翻泡前，迅速倒入土豆块，翻炒均匀，即可起锅。（食用时，备一碗冷开水，蘸水趁热食用）5:成品图",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "白糖"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸甜"
+              ],
+              "工艺": [
+                "炸"
+              ],
+              "类型": [],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "芝士焗土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛",
+              "主食材": [
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝士碎"
+                },
+                {
+                  "amount": "10g",
+                  "name": "番茄酱"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "炼乳"
+                }
+              ],
+              "口味": [
+                "其他"
+              ],
+              "工艺": [
+                "烤"
+              ],
+              "类型": [
+                "西餐"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "general_query",
+            "question": "谢谢",
+            "depends_on": [],
+            "source_text": "",
+            "constraints": null,
+            "recipe_request": null
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "谢谢",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "general_query",
+          "question": "谢谢",
+          "status": "ok",
+          "content": "不客气！如果您还有其他食谱需求，随时告诉我。",
+          "records": [],
+          "sources": [],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "ambiguous_group",
+      "question": "第二道菜怎么做？",
+      "elapsed_seconds": 1.32,
+      "response": {
+        "answer": "上次推荐分为：早餐、晚餐。请明确选择哪一组，例如“第1组第一道菜怎么做”。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.3647158285241371
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.375474660222743
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_1",
+          "label": "早餐",
+          "question": "早餐用鸡蛋推荐两道菜",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "水煮鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:锅里加水。2:鸡蛋冷水下锅，煮10分钟。3:用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。4:成品哟，不喜欢吃半熟的可以煮久一些。",
+              "主食材": [
+                {
+                  "amount": "个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "自来水"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "小吃"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "task_2",
+          "label": "晚餐",
+          "question": "晚餐用土豆推荐两道菜",
+          "records": [
+            {
+              "菜名": "拔丝土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆3个，刨去外皮后切成滚刀块，放入水中，洗净表面淀粉后捞出装入碗中。2:碗中加入适量的盐，抓均后腌制10分钟。3:锅中去适量的油，烧成高温油后下入土豆块，用勺子搅动，炸至土豆表面微黄变硬后倒出。重新将油烧成高温油，下入土豆块，炸至表面金黄后倒出备用。4: 锅中留底油，加入3勺白糖和1勺冷水，转小火，不停搅动，将糖熬化。白糖变色，未翻泡前，迅速倒入土豆块，翻炒均匀，即可起锅。（食用时，备一碗冷开水，蘸水趁热食用）5:成品图",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "白糖"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸甜"
+              ],
+              "工艺": [
+                "炸"
+              ],
+              "类型": [],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "芝士焗土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛",
+              "主食材": [
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝士碎"
+                },
+                {
+                  "amount": "10g",
+                  "name": "番茄酱"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "炼乳"
+                }
+              ],
+              "口味": [
+                "其他"
+              ],
+              "工艺": [
+                "烤"
+              ],
+              "类型": [
+                "西餐"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "第二道菜怎么做？",
+            "depends_on": [],
+            "source_text": "第二道菜怎么做？",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "第二道菜怎么做？",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "第二道菜怎么做？",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": "上次推荐分为：早餐、晚餐。请明确选择哪一组，例如“第1组第一道菜怎么做”。"
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "第二道菜怎么做？",
+          "status": "blocked",
+          "content": "上次推荐分为：早餐、晚餐。请明确选择哪一组，例如“第1组第一道菜怎么做”。",
+          "records": [],
+          "sources": [],
+          "error_code": "recipe_selection_unresolved"
+        }
+      ]
+    },
+    {
+      "name": "dinner_second",
+      "question": "晚餐第二道菜怎么做？",
+      "elapsed_seconds": 3.4,
+      "response": {
+        "answer": "以下是“芝士焗土豆”的详细材料和做法：\n\n**主要食材：**\n*   土豆：1个\n\n**辅料：**\n*   盐：少许\n*   炼乳：2勺\n*   芝士碎：适量\n*   番茄酱：10g（可选，孩子喜欢可搭配食用）\n\n**制作步骤：**\n1.  **处理土豆**：将土豆蒸熟，取出后压成泥。\n2.  **调味搅拌**：在土豆泥中加入少许盐和炼乳，搅拌均匀并压平铺在容器中。\n3.  **撒芝士**：在土豆泥表面均匀撒上一层芝士碎。\n4.  **烘烤**：烤箱提前预热，上下火180°C，放入烤制10分钟。\n5.  **享用**：出炉后即可食用。味道非常棒，也可以搭配番茄酱一起食用。\n\n希望您喜欢这道菜！",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:芝士焗土豆"
+        ],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.3775196825233652
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.36664221856220436
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_1",
+          "label": "早餐",
+          "question": "早餐用鸡蛋推荐两道菜",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "水煮鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:锅里加水。2:鸡蛋冷水下锅，煮10分钟。3:用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。4:成品哟，不喜欢吃半熟的可以煮久一些。",
+              "主食材": [
+                {
+                  "amount": "个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "自来水"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "小吃"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "task_2",
+          "label": "晚餐",
+          "question": "晚餐用土豆推荐两道菜",
+          "records": [
+            {
+              "菜名": "拔丝土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆3个，刨去外皮后切成滚刀块，放入水中，洗净表面淀粉后捞出装入碗中。2:碗中加入适量的盐，抓均后腌制10分钟。3:锅中去适量的油，烧成高温油后下入土豆块，用勺子搅动，炸至土豆表面微黄变硬后倒出。重新将油烧成高温油，下入土豆块，炸至表面金黄后倒出备用。4: 锅中留底油，加入3勺白糖和1勺冷水，转小火，不停搅动，将糖熬化。白糖变色，未翻泡前，迅速倒入土豆块，翻炒均匀，即可起锅。（食用时，备一碗冷开水，蘸水趁热食用）5:成品图",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "白糖"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸甜"
+              ],
+              "工艺": [
+                "炸"
+              ],
+              "类型": [],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "芝士焗土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛",
+              "主食材": [
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝士碎"
+                },
+                {
+                  "amount": "10g",
+                  "name": "番茄酱"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "炼乳"
+                }
+              ],
+              "口味": [
+                "其他"
+              ],
+              "工艺": [
+                "烤"
+              ],
+              "类型": [
+                "西餐"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "晚餐第二道菜怎么做？",
+            "depends_on": [],
+            "source_text": "晚餐第二道菜怎么做？",
+            "constraints": {
+              "dish_name": "芝士焗土豆",
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "晚餐第二道菜怎么做？",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": "芝士焗土豆",
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "晚餐第二道菜怎么做？",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": "芝士焗土豆",
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "晚餐第二道菜怎么做？",
+          "status": "ok",
+          "content": "[\n  {\n    \"菜名\": \"芝士焗土豆\",\n    \"耗时\": \"十分钟\",\n    \"做法\": \"1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛\",\n    \"主食材\": [\n      {\n        \"amount\": \"1个\",\n        \"name\": \"土豆\"\n      }\n    ],\n    \"辅料\": [\n      {\n        \"amount\": \"少许\",\n        \"name\": \"盐\"\n      },\n      {\n        \"amount\": \"适量\",\n        \"name\": \"芝士碎\"\n      },\n      {\n        \"amount\": \"10g\",\n        \"name\": \"番茄酱\"\n      },\n      {\n        \"amount\": \"2勺\",\n        \"name\": \"炼乳\"\n      }\n    ],\n    \"口味\": [\n      \"其他\"\n    ],\n    \"工艺\": [\n      \"烤\"\n    ],\n    \"类型\": [\n      \"西餐\"\n    ]\n  }\n]",
+          "records": [
+            {
+              "菜名": "芝士焗土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛",
+              "主食材": [
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝士碎"
+                },
+                {
+                  "amount": "10g",
+                  "name": "番茄酱"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "炼乳"
+                }
+              ],
+              "口味": [
+                "其他"
+              ],
+              "工艺": [
+                "烤"
+              ],
+              "类型": [
+                "西餐"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:芝士焗土豆"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "breakfast_first",
+      "question": "早餐第一道菜怎么做？",
+      "elapsed_seconds": 3.46,
+      "response": {
+        "answer": "以下是“鸡蛋羹”的详细材料和做法：\n\n**主要食材：**\n*   鸡蛋：3个（建议使用柴鸡蛋）\n\n**辅料：**\n*   盐：适量\n*   番茄沙司：适量\n*   香油：适量\n*   极味鲜生抽：适量\n\n**制作步骤：**\n1.  **打蛋搅匀**：选用三个鸡蛋，打入盘中并搅匀。\n2.  **加盐蒸制**：用盐勺撒入适量盐，将盘子放入锅中蒸3分钟。\n3.  **调味出锅**：取出后，在表面涂上番茄沙司，淋上香油和极味鲜生抽。\n4.  **享用**：趁热享用即可。\n\n这道菜口味清淡，制作简单快捷。希望您喜欢！",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:鸡蛋羹"
+        ],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.37810371719065794
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.3755078629340036
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_1",
+          "label": "早餐",
+          "question": "早餐用鸡蛋推荐两道菜",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "水煮鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:锅里加水。2:鸡蛋冷水下锅，煮10分钟。3:用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。4:成品哟，不喜欢吃半熟的可以煮久一些。",
+              "主食材": [
+                {
+                  "amount": "个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "自来水"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "小吃"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "task_2",
+          "label": "晚餐",
+          "question": "晚餐用土豆推荐两道菜",
+          "records": [
+            {
+              "菜名": "拔丝土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆3个，刨去外皮后切成滚刀块，放入水中，洗净表面淀粉后捞出装入碗中。2:碗中加入适量的盐，抓均后腌制10分钟。3:锅中去适量的油，烧成高温油后下入土豆块，用勺子搅动，炸至土豆表面微黄变硬后倒出。重新将油烧成高温油，下入土豆块，炸至表面金黄后倒出备用。4: 锅中留底油，加入3勺白糖和1勺冷水，转小火，不停搅动，将糖熬化。白糖变色，未翻泡前，迅速倒入土豆块，翻炒均匀，即可起锅。（食用时，备一碗冷开水，蘸水趁热食用）5:成品图",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "白糖"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸甜"
+              ],
+              "工艺": [
+                "炸"
+              ],
+              "类型": [],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "芝士焗土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛",
+              "主食材": [
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝士碎"
+                },
+                {
+                  "amount": "10g",
+                  "name": "番茄酱"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "炼乳"
+                }
+              ],
+              "口味": [
+                "其他"
+              ],
+              "工艺": [
+                "烤"
+              ],
+              "类型": [
+                "西餐"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "早餐第一道菜怎么做？",
+            "depends_on": [],
+            "source_text": "早餐第一道菜怎么做？",
+            "constraints": {
+              "dish_name": "鸡蛋羹",
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "早餐第一道菜怎么做？",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": "鸡蛋羹",
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "早餐第一道菜怎么做？",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": "鸡蛋羹",
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "早餐第一道菜怎么做？",
+          "status": "ok",
+          "content": "[\n  {\n    \"菜名\": \"鸡蛋羹\",\n    \"耗时\": \"十分钟\",\n    \"做法\": \"1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。\",\n    \"主食材\": [\n      {\n        \"amount\": \"3个\",\n        \"name\": \"鸡蛋\"\n      }\n    ],\n    \"辅料\": [\n      {\n        \"amount\": \"适量\",\n        \"name\": \"番茄沙司\"\n      }\n    ],\n    \"口味\": [\n      \"清淡\"\n    ],\n    \"工艺\": [\n      \"蒸\"\n    ],\n    \"类型\": [\n      \"汤羹\"\n    ]\n  }\n]",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:鸡蛋羹"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "out_of_range",
+      "question": "晚餐第十道菜怎么做？",
+      "elapsed_seconds": 1.15,
+      "response": {
+        "answer": "上次晚餐只有 2 道菜，请选择第 1 至第 2 道，或直接告诉我菜名。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.3843661301376575
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.370884642499411
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [
+        {
+          "task_id": "task_1",
+          "label": "早餐",
+          "question": "早餐用鸡蛋推荐两道菜",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "水煮鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:锅里加水。2:鸡蛋冷水下锅，煮10分钟。3:用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。4:成品哟，不喜欢吃半熟的可以煮久一些。",
+              "主食材": [
+                {
+                  "amount": "个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "自来水"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "小吃"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "task_2",
+          "label": "晚餐",
+          "question": "晚餐用土豆推荐两道菜",
+          "records": [
+            {
+              "菜名": "拔丝土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆3个，刨去外皮后切成滚刀块，放入水中，洗净表面淀粉后捞出装入碗中。2:碗中加入适量的盐，抓均后腌制10分钟。3:锅中去适量的油，烧成高温油后下入土豆块，用勺子搅动，炸至土豆表面微黄变硬后倒出。重新将油烧成高温油，下入土豆块，炸至表面金黄后倒出备用。4: 锅中留底油，加入3勺白糖和1勺冷水，转小火，不停搅动，将糖熬化。白糖变色，未翻泡前，迅速倒入土豆块，翻炒均匀，即可起锅。（食用时，备一碗冷开水，蘸水趁热食用）5:成品图",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "白糖"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸甜"
+              ],
+              "工艺": [
+                "炸"
+              ],
+              "类型": [],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "芝士焗土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆蒸熟压成泥2:拌入盐、乳炼，搅匀压平3:表面撒一层芝士碎4:烤箱提前预热，上下火180°考10分钟5:味道非常的棒哦😜6:孩子喜欢吃番茄酱，伴着也是很好吃的，我也喜欢😛",
+              "主食材": [
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝士碎"
+                },
+                {
+                  "amount": "10g",
+                  "name": "番茄酱"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "炼乳"
+                }
+              ],
+              "口味": [
+                "其他"
+              ],
+              "工艺": [
+                "烤"
+              ],
+              "类型": [
+                "西餐"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            }
+          ]
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "晚餐第十道菜怎么做？",
+            "depends_on": [],
+            "source_text": "晚餐第十道菜怎么做？",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "晚餐第十道菜怎么做？",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "晚餐第十道菜怎么做？",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": "上次晚餐只有 2 道菜，请选择第 1 至第 2 道，或直接告诉我菜名。"
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "晚餐第十道菜怎么做？",
+          "status": "blocked",
+          "content": "上次晚餐只有 2 道菜，请选择第 1 至第 2 道，或直接告诉我菜名。",
+          "records": [],
+          "sources": [],
+          "error_code": "recipe_selection_unresolved"
+        }
+      ]
+    },
+    {
+      "name": "other_conversation",
+      "question": "第二道菜怎么做？",
+      "elapsed_seconds": 1.25,
+      "response": {
+        "answer": "当前会话还没有可选择的推荐列表，请先让我推荐菜谱，或直接告诉我菜名。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 32,
+            "type": "disliked_ingredient",
+            "content": "不要香菜",
+            "score": 0.3671507666611974
+          },
+          {
+            "id": 33,
+            "type": "dietary_preference",
+            "content": "不吃辣",
+            "score": 0.375931843894617
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "last_recommendations": [],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "第二道菜怎么做？",
+            "depends_on": [],
+            "source_text": "第二道菜怎么做？",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "第二道菜怎么做？",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "第二道菜怎么做？",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": "当前会话还没有可选择的推荐列表，请先让我推荐菜谱，或直接告诉我菜名。"
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "第二道菜怎么做？",
+          "status": "blocked",
+          "content": "当前会话还没有可选择的推荐列表，请先让我推荐菜谱，或直接告诉我菜名。",
+          "records": [],
+          "sources": [],
+          "error_code": "recipe_selection_unresolved"
+        }
+      ]
+    }
+  ],
+  "test_rows_cleaned": true,
+  "passed": true
+}

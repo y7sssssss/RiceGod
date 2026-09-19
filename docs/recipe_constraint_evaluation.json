@@ -1,0 +1,226 @@
+{
+  "scope": "Five hand-written cases on local recipe fields; no LLM, memory extraction or database evaluation",
+  "recipe_count": 19669,
+  "summary": {
+    "baseline": {
+      "returned": 25,
+      "matched": 8,
+      "field_match_rate": 0.32,
+      "cases_with_results": 5
+    },
+    "optimized": {
+      "returned": 18,
+      "matched": 18,
+      "field_match_rate": 1.0,
+      "cases_with_results": 5
+    }
+  },
+  "cases": [
+    {
+      "id": "allergy_and_dislike",
+      "question": "用鸡蛋推荐家常菜，不要香菜",
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [
+          "鸡蛋"
+        ],
+        "excluded_ingredients": [
+          "香菜",
+          "花生"
+        ],
+        "flavors": [],
+        "methods": [],
+        "dish_types": [
+          "家常菜"
+        ],
+        "avoid_spicy": false
+      },
+      "baseline": {
+        "returned": 5,
+        "matched": 0,
+        "field_match_rate": 0.0,
+        "dish_names": [
+          "清淡蛋花汤",
+          "素食午餐乳蛋饼",
+          "小满日食记之冬瓜牛肉丸子汤",
+          "烧饼已经那么好吃了，还往里面加了蔬菜？苦荞时蔬饼",
+          "三鲜饺子"
+        ]
+      },
+      "optimized": {
+        "returned": 5,
+        "matched": 5,
+        "field_match_rate": 1.0,
+        "dish_names": [
+          "手工面条",
+          "照烧鸡腿饭",
+          "照烧羊排盖浇饭",
+          "南瓜丝蛋饼",
+          "蛋炒二米饭"
+        ]
+      }
+    },
+    {
+      "id": "remembered_dislike",
+      "question": "用鸡肉推荐家常菜",
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [
+          "鸡肉"
+        ],
+        "excluded_ingredients": [
+          "香菜"
+        ],
+        "flavors": [],
+        "methods": [],
+        "dish_types": [
+          "家常菜"
+        ],
+        "avoid_spicy": false
+      },
+      "baseline": {
+        "returned": 5,
+        "matched": 2,
+        "field_match_rate": 0.4,
+        "dish_names": [
+          "鸡汤",
+          "鸡花螺鲍鱼煲",
+          "三珍鸡汤",
+          "白萝卜鸡肉卷",
+          "草菇豆腐炒鸡丁"
+        ]
+      },
+      "optimized": {
+        "returned": 4,
+        "matched": 4,
+        "field_match_rate": 1.0,
+        "dish_names": [
+          "白萝卜鸡肉卷",
+          "草菇豆腐炒鸡丁",
+          "核桃鸡丁",
+          "孜然鸡胸肉"
+        ]
+      }
+    },
+    {
+      "id": "no_spicy",
+      "question": "不吃辣，推荐家常菜",
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [],
+        "excluded_ingredients": [],
+        "flavors": [],
+        "methods": [],
+        "dish_types": [
+          "家常菜"
+        ],
+        "avoid_spicy": true
+      },
+      "baseline": {
+        "returned": 5,
+        "matched": 3,
+        "field_match_rate": 0.6,
+        "dish_names": [
+          "煮手工胡萝卜鸡蛋面",
+          "鸡蛋辣椒炒河粉",
+          "芝麻酱拌菠菜",
+          "花生米拌茼蒿",
+          "红枣莲子银耳羹"
+        ]
+      },
+      "optimized": {
+        "returned": 5,
+        "matched": 5,
+        "field_match_rate": 1.0,
+        "dish_names": [
+          "芝麻酱拌菠菜",
+          "花生米拌茼蒿",
+          "红枣莲子银耳羹",
+          "野葱肉馅饼",
+          "番茄鸡蛋玉米面条"
+        ]
+      }
+    },
+    {
+      "id": "ingredient_flavor_type",
+      "question": "用鸡肉推荐咸鲜热菜，不要花生",
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [
+          "鸡肉"
+        ],
+        "excluded_ingredients": [
+          "花生"
+        ],
+        "flavors": [
+          "咸鲜"
+        ],
+        "methods": [],
+        "dish_types": [
+          "热菜"
+        ],
+        "avoid_spicy": false
+      },
+      "baseline": {
+        "returned": 5,
+        "matched": 2,
+        "field_match_rate": 0.4,
+        "dish_names": [
+          "香酥鸡",
+          "砂锅焖鸡",
+          "香锅鸡",
+          "花生碎娃娃菜",
+          "油菜香菇炒鸡肉"
+        ]
+      },
+      "optimized": {
+        "returned": 3,
+        "matched": 3,
+        "field_match_rate": 1.0,
+        "dish_names": [
+          "砂锅焖鸡",
+          "油菜香菇炒鸡肉",
+          "什锦炸羊排"
+        ]
+      }
+    },
+    {
+      "id": "two_required_ingredients",
+      "question": "用土豆和鸡蛋推荐家常菜",
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [
+          "土豆",
+          "鸡蛋"
+        ],
+        "excluded_ingredients": [],
+        "flavors": [],
+        "methods": [],
+        "dish_types": [
+          "家常菜"
+        ],
+        "avoid_spicy": false
+      },
+      "baseline": {
+        "returned": 5,
+        "matched": 1,
+        "field_match_rate": 0.2,
+        "dish_names": [
+          "西北特色面食——酸汤窝窝面",
+          "菠菜卷饼",
+          "清淡蛋花汤",
+          "烩麻食",
+          "菠萝包"
+        ]
+      },
+      "optimized": {
+        "returned": 1,
+        "matched": 1,
+        "field_match_rate": 1.0,
+        "dish_names": [
+          "菠菜卷饼"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "description": "24 fixed retrieval cases primarily comparing raw recipe.json queries with Graph V2; Graph V1 and enriched JSON are diagnostic controls.",
+  "cases": [
+    {"id": "alias_tomato", "category": "ingredient_alias", "question": "查找使用番茄的菜谱", "term": "番茄", "canonical": "西红柿"},
+    {"id": "alias_potato", "category": "ingredient_alias", "question": "查找使用马铃薯的菜谱", "term": "马铃薯", "canonical": "土豆"},
+    {"id": "alias_yangyu", "category": "ingredient_alias", "question": "查找使用洋芋的菜谱", "term": "洋芋", "canonical": "土豆"},
+    {"id": "alias_scallion", "category": "ingredient_alias", "question": "查找使用青葱的菜谱", "term": "青葱", "canonical": "香葱"},
+    {"id": "alias_ginger", "category": "ingredient_alias", "question": "查找使用姜末的菜谱", "term": "姜末", "canonical": "姜"},
+    {"id": "alias_garlic", "category": "ingredient_alias", "question": "查找使用蒜瓣的菜谱", "term": "蒜瓣", "canonical": "大蒜"},
+    {"id": "alias_egg_liquid", "category": "ingredient_alias", "question": "查找使用鸡蛋液的菜谱", "term": "鸡蛋液", "canonical": "鸡蛋"},
+    {"id": "alias_egg", "category": "ingredient_alias", "question": "查找使用蛋液的菜谱", "term": "蛋液", "canonical": "鸡蛋"},
+    {"id": "alias_peanut", "category": "ingredient_alias", "question": "查找使用花生米的菜谱", "term": "花生米", "canonical": "花生"},
+    {"id": "alias_soybean", "category": "ingredient_alias", "question": "查找使用黄豆的菜谱", "term": "黄豆", "canonical": "大豆"},
+
+    {"id": "allergen_egg", "category": "allergen", "question": "哪些菜包含蛋类过敏原", "allergen": "蛋类"},
+    {"id": "allergen_milk", "category": "allergen", "question": "哪些菜包含乳类过敏原", "allergen": "乳类"},
+    {"id": "allergen_peanut", "category": "allergen", "question": "哪些菜包含花生过敏原", "allergen": "花生"},
+    {"id": "allergen_soy", "category": "allergen", "question": "哪些菜包含大豆过敏原", "allergen": "大豆"},
+    {"id": "allergen_shellfish", "category": "allergen", "question": "哪些菜包含甲壳类水产过敏原", "allergen": "甲壳类水产"},
+    {"id": "allergen_fish", "category": "allergen", "question": "哪些菜包含鱼类过敏原", "allergen": "鱼类"},
+
+    {"id": "sub_corn_starch", "category": "substitution", "question": "玉米淀粉可以用什么替代", "term": "玉米淀粉", "expected": ["马铃薯淀粉"]},
+    {"id": "sub_potato_starch", "category": "substitution", "question": "马铃薯淀粉可以用什么替代", "term": "马铃薯淀粉", "expected": ["玉米淀粉"]},
+    {"id": "sub_sugar", "category": "substitution", "question": "白砂糖可以用什么替代", "term": "白砂糖", "expected": ["冰糖"]},
+    {"id": "sub_rock_sugar", "category": "substitution", "question": "冰糖可以用什么替代", "term": "冰糖", "expected": ["白砂糖"]},
+
+    {"id": "similar_sausage", "category": "similar_recipe", "question": "找一些和香肠炒菜干类似的菜", "dish": "香肠炒菜干", "limit": 5},
+    {"id": "similar_tomato_egg", "category": "similar_recipe", "question": "找一些和西红柿炒鸡蛋类似的菜", "dish": "西红柿炒鸡蛋", "limit": 5},
+    {"id": "similar_tomato_potato", "category": "similar_recipe", "question": "找一些和番茄土豆焖排骨类似的菜", "dish": "番茄土豆焖排骨", "limit": 5},
+    {"id": "similar_peanut", "category": "similar_recipe", "question": "找一些和花生米拌茼蒿类似的菜", "dish": "花生米拌茼蒿", "limit": 5}
+  ]
+}

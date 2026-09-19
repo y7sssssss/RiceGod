@@ -1,0 +1,1666 @@
+{
+  "metadata": {
+    "suite_version": "1.0",
+    "suite_sha256": "b8db6d37085cf02fa3cef7b8da701a65125821db2efcb936170b9ea5b51ace2d",
+    "mode": "live",
+    "case_ids": [
+      "nonmeal_scopes",
+      "named_recipe_and_culture",
+      "two_named_recipes"
+    ],
+    "repeats": 1,
+    "started_at": "2026-09-18T14:39:56.491167+00:00",
+    "scope": "Frozen field/workflow checks; offline uses fixture memory and local recipes. No subjective taste or factual-answer scoring.",
+    "fixture_history": "Long-history turns are seeded fixtures, not paid model conversations.",
+    "configuration": {
+      "model": "qwen3.7-flash",
+      "embedding_model": "qwen3.7-text-embedding-flash",
+      "context_turns": 6,
+      "context_budgets": [
+        8000,
+        16000,
+        32000
+      ],
+      "llm_router": true,
+      "llm_thinking": false,
+      "task_timeout": 45.0
+    },
+    "packages": {
+      "langgraph": "1.2.11",
+      "langchain-core": "1.6.3",
+      "langgraph-checkpoint-postgres": "3.1.2"
+    },
+    "code_sha256": "563690d5a19df9ddacad042cd87cee2f3d3531975031548424430dcf33a55aa9",
+    "recipe_sha256": "14012bdbaa2d65b8c57aaf93f810c818944552279fe46ae719602ac821d56e81",
+    "recipe_count": 19669,
+    "finished_at": "2026-09-18T14:40:56.521647+00:00"
+  },
+  "cases": [
+    {
+      "id": "nonmeal_scopes",
+      "scenario": "complex_planning",
+      "repeat": 1,
+      "question": "分别用鸡蛋推荐两道清淡家常菜，不要香菜；用土豆推荐一道麻辣家常菜，不要花生。",
+      "checks": [
+        {
+          "name": "routes",
+          "passed": true
+        },
+        {
+          "name": "recipe_task_count",
+          "passed": true
+        },
+        {
+          "name": "task_0_scope",
+          "passed": true
+        },
+        {
+          "name": "task_0_count",
+          "passed": true,
+          "expected": 2,
+          "actual": 2
+        },
+        {
+          "name": "task_0_request_limit",
+          "passed": true
+        },
+        {
+          "name": "task_0_required_ingredients",
+          "passed": true
+        },
+        {
+          "name": "task_0_excluded_ingredients",
+          "passed": true
+        },
+        {
+          "name": "task_0_flavors",
+          "passed": true
+        },
+        {
+          "name": "task_0_dish_types",
+          "passed": true
+        },
+        {
+          "name": "task_0_record_fields",
+          "passed": true
+        },
+        {
+          "name": "task_0_answer_lists_records",
+          "passed": true
+        },
+        {
+          "name": "task_0_status",
+          "passed": true
+        },
+        {
+          "name": "task_1_scope",
+          "passed": true
+        },
+        {
+          "name": "task_1_count",
+          "passed": true,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "name": "task_1_request_limit",
+          "passed": true
+        },
+        {
+          "name": "task_1_required_ingredients",
+          "passed": true
+        },
+        {
+          "name": "task_1_excluded_ingredients",
+          "passed": true
+        },
+        {
+          "name": "task_1_flavors",
+          "passed": true
+        },
+        {
+          "name": "task_1_dish_types",
+          "passed": true
+        },
+        {
+          "name": "task_1_record_fields",
+          "passed": true
+        },
+        {
+          "name": "task_1_answer_lists_records",
+          "passed": true
+        },
+        {
+          "name": "task_1_status",
+          "passed": true
+        },
+        {
+          "name": "history_matches",
+          "passed": true
+        },
+        {
+          "name": "timing_present",
+          "passed": true
+        }
+      ],
+      "fields": {
+        "returned": 3,
+        "matched": 3
+      },
+      "client_ms": 24107.891,
+      "performance": {
+        "trace_id": "d36827d68d2242ff8218b047e57c0019",
+        "total_ms": 24098.825,
+        "stages": [
+          {
+            "name": "total",
+            "start_ms": 0.011,
+            "duration_ms": 24098.825,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "lock_wait",
+            "start_ms": 0.014,
+            "duration_ms": 0.018,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "checkpoint_read",
+            "start_ms": 0.089,
+            "duration_ms": 6.06,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "history_recovery",
+            "start_ms": 6.198,
+            "duration_ms": 50.358,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "user_message_write",
+            "start_ms": 56.612,
+            "duration_ms": 41.243,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_recall",
+            "start_ms": 99.127,
+            "duration_ms": 1532.258,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "graph",
+            "start_ms": 1631.493,
+            "duration_ms": 15791.469,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "router",
+            "start_ms": 1642.772,
+            "duration_ms": 2736.608,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "planner",
+            "start_ms": 4380.373,
+            "duration_ms": 7786.046,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "recipe_retrieval",
+            "start_ms": 12168.041,
+            "duration_ms": 2399.877,
+            "status": "ok",
+            "task_id": "task_1"
+          },
+          {
+            "name": "recipe_retrieval",
+            "start_ms": 12168.128,
+            "duration_ms": 2367.705,
+            "status": "ok",
+            "task_id": "task_2"
+          },
+          {
+            "name": "answer",
+            "start_ms": 14574.967,
+            "duration_ms": 2840.275,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_extraction",
+            "start_ms": 17423.025,
+            "duration_ms": 6624.206,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_extract_model",
+            "start_ms": 17451.679,
+            "duration_ms": 1790.711,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_reconcile_model",
+            "start_ms": 19552.686,
+            "duration_ms": 1068.517,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_reconcile_model",
+            "start_ms": 20920.689,
+            "duration_ms": 1375.801,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_reconcile_model",
+            "start_ms": 22669.129,
+            "duration_ms": 1342.191,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_confirmation",
+            "start_ms": 24047.267,
+            "duration_ms": 0.906,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "checkpoint_write",
+            "start_ms": 24048.272,
+            "duration_ms": 13.749,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "assistant_message_write",
+            "start_ms": 24062.118,
+            "duration_ms": 36.576,
+            "status": "ok",
+            "task_id": null
+          }
+        ],
+        "events": [
+          {
+            "kind": "model_context",
+            "purpose": "router",
+            "status": "ready",
+            "history_turns": 0,
+            "estimated_tokens": 1563,
+            "budget": 8000
+          },
+          {
+            "kind": "router",
+            "mode": "model"
+          },
+          {
+            "kind": "model_context",
+            "purpose": "planner",
+            "status": "ready",
+            "history_turns": 0,
+            "estimated_tokens": 2625,
+            "budget": 16000
+          },
+          {
+            "kind": "planner",
+            "mode": "model"
+          },
+          {
+            "kind": "task",
+            "task_id": "task_2",
+            "route": "recipe_query",
+            "status": "ok",
+            "error_code": null
+          },
+          {
+            "kind": "task",
+            "task_id": "task_1",
+            "route": "recipe_query",
+            "status": "ok",
+            "error_code": null
+          },
+          {
+            "kind": "model_context",
+            "purpose": "answer",
+            "status": "ready",
+            "history_turns": 0,
+            "estimated_tokens": 6056,
+            "budget": 32000
+          },
+          {
+            "kind": "answer",
+            "mode": "model"
+          },
+          {
+            "kind": "memory_extraction",
+            "status": "completed",
+            "skip_reason": null
+          }
+        ]
+      },
+      "route": "recipe_query",
+      "answer": "根据您的要求，为您筛选出以下三道家常菜：\n\n**第1组：用鸡蛋推荐的清淡家常菜（不含香菜）**\n\n1. **番茄鸡蛋玉米面条**\n   - **推荐理由**：以鸡蛋为主料，口味清淡，符合家常做法。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋、番茄、玉米面条、葱\n\n2. **菠菜烘蛋**\n   - **推荐理由**：以鸡蛋为主料，口味清淡，制作简单。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋、菠菜\n\n**第2组：用土豆推荐的麻辣家常菜（不含花生）**\n\n3. **家庭版肉蟹煲**\n   - **推荐理由**：包含指定食材土豆，口味为麻辣，属于家常菜范畴。\n   - **记录耗时**：半小时\n   - **主要食材**：土豆、凤爪、基围虾、青蟹\n\n以上菜谱均未包含您排除的香菜或花生。请问您想了解哪一道菜的详细材料或做法？\n\n已保存长期记忆：清淡家常菜；不要香菜；不要花生。",
+      "sources": [
+        "neo4j:Dish:番茄鸡蛋玉米面条",
+        "neo4j:Dish:菠菜烘蛋",
+        "neo4j:Dish:家庭版肉蟹煲"
+      ],
+      "task_summary": [
+        {
+          "id": "task_1",
+          "route": "recipe_query",
+          "source_text": "分别用鸡蛋推荐两道清淡家常菜，不要香菜",
+          "depends_on": [],
+          "constraints": {
+            "dish_name": null,
+            "required_ingredients": [
+              "鸡蛋"
+            ],
+            "excluded_ingredients": [
+              "香菜"
+            ],
+            "flavors": [
+              "清淡"
+            ],
+            "methods": [],
+            "dish_types": [
+              "家常菜"
+            ],
+            "avoid_spicy": false
+          },
+          "record_names": [
+            "番茄鸡蛋玉米面条",
+            "菠菜烘蛋"
+          ],
+          "records": [
+            {
+              "菜名": "番茄鸡蛋玉米面条",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:番茄洗净用开水烫下，去皮切丁备用。鸡蛋打散备用。葱切好备用。3:锅里倒入适量花生油，放入蛋液炒匀，炒熟后放入的番茄丁，煮出汤汁，出锅前放入少许食盐。4:锅中倒入适量水煮开，放入玉米面条，煮熟捞出。5:碗中加入适量玉米面条，把烧好的番茄鸡蛋酱淋在面条上。撒点葱花即可~",
+              "主食材": [
+                {
+                  "amount": "少许",
+                  "name": "葱"
+                },
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "100克",
+                  "name": "玉米面条"
+                },
+                {
+                  "amount": "3个",
+                  "name": "番茄"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "少许",
+                  "name": "花生油"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "菠菜烘蛋",
+              "耗时": "十分钟",
+              "做法": "1:食材：鸡蛋、菠菜2:菠菜洗净放入沸水中焯水。3:焯过水的菠菜挤净水分切碎4:切碎的菠菜放入碗中，打入鸡蛋，加入食盐调味5:加入少许料酒去腥。6:搅打均匀7:锅中放油烧热，倒入打散的菠菜蛋液。8:煎至一面金黄翻面，改小火烘至金黄熟透即可。9:成品！10:成品！",
+              "主食材": [
+                {
+                  "amount": "150克",
+                  "name": "菠菜"
+                },
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "食盐"
+                },
+                {
+                  "amount": "1/2茶匙",
+                  "name": "料酒"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "status": "ok"
+        },
+        {
+          "id": "task_2",
+          "route": "recipe_query",
+          "source_text": "用土豆推荐一道麻辣家常菜，不要花生",
+          "depends_on": [],
+          "constraints": {
+            "dish_name": null,
+            "required_ingredients": [
+              "土豆"
+            ],
+            "excluded_ingredients": [
+              "花生"
+            ],
+            "flavors": [
+              "麻辣"
+            ],
+            "methods": [],
+            "dish_types": [
+              "家常菜"
+            ],
+            "avoid_spicy": false
+          },
+          "record_names": [
+            "家庭版肉蟹煲"
+          ],
+          "records": [
+            {
+              "菜名": "家庭版肉蟹煲",
+              "耗时": "半小时",
+              "做法": "1:先处理食材，基围虾洗净后剪开背部，挑出虾线。取锅加油烧热，放入基围虾炸至变红，捞出备用。2:凤爪剪掉指甲后对半剁开，冷水下锅，加入1勺料酒和姜片汆烫，撇掉浮沫后捞出备用。汤别倒之后有用！3:青蟹洗净后剪下蟹钳，略微敲出裂痕有助入味。开蟹盖去除掉蟹腮、蟹心、蟹肠、蟹胃等不可食用部位，将处理好的蟹身分成四份。4:蟹身与蟹钳的切面处裹上适量淀粉。另取锅热油，放入裹好淀粉的螃蟹，煎至金黄备用。5:锅洗净后重新热油，加入1勺豆瓣酱开小火炒出红油，随后加入八角、小茴香、花椒、葱段、干辣椒、蒜末，转中火炒出香味。6:先放入煎好的青蟹，加1勺料酒和生抽炒匀，随后依次加入基围虾和凤爪，将所有材料充分炒匀。7:倒入先前留下的凤爪汤直至没过食材，盖上锅盖开中火煮10分钟。时间到后放入切块炸好的土豆，再焖煮10分钟，出锅前加少许盐和糖调味，拌匀后即可出锅。",
+              "主食材": [
+                {
+                  "amount": "6只",
+                  "name": "凤爪"
+                },
+                {
+                  "amount": "6只",
+                  "name": "基围虾"
+                },
+                {
+                  "amount": "2只",
+                  "name": "青蟹"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "1勺",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "少许",
+                  "name": "盐"
+                },
+                {
+                  "amount": "3个",
+                  "name": "干辣椒"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "豆瓣酱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "花椒"
+                },
+                {
+                  "amount": "少许",
+                  "name": "糖"
+                },
+                {
+                  "amount": "1小块",
+                  "name": "姜"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "料酒"
+                },
+                {
+                  "amount": "1个",
+                  "name": "土豆"
+                },
+                {
+                  "amount": "少许",
+                  "name": "小茴香"
+                },
+                {
+                  "amount": "2颗",
+                  "name": "八角"
+                },
+                {
+                  "amount": "少许",
+                  "name": "葱段"
+                },
+                {
+                  "amount": "5瓣",
+                  "name": "蒜"
+                }
+              ],
+              "口味": [
+                "麻辣"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "包含指定食材：土豆",
+                "记录耗时：半小时"
+              ]
+            }
+          ],
+          "status": "ok"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "named_recipe_and_culture",
+      "scenario": "complex_planning",
+      "repeat": 1,
+      "question": "西红柿炒鸡蛋怎么做，并介绍川菜的历史与特点。",
+      "checks": [
+        {
+          "name": "routes",
+          "passed": true
+        },
+        {
+          "name": "recipe_task_count",
+          "passed": true
+        },
+        {
+          "name": "task_0_scope",
+          "passed": true
+        },
+        {
+          "name": "task_0_count",
+          "passed": true,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "name": "task_0_request_limit",
+          "passed": true
+        },
+        {
+          "name": "task_0_dish_name",
+          "passed": true
+        },
+        {
+          "name": "task_0_record_fields",
+          "passed": true
+        },
+        {
+          "name": "task_0_answer_lists_records",
+          "passed": true
+        },
+        {
+          "name": "task_0_status",
+          "passed": true
+        },
+        {
+          "name": "culture_evidence",
+          "passed": true
+        },
+        {
+          "name": "history_matches",
+          "passed": true
+        },
+        {
+          "name": "timing_present",
+          "passed": true
+        }
+      ],
+      "fields": {
+        "returned": 1,
+        "matched": 1
+      },
+      "client_ms": 16653.622,
+      "performance": {
+        "trace_id": "545ee0d7580b44c3890ebb76183fc78f",
+        "total_ms": 16649.268,
+        "stages": [
+          {
+            "name": "total",
+            "start_ms": 0.008,
+            "duration_ms": 16649.268,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "lock_wait",
+            "start_ms": 0.009,
+            "duration_ms": 0.01,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "checkpoint_read",
+            "start_ms": 0.053,
+            "duration_ms": 4.344,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "user_message_write",
+            "start_ms": 4.446,
+            "duration_ms": 31.282,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_recall",
+            "start_ms": 35.851,
+            "duration_ms": 170.335,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "graph",
+            "start_ms": 206.37,
+            "duration_ms": 15637.424,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "router",
+            "start_ms": 211.657,
+            "duration_ms": 2610.954,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "planner",
+            "start_ms": 2823.35,
+            "duration_ms": 7880.558,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "recipe_retrieval",
+            "start_ms": 10705.809,
+            "duration_ms": 476.064,
+            "status": "ok",
+            "task_id": "task_0"
+          },
+          {
+            "name": "knowledge_retrieval",
+            "start_ms": 10705.895,
+            "duration_ms": 494.949,
+            "status": "ok",
+            "task_id": "task_1"
+          },
+          {
+            "name": "answer",
+            "start_ms": 11208.637,
+            "duration_ms": 4628.059,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_extraction",
+            "start_ms": 15843.884,
+            "duration_ms": 773.066,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_extract_model",
+            "start_ms": 15873.26,
+            "duration_ms": 743.636,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_confirmation",
+            "start_ms": 16616.966,
+            "duration_ms": 0.106,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "assistant_message_write",
+            "start_ms": 16617.088,
+            "duration_ms": 32.055,
+            "status": "ok",
+            "task_id": null
+          }
+        ],
+        "events": [
+          {
+            "kind": "model_context",
+            "purpose": "router",
+            "status": "ready",
+            "history_turns": 1,
+            "estimated_tokens": 2939,
+            "budget": 8000
+          },
+          {
+            "kind": "router",
+            "mode": "model"
+          },
+          {
+            "kind": "model_context",
+            "purpose": "planner",
+            "status": "ready",
+            "history_turns": 1,
+            "estimated_tokens": 5322,
+            "budget": 16000
+          },
+          {
+            "kind": "planner",
+            "mode": "model"
+          },
+          {
+            "kind": "task",
+            "task_id": "task_0",
+            "route": "recipe_query",
+            "status": "ok",
+            "error_code": null
+          },
+          {
+            "kind": "task",
+            "task_id": "task_1",
+            "route": "food_knowledge",
+            "status": "ok",
+            "error_code": null
+          },
+          {
+            "kind": "model_context",
+            "purpose": "answer",
+            "status": "ready",
+            "history_turns": 1,
+            "estimated_tokens": 11936,
+            "budget": 32000
+          },
+          {
+            "kind": "answer",
+            "mode": "model"
+          },
+          {
+            "kind": "memory_extraction",
+            "status": "completed",
+            "skip_reason": null
+          }
+        ]
+      },
+      "route": "recipe_query+food_knowledge",
+      "answer": "**西红柿炒鸡蛋做法**\n\n*   **耗时**：十分钟\n*   **主要食材**：鸡蛋 2个、西红柿 1个\n*   **辅料**：葱 10g、生抽 2匙、盐 2匙、十三香 半匙\n*   **步骤**：\n    1. 西红柿切成小块，葱切成丝。\n    2. 鸡蛋打好放盐放十三香然后搅匀。\n    3. 炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。\n    4. 炒锅放入一点油放葱爆香。\n    5. 放入西红柿，加生抽加盐翻炒。\n    6. 待西红柿炒软后加入备用的鸡蛋翻炒，出锅。\n\n**关于川菜的历史与特点**\n\n本次检索未找到关于“川菜”这一菜系专门的历史起源或特点介绍资料。\n\n不过，根据现有资料，可以了解到构成川菜重要风味基础的一些食材背景：\n*   **辣椒的引入**：辣椒在明朝时期经由下南洋商人引入中国，初时名为「卡晏辣椒」或「番椒」。在明朝之前，中国饮食中并没有辣椒这种辛辣来源。\n*   **花椒的使用**：花椒是中国本土特产的一种辛香料，能产生麻辣感，刺激味觉和食欲，是传统中式烹饪中的重要调味品。\n\n因此，虽然无法提供川菜的完整历史沿革，但可以确认其标志性的“辣”味很大程度上依赖于明朝以后才广泛进入中国餐桌的辣椒，而“麻”味则源于本土的花椒。",
+      "sources": [
+        "neo4j:Dish:西红柿炒鸡蛋",
+        "data.txt#4",
+        "data.txt#12",
+        "data.txt#11",
+        "data.txt#3"
+      ],
+      "task_summary": [
+        {
+          "id": "task_0",
+          "route": "recipe_query",
+          "source_text": "西红柿炒鸡蛋怎么做，并介绍川菜的历史与特点。",
+          "depends_on": [],
+          "constraints": {
+            "dish_name": "西红柿炒鸡蛋",
+            "required_ingredients": [],
+            "excluded_ingredients": [
+              "花生",
+              "香菜"
+            ],
+            "flavors": [],
+            "methods": [],
+            "dish_types": [],
+            "avoid_spicy": false
+          },
+          "record_names": [
+            "西红柿炒鸡蛋"
+          ],
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ]
+            }
+          ],
+          "status": "ok"
+        },
+        {
+          "id": "task_1",
+          "route": "food_knowledge",
+          "source_text": "介绍川菜的历史与特点。",
+          "depends_on": [],
+          "constraints": {
+            "dish_name": "",
+            "required_ingredients": [],
+            "excluded_ingredients": [],
+            "flavors": [],
+            "methods": [],
+            "dish_types": [],
+            "avoid_spicy": false
+          },
+          "record_names": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "records": [
+            {
+              "id": "data.txt_4",
+              "content": "元朝多了豇豆、金针菇等蔬菜。\n明朝引进的食物就更多了。此时期蔬菜品种进一步增加，如番茄（又名西红柿）、芋艿、卷心菜、苤蓝、南瓜、笋瓜、西葫芦、辣椒、芸豆、红薯、玉米、蕺菜（鱼腥草）、花生、胡萝卜（此时已有多种品种）、苦瓜等。其中，诸如番茄、辣椒、玉米等珍稀作物，均源自遥远的美洲大陆，被引入中国后逐渐成为了餐桌上的常客。\n如汉朝、唐朝、明朝、清朝等朝代，来自全球各地的番邦进贡为中华大地带来了诸多异域美食。\n许多蔬菜，其实很晚才被人们用于烹饪之中。\n例如辣椒，这一热辣之物，在明朝时期经由勇敢的下南洋商人之手，被引入中国，初时名为「卡晏辣椒」，亦或称「番椒」，因其独特的观赏价值，甚至一度被当作珍稀的景观盆栽，点缀于庭院之中。\n《遵生八笺》是这么描述辣椒：「番椒丛生，白花，果俨似秃笔头，味辣色红，甚可观。」\n戏曲家汤显祖的著作《牡丹亭·冥判》中也提到了辣椒：「凌霄花，阳壮的咍；辣椒花，把阴热窄；」\n所以，如果你穿越到古代，又喜欢吃辣，在明朝之前肯定是没有口福了。\n随着时间的推移，食物种类的丰富程度亦随之变化，现代人的餐桌琳琅满目，而回溯至更久远的时代，则往往显得单调而匮乏。",
+              "score": 0.33479616237635595,
+              "source": "data.txt",
+              "chunk_index": 4,
+              "vector_score": 0.4634455442428589
+            },
+            {
+              "id": "data.txt_12",
+              "content": "糖\n唐初，中国引进了印度的蔗糖加工技术，使得中国也能生产颗粒状的沙糖，彻底改变了过去仅能制造块状饴糖的历史。\n\n其他调味品\n梅子在古代也是重要的果醋类调味品。\n梅子性酸，能够去除食物中的腥膻之气，同时具有开胃消食的功效。\n此外，梅子还可以用于酿酒，以及制作干果或果脯。\n花椒，是中国本土特产的一种辛香料。它能产生麻辣感，刺激味觉和食欲。\n除了花椒，还有葱、姜、芥、薤、韭等本土辅助调味菜。\n豉，是汉代发明的调味品，主要用于菜肴的加工烹饪。到了魏晋时期，豉的制造技术迅速发展，并从国外引入了新的制作方法。\n魏晋南北朝时期还引进了胡椒。隋唐两宋时期，又增加了花椒、豆蔻、桂皮、橘皮、蜜、乳、酪、油等天然调味品。到了明清时期，又增添了虾油、鱼露、腐乳、草果、砂仁、苏叶、辣椒、大香、苗香等调味品。",
+              "score": 0.2802516451312459,
+              "source": "data.txt",
+              "chunk_index": 12,
+              "vector_score": 0.34782645106315613
+            },
+            {
+              "id": "data.txt_11",
+              "content": "调味品\n盐\n盐，作为古代人类生活中不可或缺的调味品，不仅能够增强食物的咸味和口感，还是人体必需的营养元素之一，对于维持人体正常生理功能发挥着重要作用。\n在古代，盐如同国家经济的命脉，一直受到朝廷的严格管控，成为不可或缺的税收支柱之一。\n汉朝的盐铁论确立了食盐生产销售的严格国家控制，政府通过垄断盐业来实施税收和控制经济。\n然而，受限于古代的技术条件，精盐细盐如同奢侈品，往往难以触及普通民众的生活。\n即便是许多官宦家庭，大多数时候也只能食用粗盐。\n\n酱\n酱，这一古老的调味品，在先秦时期被称为「醢」，是专指那些以肉类精心熬制的酱料。它不仅能够增加食物的咸香和鲜味，还有助于食物的保存。\n酱是一种以大豆、面为原料制成的调味品，具有多种品种和口味，例如豆豉、豆瓣、黄豆酱、清酱（酱油）等。\n到了魏晋南北朝时期，酱料制作技术进一步成熟，除了粮食制酱外，还使用牛、羊、鹿、兔等各种肉类制成肉酱；并以鲤鱼、青鱼、刀鱼、河豚、虾等各种水产品为原料制成鱼酱和虾酱。\n明清时期，酱料的发展和普及达到了新的高度。这一时期，人们开始用大豆、小麦、糯米等为原料制作各种酱油，并采用日晒夜露的传统工艺来提升酱油的品质。\n\n醋\n秦汉时期，醋这一调味新星应运而生，它是以谷物或水果等为原料，经过巧妙发酵而成的果醋类调味品。它能够增加食物的香气和清爽感，同时具有杀菌消毒和防止食物变质的功能。\n南北朝时期，醋的制作技术迎来了质的飞跃，多达 23 种制醋方法竞相绽放，原料的选择也愈发广泛，粟、粳米、大麦、小麦、大豆、小豆乃至蜜、乌梅等，皆可化为醋的醇香之源。\n\n糖\n唐初，中国引进了印度的蔗糖加工技术，使得中国也能生产颗粒状的沙糖，彻底改变了过去仅能制造块状饴糖的历史。",
+              "score": 0.26671966852256634,
+              "source": "data.txt",
+              "chunk_index": 11,
+              "vector_score": 0.3426936864852905
+            },
+            {
+              "id": "data.txt_3",
+              "content": "隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。\n宋朝增加了豆芽菜、韭黄、胡萝卜、乌塌菜、丝瓜、西瓜、莴苣、香菇、南苜蓿（又名金花菜、草头）、马兰、香椿等蔬菜品种开始被广泛种植。还从越南引进了占城稻，使得很多水稻可以两季熟，更耐旱。",
+              "score": 0.1960404483722149,
+              "source": "data.txt",
+              "chunk_index": 3,
+              "vector_score": 0.37393829226493835
+            }
+          ],
+          "status": "ok"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "two_named_recipes",
+      "scenario": "complex_planning",
+      "repeat": 1,
+      "question": "西红柿炒鸡蛋怎么做；红烧肉怎么做？",
+      "checks": [
+        {
+          "name": "routes",
+          "passed": true
+        },
+        {
+          "name": "recipe_task_count",
+          "passed": true
+        },
+        {
+          "name": "task_0_scope",
+          "passed": true
+        },
+        {
+          "name": "task_0_count",
+          "passed": true,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "name": "task_0_request_limit",
+          "passed": true
+        },
+        {
+          "name": "task_0_dish_name",
+          "passed": true
+        },
+        {
+          "name": "task_0_record_fields",
+          "passed": true
+        },
+        {
+          "name": "task_0_answer_lists_records",
+          "passed": true
+        },
+        {
+          "name": "task_0_status",
+          "passed": true
+        },
+        {
+          "name": "task_1_scope",
+          "passed": true
+        },
+        {
+          "name": "task_1_count",
+          "passed": true,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "name": "task_1_request_limit",
+          "passed": true
+        },
+        {
+          "name": "task_1_dish_name",
+          "passed": true
+        },
+        {
+          "name": "task_1_record_fields",
+          "passed": true
+        },
+        {
+          "name": "task_1_answer_lists_records",
+          "passed": true
+        },
+        {
+          "name": "task_1_status",
+          "passed": true
+        },
+        {
+          "name": "history_matches",
+          "passed": true
+        },
+        {
+          "name": "timing_present",
+          "passed": true
+        }
+      ],
+      "fields": {
+        "returned": 2,
+        "matched": 2
+      },
+      "client_ms": 17395.954,
+      "performance": {
+        "trace_id": "580b5fcf04e84183a806d165ca156e98",
+        "total_ms": 17392.623,
+        "stages": [
+          {
+            "name": "total",
+            "start_ms": 0.007,
+            "duration_ms": 17392.623,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "lock_wait",
+            "start_ms": 0.008,
+            "duration_ms": 0.013,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "checkpoint_read",
+            "start_ms": 0.052,
+            "duration_ms": 3.993,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "user_message_write",
+            "start_ms": 4.091,
+            "duration_ms": 46.822,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_recall",
+            "start_ms": 51.024,
+            "duration_ms": 204.896,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "graph",
+            "start_ms": 256.042,
+            "duration_ms": 16264.91,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "router",
+            "start_ms": 262.016,
+            "duration_ms": 2041.043,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "planner",
+            "start_ms": 2303.71,
+            "duration_ms": 8133.741,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "recipe_retrieval",
+            "start_ms": 10439.581,
+            "duration_ms": 14.576,
+            "status": "ok",
+            "task_id": "task_1"
+          },
+          {
+            "name": "recipe_retrieval",
+            "start_ms": 10439.667,
+            "duration_ms": 8.867,
+            "status": "ok",
+            "task_id": "task_2"
+          },
+          {
+            "name": "answer",
+            "start_ms": 10457.669,
+            "duration_ms": 6055.818,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_extraction",
+            "start_ms": 16521.02,
+            "duration_ms": 845.898,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_extract_model",
+            "start_ms": 16548.421,
+            "duration_ms": 818.418,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "memory_confirmation",
+            "start_ms": 17366.94,
+            "duration_ms": 0.211,
+            "status": "ok",
+            "task_id": null
+          },
+          {
+            "name": "assistant_message_write",
+            "start_ms": 17367.172,
+            "duration_ms": 25.218,
+            "status": "ok",
+            "task_id": null
+          }
+        ],
+        "events": [
+          {
+            "kind": "model_context",
+            "purpose": "router",
+            "status": "ready",
+            "history_turns": 2,
+            "estimated_tokens": 4369,
+            "budget": 8000
+          },
+          {
+            "kind": "router",
+            "mode": "model"
+          },
+          {
+            "kind": "model_context",
+            "purpose": "planner",
+            "status": "ready",
+            "history_turns": 2,
+            "estimated_tokens": 6524,
+            "budget": 16000
+          },
+          {
+            "kind": "planner_scope_repair",
+            "task_count": 1
+          },
+          {
+            "kind": "planner",
+            "mode": "model"
+          },
+          {
+            "kind": "task",
+            "task_id": "task_2",
+            "route": "recipe_query",
+            "status": "ok",
+            "error_code": null
+          },
+          {
+            "kind": "task",
+            "task_id": "task_1",
+            "route": "recipe_query",
+            "status": "ok",
+            "error_code": null
+          },
+          {
+            "kind": "model_context",
+            "purpose": "answer",
+            "status": "ready",
+            "history_turns": 2,
+            "estimated_tokens": 9986,
+            "budget": 32000
+          },
+          {
+            "kind": "answer",
+            "mode": "model"
+          },
+          {
+            "kind": "memory_extraction",
+            "status": "completed",
+            "skip_reason": null
+          }
+        ]
+      },
+      "route": "recipe_query",
+      "answer": "**西红柿炒鸡蛋做法**\n\n*   **耗时**：十分钟\n*   **主要食材**：鸡蛋 2个、西红柿 1个\n*   **辅料**：葱 10g、生抽 2匙、盐 2匙、十三香 半匙\n*   **步骤**：\n    1. 西红柿切成小块，葱切成丝。\n    2. 鸡蛋打好放盐放十三香然后搅匀。\n    3. 炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。\n    4. 炒锅放入一点油放葱爆香。\n    5. 放入西红柿，加生抽加盐翻炒。\n    6. 待西红柿炒软后加入备用的鸡蛋翻炒，出锅。\n\n**红烧肉做法**\n\n*   **耗时**：一小时\n*   **主要食材**：五花肉 一块、清水 半锅\n*   **辅料**：植物油 适量、冰糖 一把、老抽 一大勺、生抽 两勺、蚝油 一勺、盐 一匙、料酒 一大勺、葱 五片、姜 三片、蒜 四瓣、八角 适量、桂皮 适量、香叶 适量、花椒 适量、草果 适量、丁香 适量、陈皮 适量、白芷 适量、小茴香 适量、山楂干 适量\n*   **步骤**：\n    1. 将五花肉清洗干净切成方形的小块。\n    2. 将五花肉块放入锅中加水，加一大勺料酒，煮沸两三分钟（去腥）。\n    3. 关火后将煮肉的水倒掉，向锅中注入凉水，使猪肉块过一遍凉水（使肉紧实）。\n    4. 将肉块捞出，控干水分备用。\n    5. 锅中倒油，烧热。\n    6. 将肉块倒入油锅中，翻几下，煸出油脂（减少油腻），将肉块捞出备用，留底油。\n    7. 锅中倒入适量的植物油，下一把冰糖，中火加热。\n    8. 用铲子将冰糖敲碎并搅拌，加热至冰糖融化并呈焦糖色。\n    9. 将肉块倒入锅中快速翻炒，使肉块均匀的裹上糖色，再加入一大勺老抽，继续翻几下。\n    10. 向锅中加入适量的清水。\n    11. 加入适量的生抽，蚝油和盐。\n    12. 加入葱姜蒜花椒八角桂皮香叶草果丁香陈皮白芷小茴香山楂干和冰糖等香料。\n    13. 喜欢吃卤蛋的话再将几个煮熟的鸡蛋剥去外壳放入肉汤中（此步可省略）。\n    14. 盖上盖子中小火炖半个小时。\n    15. 大火十多分钟收汁。\n    16. 出锅装盘就可以吃了。",
+      "sources": [
+        "neo4j:Dish:西红柿炒鸡蛋",
+        "neo4j:Dish:红烧肉"
+      ],
+      "task_summary": [
+        {
+          "id": "task_1",
+          "route": "recipe_query",
+          "source_text": "西红柿炒鸡蛋怎么做",
+          "depends_on": [],
+          "constraints": {
+            "dish_name": "西红柿炒鸡蛋",
+            "required_ingredients": [],
+            "excluded_ingredients": [
+              "花生",
+              "香菜"
+            ],
+            "flavors": [],
+            "methods": [],
+            "dish_types": [],
+            "avoid_spicy": false
+          },
+          "record_names": [
+            "西红柿炒鸡蛋"
+          ],
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ]
+            }
+          ],
+          "status": "ok"
+        },
+        {
+          "id": "task_2",
+          "route": "recipe_query",
+          "source_text": "红烧肉怎么做？",
+          "depends_on": [],
+          "constraints": {
+            "dish_name": "红烧肉",
+            "required_ingredients": [],
+            "excluded_ingredients": [
+              "花生",
+              "香菜"
+            ],
+            "flavors": [],
+            "methods": [],
+            "dish_types": [],
+            "avoid_spicy": false
+          },
+          "record_names": [
+            "红烧肉"
+          ],
+          "records": [
+            {
+              "菜名": "红烧肉",
+              "耗时": "一小时",
+              "做法": "1:将五花肉清洗干净切成方形的小块。2:将五花肉块放入锅中加水，加一大勺料酒，煮沸两三分钟。这一步主要是为了去腥。3:关火后将煮肉的水倒掉，向锅中注入凉水，使猪肉块过一遍凉水。这一步主要是为了使肉块更加紧实，口感好。4:将肉块捞出，控干水分备用。5:锅中倒油，烧热。6:将肉块倒入油锅中，翻几下，煸出油脂。这一步主要是为了使肉减少油腻。7:将肉块捞出备用，上一步煸出来的油留着炒菜用。8:锅中倒入适量的植物油，下一把冰糖，中火加热。9:用铲子将冰糖敲碎并搅拌，加热至冰糖融化并呈焦糖色。10:将肉块倒入锅中快速翻炒，使肉块均匀的裹上糖色，再加入一大勺老抽，继续翻几下，使肉块色泽更加红亮。11:向锅中加入适量的清水。12:加入适量的生抽，蚝油和盐。13:加入葱姜蒜花椒八角桂皮香叶草果丁香陈皮白芷小茴香山楂干和冰糖等。14:喜欢吃卤蛋的话再将几个煮熟的鸡蛋剥去外壳放入肉汤中，这步也可以省略。15:盖上盖子中小火炖半个小时。16:大火十多分钟收收汁。17:出锅装盘就可以吃了。18:太香了。",
+              "主食材": [
+                {
+                  "amount": "半锅",
+                  "name": "清水"
+                },
+                {
+                  "amount": "一块",
+                  "name": "五花肉"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "草果"
+                },
+                {
+                  "amount": "一勺",
+                  "name": "蚝油"
+                },
+                {
+                  "amount": "适量",
+                  "name": "八角"
+                },
+                {
+                  "amount": "适量",
+                  "name": "植物油"
+                },
+                {
+                  "amount": "适量",
+                  "name": "花椒"
+                },
+                {
+                  "amount": "适量",
+                  "name": "陈皮"
+                },
+                {
+                  "amount": "一把",
+                  "name": "冰糖"
+                },
+                {
+                  "amount": "五片",
+                  "name": "葱"
+                },
+                {
+                  "amount": "一匙",
+                  "name": "盐"
+                },
+                {
+                  "amount": "三片",
+                  "name": "姜"
+                },
+                {
+                  "amount": "适量",
+                  "name": "丁香"
+                },
+                {
+                  "amount": "适量",
+                  "name": "山楂干"
+                },
+                {
+                  "amount": "适量",
+                  "name": "小茴香"
+                },
+                {
+                  "amount": "一大勺",
+                  "name": "料酒"
+                },
+                {
+                  "amount": "四瓣",
+                  "name": "蒜"
+                },
+                {
+                  "amount": "两勺",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "适量",
+                  "name": "桂皮"
+                },
+                {
+                  "amount": "适量",
+                  "name": "香叶"
+                },
+                {
+                  "amount": "适量",
+                  "name": "白芷"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "烧"
+              ],
+              "类型": [
+                "热菜"
+              ]
+            }
+          ],
+          "status": "ok"
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "test_rows_cleaned": true,
+  "summary": {
+    "cases": {
+      "passed": 3,
+      "total": 3,
+      "rate": 1.0
+    },
+    "checks": {
+      "passed": 54,
+      "total": 54,
+      "rate": 1.0
+    },
+    "returned_record_field_satisfaction": {
+      "passed": 6,
+      "total": 6,
+      "rate": 1.0
+    },
+    "selection_accuracy": {
+      "passed": 0,
+      "total": 0,
+      "rate": null
+    },
+    "recipe_quantity_accuracy": {
+      "passed": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "memory_checks": {
+      "passed": 0,
+      "total": 0,
+      "rate": null
+    },
+    "planner_fallback": {
+      "passed": 0,
+      "total": 3,
+      "rate": 0.0
+    },
+    "planner_validation_failure": {
+      "passed": 0,
+      "total": 3,
+      "rate": 0.0
+    },
+    "task_outcomes": {
+      "ok": 6,
+      "empty": 0,
+      "degraded": 0,
+      "failed": 0,
+      "blocked": 0
+    },
+    "planner_modes": {
+      "rules": 0,
+      "selection": 0,
+      "model": 3,
+      "fallback": 0
+    },
+    "request_latency": {
+      "samples": 3,
+      "mean_ms": 19380.239,
+      "p50_ms": 17392.623,
+      "p95_ms": 24098.825
+    },
+    "request_latency_by_path": {
+      "normal_graph": {
+        "samples": 3,
+        "mean_ms": 19380.239,
+        "p50_ms": 17392.623,
+        "p95_ms": 24098.825
+      }
+    },
+    "client_latency": {
+      "samples": 3,
+      "mean_ms": 19385.822,
+      "p50_ms": 17395.954,
+      "p95_ms": 24107.891
+    },
+    "timing_coverage": {
+      "passed": 3,
+      "total": 3,
+      "rate": 1.0
+    },
+    "stage_latency": {
+      "answer": {
+        "samples": 3,
+        "mean_ms": 4508.051,
+        "p50_ms": 4628.059,
+        "p95_ms": 6055.818,
+        "errors": 0,
+        "total_work_ms": 13524.152
+      },
+      "assistant_message_write": {
+        "samples": 3,
+        "mean_ms": 31.283,
+        "p50_ms": 32.055,
+        "p95_ms": 36.576,
+        "errors": 0,
+        "total_work_ms": 93.849
+      },
+      "checkpoint_read": {
+        "samples": 3,
+        "mean_ms": 4.799,
+        "p50_ms": 4.344,
+        "p95_ms": 6.06,
+        "errors": 0,
+        "total_work_ms": 14.397
+      },
+      "checkpoint_write": {
+        "samples": 1,
+        "mean_ms": 13.749,
+        "p50_ms": 13.749,
+        "p95_ms": 13.749,
+        "errors": 0,
+        "total_work_ms": 13.749
+      },
+      "graph": {
+        "samples": 3,
+        "mean_ms": 15897.934,
+        "p50_ms": 15791.469,
+        "p95_ms": 16264.91,
+        "errors": 0,
+        "total_work_ms": 47693.803
+      },
+      "history_recovery": {
+        "samples": 1,
+        "mean_ms": 50.358,
+        "p50_ms": 50.358,
+        "p95_ms": 50.358,
+        "errors": 0,
+        "total_work_ms": 50.358
+      },
+      "knowledge_retrieval": {
+        "samples": 1,
+        "mean_ms": 494.949,
+        "p50_ms": 494.949,
+        "p95_ms": 494.949,
+        "errors": 0,
+        "total_work_ms": 494.949
+      },
+      "lock_wait": {
+        "samples": 3,
+        "mean_ms": 0.014,
+        "p50_ms": 0.013,
+        "p95_ms": 0.018,
+        "errors": 0,
+        "total_work_ms": 0.041
+      },
+      "memory_confirmation": {
+        "samples": 3,
+        "mean_ms": 0.408,
+        "p50_ms": 0.211,
+        "p95_ms": 0.906,
+        "errors": 0,
+        "total_work_ms": 1.223
+      },
+      "memory_extract_model": {
+        "samples": 3,
+        "mean_ms": 1117.588,
+        "p50_ms": 818.418,
+        "p95_ms": 1790.711,
+        "errors": 0,
+        "total_work_ms": 3352.765
+      },
+      "memory_extraction": {
+        "samples": 3,
+        "mean_ms": 2747.723,
+        "p50_ms": 845.898,
+        "p95_ms": 6624.206,
+        "errors": 0,
+        "total_work_ms": 8243.17
+      },
+      "memory_recall": {
+        "samples": 3,
+        "mean_ms": 635.83,
+        "p50_ms": 204.896,
+        "p95_ms": 1532.258,
+        "errors": 0,
+        "total_work_ms": 1907.489
+      },
+      "memory_reconcile_model": {
+        "samples": 3,
+        "mean_ms": 1262.17,
+        "p50_ms": 1342.191,
+        "p95_ms": 1375.801,
+        "errors": 0,
+        "total_work_ms": 3786.509
+      },
+      "planner": {
+        "samples": 3,
+        "mean_ms": 7933.448,
+        "p50_ms": 7880.558,
+        "p95_ms": 8133.741,
+        "errors": 0,
+        "total_work_ms": 23800.345
+      },
+      "recipe_retrieval": {
+        "samples": 5,
+        "mean_ms": 1053.418,
+        "p50_ms": 476.064,
+        "p95_ms": 2399.877,
+        "errors": 0,
+        "total_work_ms": 5267.089
+      },
+      "router": {
+        "samples": 3,
+        "mean_ms": 2462.868,
+        "p50_ms": 2610.954,
+        "p95_ms": 2736.608,
+        "errors": 0,
+        "total_work_ms": 7388.605
+      },
+      "total": {
+        "samples": 3,
+        "mean_ms": 19380.239,
+        "p50_ms": 17392.623,
+        "p95_ms": 24098.825,
+        "errors": 0,
+        "total_work_ms": 58140.716
+      },
+      "user_message_write": {
+        "samples": 3,
+        "mean_ms": 39.782,
+        "p50_ms": 41.243,
+        "p95_ms": 46.822,
+        "errors": 0,
+        "total_work_ms": 119.347
+      }
+    },
+    "legacy_keyword_baseline": {
+      "cases": 0,
+      "fields": {
+        "passed": 0,
+        "total": 0,
+        "rate": null
+      }
+    },
+    "current_on_baseline_cases": {
+      "cases": 0,
+      "fields": {
+        "passed": 0,
+        "total": 0,
+        "rate": null
+      }
+    }
+  },
+  "passed": true
+}

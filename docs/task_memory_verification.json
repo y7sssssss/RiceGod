@@ -1,0 +1,765 @@
+{
+  "verified_at": "2026-09-18T08:55:34.440856+00:00",
+  "checks": [
+    {
+      "name": "confirmed_save_history_matches_response",
+      "passed": true
+    },
+    {
+      "name": "successful_save_has_database_receipt",
+      "passed": true
+    },
+    {
+      "name": "independent_counts_history_matches_response",
+      "passed": true
+    },
+    {
+      "name": "two_independent_recipe_tasks",
+      "passed": true
+    },
+    {
+      "name": "ingredients_and_counts_do_not_leak",
+      "passed": true
+    },
+    {
+      "name": "shared_memory_restrictions",
+      "passed": true
+    },
+    {
+      "name": "actual_neo4j_results_match_each_task",
+      "passed": true
+    },
+    {
+      "name": "all_selected_recipes_shown",
+      "passed": true
+    },
+    {
+      "name": "independent_local_restrictions_history_matches_response",
+      "passed": true
+    },
+    {
+      "name": "local_exclusion_and_spicy_requirement_remain_independent",
+      "passed": true
+    },
+    {
+      "name": "local_constraints_applied_in_real_graph",
+      "passed": true
+    },
+    {
+      "name": "failed_save_history_matches_response",
+      "passed": true
+    },
+    {
+      "name": "controlled_write_failure_exercised",
+      "passed": true
+    },
+    {
+      "name": "failed_write_does_not_claim_success",
+      "passed": true
+    }
+  ],
+  "chats": [
+    {
+      "name": "confirmed_save",
+      "question": "这是自动化测试虚构用户，不含真实个人信息。请长期记住：我不吃香菜，也不能吃辣。",
+      "response": {
+        "answer": "请问您今天想做什么菜？或者家里有哪些主要食材需要处理呢？\n\n已保存长期记忆：我不吃香菜；也不能吃辣。",
+        "route": "additional_query",
+        "logic": "用户明确表达了个人饮食偏好（不吃香菜、不能吃辣），这属于为后续食谱推荐或查询提供约束条件的信息。虽然当前没有直接询问具体菜谱，但这是典型的“additional_query”场景中的前置条件补充，或者是对系统记忆的设定，旨在辅助未来的“recipe_query”。由于没有具体的菜品查询动作，归类为需要进一步交互或确认的 additional_query 最为合适，因为它暗示了后续对话需要基于这些限制进行。",
+        "sources": [],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 39,
+              "user_id": "task-memory-verification-118eec04fb4b4d7dae58d211a7e8715a",
+              "type": "disliked_ingredient",
+              "content": "我不吃香菜",
+              "created_at": "2026-09-18T08:55:46.891403Z",
+              "updated_at": "2026-09-18T08:55:46.891403Z",
+              "source_message_id": 204,
+              "evidence": "我不吃香菜"
+            },
+            {
+              "id": 40,
+              "user_id": "task-memory-verification-118eec04fb4b4d7dae58d211a7e8715a",
+              "type": "dietary_preference",
+              "content": "也不能吃辣",
+              "created_at": "2026-09-18T08:55:48.662040Z",
+              "updated_at": "2026-09-18T08:55:48.662040Z",
+              "source_message_id": 204,
+              "evidence": "也不能吃辣"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "saved"
+        }
+      },
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "additional_query",
+            "question": "这是自动化测试虚构用户，不含真实个人信息。请长期记住：我不吃香菜，也不能吃辣。",
+            "depends_on": [],
+            "source_text": "",
+            "constraints": null,
+            "recipe_request": null
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "这是自动化测试虚构用户，不含真实个人信息。请长期记住：我不吃香菜，也不能吃辣。",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "additional_query",
+          "question": "这是自动化测试虚构用户，不含真实个人信息。请长期记住：我不吃香菜，也不能吃辣。",
+          "status": "ok",
+          "content": "收到，我已经记录下您的饮食偏好：不吃香菜，也不能吃辣。\n\n请问您今天想做什么菜？或者家里有哪些主要食材需要处理呢？",
+          "records": [],
+          "sources": [],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "independent_counts",
+      "question": "早餐用鸡蛋推荐两道菜，晚餐用土豆推荐一道菜。",
+      "response": {
+        "answer": "根据您的要求，结合您不吃香菜且不吃辣的偏好，为您推荐以下食谱：\n\n**早餐（鸡蛋）**\n1. **鸡蛋羹**\n   - **推荐理由**：以鸡蛋为主料，口味清淡，符合不吃辣的要求。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋、番茄沙司\n2. **水煮鸡蛋**\n   - **推荐理由**：以鸡蛋为主料，原味烹饪，无辛辣刺激。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋\n\n**晚餐（土豆）**\n1. **拔丝土豆**\n   - **推荐理由**：以土豆为主料，咸甜口味，不含辣椒或香菜。\n   - **记录耗时**：十分钟\n   - **主要食材**：土豆、白糖、盐\n\n请问您想了解哪道菜的详细材料和步骤？",
+        "route": "recipe_query",
+        "logic": "用户明确提出了两个具体的菜谱推荐需求：一是基于‘鸡蛋’食材的早餐菜，二是基于‘土豆’食材的晚餐菜。这属于根据特定食材寻找具体菜谱的场景，符合 recipe_query 的定义。",
+        "sources": [
+          "neo4j:Dish:鸡蛋羹",
+          "neo4j:Dish:水煮鸡蛋",
+          "neo4j:Dish:拔丝土豆"
+        ],
+        "used_memories": [
+          {
+            "id": 39,
+            "type": "disliked_ingredient",
+            "content": "我不吃香菜",
+            "score": 0.365752983565231
+          },
+          {
+            "id": 40,
+            "type": "dietary_preference",
+            "content": "也不能吃辣",
+            "score": 0.3010444606755269
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "recipe_query",
+            "question": "早餐用鸡蛋推荐两道菜。",
+            "depends_on": [],
+            "source_text": "早餐用鸡蛋推荐两道菜",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "鸡蛋"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "早餐用鸡蛋推荐两道菜",
+              "recommendation": true,
+              "limit": 2,
+              "requested_count": 2,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          },
+          {
+            "id": "task_2",
+            "route": "recipe_query",
+            "question": "晚餐用土豆推荐一道菜。",
+            "depends_on": [],
+            "source_text": "晚餐用土豆推荐一道菜",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "土豆"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "晚餐用土豆推荐一道菜",
+              "recommendation": true,
+              "limit": 1,
+              "requested_count": 1,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "早餐用鸡蛋推荐两道菜，晚餐用土豆推荐一道菜。",
+          "recommendation": true,
+          "limit": 1,
+          "requested_count": 1,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "recipe_query",
+          "question": "早餐用鸡蛋推荐两道菜。",
+          "status": "ok",
+          "content": "菜谱 1: 鸡蛋羹\n类型: ['汤羹']\n口味: ['清淡']\n工艺: ['蒸']\n耗时: 十分钟\n主食材: 鸡蛋(3个)\n辅料: 番茄沙司(适量)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n\n菜谱 2: 水煮鸡蛋\n类型: ['小吃']\n口味: ['原味']\n工艺: ['煮']\n耗时: 十分钟\n主食材: 鸡蛋(个)\n辅料: 自来水(适量)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "水煮鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:锅里加水。2:鸡蛋冷水下锅，煮10分钟。3:用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。4:成品哟，不喜欢吃半熟的可以煮久一些。",
+              "主食材": [
+                {
+                  "amount": "个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "自来水"
+                }
+              ],
+              "口味": [
+                "原味"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "小吃"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:鸡蛋羹",
+            "neo4j:Dish:水煮鸡蛋"
+          ],
+          "error_code": null
+        },
+        {
+          "task_id": "task_2",
+          "route": "recipe_query",
+          "question": "晚餐用土豆推荐一道菜。",
+          "status": "ok",
+          "content": "菜谱 1: 拔丝土豆\n类型: []\n口味: ['咸甜']\n工艺: ['炸']\n耗时: 十分钟\n主食材: 土豆(3个)\n辅料: 白糖(适量)、盐(适量)\n推荐理由: 指定食材用于主料：土豆；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "拔丝土豆",
+              "耗时": "十分钟",
+              "做法": "1:土豆3个，刨去外皮后切成滚刀块，放入水中，洗净表面淀粉后捞出装入碗中。2:碗中加入适量的盐，抓均后腌制10分钟。3:锅中去适量的油，烧成高温油后下入土豆块，用勺子搅动，炸至土豆表面微黄变硬后倒出。重新将油烧成高温油，下入土豆块，炸至表面金黄后倒出备用。4: 锅中留底油，加入3勺白糖和1勺冷水，转小火，不停搅动，将糖熬化。白糖变色，未翻泡前，迅速倒入土豆块，翻炒均匀，即可起锅。（食用时，备一碗冷开水，蘸水趁热食用）5:成品图",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "白糖"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸甜"
+              ],
+              "工艺": [
+                "炸"
+              ],
+              "类型": [],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:拔丝土豆"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "independent_local_restrictions",
+      "question": "早餐用鸡蛋不要土豆不吃辣推荐一道菜，晚餐用土豆做麻辣菜推荐两道菜。",
+      "response": {
+        "answer": "根据您的要求，为您推荐以下菜谱：\n\n**早餐推荐（1道）**\n1. **鸡蛋羹**\n   - **推荐理由**：以鸡蛋为主料，口味清淡，不含土豆且不吃辣，适合早餐。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋(3个)\n\n**晚餐推荐（2道）**\n1. **麻辣土豆片**\n   - **推荐理由**：以土豆为主料，口味麻辣，符合晚餐需求。\n   - **记录耗时**：十分钟\n   - **主要食材**：土豆(2个)\n2. **孜然土豆条**\n   - **推荐理由**：以土豆为主料，口味麻辣，符合晚餐需求。\n   - **记录耗时**：半小时\n   - **主要食材**：土豆(2个)\n\n请问您想了解哪道菜的详细材料和步骤？",
+        "route": "recipe_query",
+        "logic": "用户的问题包含两个独立的请求：首先要求基于特定条件（早餐、鸡蛋、非土豆、不辣）推荐一道菜，这属于具体菜谱查询；其次要求基于另一组条件（晚餐、土豆、麻辣）推荐两道菜，这也属于具体菜谱查询。虽然涉及不同餐次和食材，但核心意图均为获取符合约束条件的食谱推荐，因此归类为 recipe_query。",
+        "sources": [
+          "neo4j:Dish:鸡蛋羹",
+          "neo4j:Dish:麻辣土豆片",
+          "neo4j:Dish:孜然土豆条"
+        ],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "recipe_query",
+            "question": "早餐用鸡蛋不要土豆不吃辣推荐一道菜",
+            "depends_on": [],
+            "source_text": "早餐用鸡蛋不要土豆不吃辣推荐一道菜",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "鸡蛋"
+              ],
+              "excluded_ingredients": [
+                "土豆"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "早餐用鸡蛋不要土豆不吃辣推荐一道菜",
+              "recommendation": true,
+              "limit": 1,
+              "requested_count": 1,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          },
+          {
+            "id": "task_2",
+            "route": "recipe_query",
+            "question": "晚餐用土豆做麻辣菜推荐两道菜",
+            "depends_on": [],
+            "source_text": "晚餐用土豆做麻辣菜推荐两道菜",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "土豆"
+              ],
+              "excluded_ingredients": [],
+              "flavors": [
+                "麻辣"
+              ],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": false
+            },
+            "recipe_request": {
+              "query": "晚餐用土豆做麻辣菜推荐两道菜",
+              "recommendation": true,
+              "limit": 2,
+              "requested_count": 2,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": false
+        },
+        "recipe_request": {
+          "query": "早餐用鸡蛋不要土豆不吃辣推荐一道菜，晚餐用土豆做麻辣菜推荐两道菜。",
+          "recommendation": true,
+          "limit": 2,
+          "requested_count": 2,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "recipe_query",
+          "question": "早餐用鸡蛋不要土豆不吃辣推荐一道菜",
+          "status": "ok",
+          "content": "菜谱 1: 鸡蛋羹\n类型: ['汤羹']\n口味: ['清淡']\n工艺: ['蒸']\n耗时: 十分钟\n主食材: 鸡蛋(3个)\n辅料: 番茄沙司(适量)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "鸡蛋羹",
+              "耗时": "十分钟",
+              "做法": "1:选用三个柴鸡蛋，打在盘子里搅匀，盐勺撒盐2/3上锅蒸3分钟，涂番茄沙司，淋香油和极味鲜生抽，好了趁热打铁享用吧！待考核味道不错后在创新。2:需要加强知识点难度。3:美观大方点可爱点。",
+              "主食材": [
+                {
+                  "amount": "3个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "番茄沙司"
+                }
+              ],
+              "口味": [
+                "清淡"
+              ],
+              "工艺": [
+                "蒸"
+              ],
+              "类型": [
+                "汤羹"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:鸡蛋羹"
+          ],
+          "error_code": null
+        },
+        {
+          "task_id": "task_2",
+          "route": "recipe_query",
+          "question": "晚餐用土豆做麻辣菜推荐两道菜",
+          "status": "ok",
+          "content": "菜谱 1: 麻辣土豆片\n类型: ['凉菜']\n口味: ['麻辣']\n工艺: ['炝']\n耗时: 十分钟\n主食材: 土豆(2个)\n辅料: 干辣椒(2~3个)、芝麻(适量)、青椒(1个)、花椒(10颗)、食用油(适量)、麻油(适量)\n推荐理由: 指定食材用于主料：土豆；记录耗时：十分钟\n\n菜谱 2: 孜然土豆条\n类型: ['热菜']\n口味: ['麻辣']\n工艺: ['炒']\n耗时: 半小时\n主食材: 土豆(2个)\n辅料: 食用油(2勺)、蚝油(1勺)、辣椒面(2勺)、食用盐(半勺)、孜然粉(1勺)、生抽(1勺)、白砂糖(半勺)\n推荐理由: 指定食材用于主料：土豆；记录耗时：半小时\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "麻辣土豆片",
+              "耗时": "十分钟",
+              "做法": "1:土豆切片儿 薄一点哦2:锅里放水烧开后 焯一下(约2~3分钟)—— (这个根据个人口味 喜欢脆一点就焯的时间短一点)3:焯完水 捞出 沥干水，(可以用厨房用纸 吸一下水。没有可以不用 我就沥了一下)撒上切成段的 干辣椒和花椒 并倒入一些麻油 (根据个人口味 麻油适量4:锅里热油 适量 冒烟之后 把油浇在土豆片和辣椒花椒上5:喜欢吃辣的可以切些许尖椒段 加入 生抽 酱油 醋 加点糖 搅拌一下 倒在土豆片上6:之后 搅拌一下 (土豆片可以盛入瓷盆或不锈钢小盆里 方便翻动搅拌均匀，我是直接倒在碗里了)好了 最后呢 可以撒一些芝麻 又香又增加食欲 。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2~3个",
+                  "name": "干辣椒"
+                },
+                {
+                  "amount": "适量",
+                  "name": "芝麻"
+                },
+                {
+                  "amount": "1个",
+                  "name": "青椒"
+                },
+                {
+                  "amount": "10颗",
+                  "name": "花椒"
+                },
+                {
+                  "amount": "适量",
+                  "name": "食用油"
+                },
+                {
+                  "amount": "适量",
+                  "name": "麻油"
+                }
+              ],
+              "口味": [
+                "麻辣"
+              ],
+              "工艺": [
+                "炝"
+              ],
+              "类型": [
+                "凉菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "孜然土豆条",
+              "耗时": "半小时",
+              "做法": "1:准备土豆2个。2:用刮刀去皮之后，用波浪刀切成狼牙土豆形状（没有的亲们也不必纠结  ，我就是图个漂亮、好看）。3:为了不使土豆条在空气中暴露，易氧化而变黑，故要浸泡。4:土豆条在锅中焯水。5:煮至20分钟之后，土豆条变陶透明的颜色捞出。6:起锅烧油。7:放入葱片、姜片和干辣椒煸炒。8:下入土豆条翻炒。9:加入生抽。10:倒入生抽。11:加入耗油。12:加入白糖。13:加入食盐和孜然粉。14:加入葱花快速煸炒。15:成品图。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "土豆"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2勺",
+                  "name": "食用油"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "蚝油"
+                },
+                {
+                  "amount": "2勺",
+                  "name": "辣椒面"
+                },
+                {
+                  "amount": "半勺",
+                  "name": "食用盐"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "孜然粉"
+                },
+                {
+                  "amount": "1勺",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "半勺",
+                  "name": "白砂糖"
+                }
+              ],
+              "口味": [
+                "麻辣"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "热菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：土豆",
+                "记录耗时：半小时"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:麻辣土豆片",
+            "neo4j:Dish:孜然土豆条"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "failed_save",
+      "question": "这是自动化测试虚构偏好，请长期记住：我喜欢蒸菜。",
+      "response": {
+        "answer": "请问您今天想做什么类型的蒸菜呢？比如是想用现有的食材（如鱼、肉、蔬菜或豆腐）来制作，还是想尝试某种特定的菜式？\n\n本次有长期记忆未能保存，暂时不能确认这些信息会在后续对话中保留。",
+        "route": "additional_query",
+        "logic": "用户明确表达了个人饮食偏好（喜欢蒸菜），这属于为后续交互提供背景信息的补充性提问，旨在让助手记住该条件以便未来推荐或生成食谱时考虑此限制。虽然提到了“自动化测试虚构”，但核心意图是建立用户画像/偏好设置，符合 additional_query 中关于信息不足需继续追问或补充定义的范畴（即当前没有具体菜谱需求，而是设定前提）。",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 39,
+            "type": "disliked_ingredient",
+            "content": "我不吃香菜",
+            "score": 0.43439864013776663
+          },
+          {
+            "id": 40,
+            "type": "dietary_preference",
+            "content": "也不能吃辣",
+            "score": 0.30424475532231454
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 1,
+          "skipped_count": 0,
+          "status": "failed"
+        }
+      },
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "additional_query",
+            "question": "这是自动化测试虚构偏好，请长期记住：我喜欢蒸菜。",
+            "depends_on": [],
+            "source_text": "",
+            "constraints": null,
+            "recipe_request": null
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [
+            "蒸菜"
+          ],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [
+            "蒸"
+          ],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "这是自动化测试虚构偏好，请长期记住：我喜欢蒸菜。",
+          "recommendation": true,
+          "limit": 3,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "additional_query",
+          "question": "这是自动化测试虚构偏好，请长期记住：我喜欢蒸菜。",
+          "status": "ok",
+          "content": "收到，我已经记住了您喜欢蒸菜、不吃香菜且不能吃辣的偏好。\n\n请问您今天想做什么类型的蒸菜呢？比如是想用现有的食材（如鱼、肉、蔬菜或豆腐）来制作，还是想尝试某种特定的菜式？",
+          "records": [],
+          "sources": [],
+          "error_code": null
+        }
+      ]
+    }
+  ],
+  "scope": "Opt-in real-model/database checks for task scopes and memory acknowledgements.\n\nThe last case deliberately rejects memory INSERT/UPDATE calls for one synthetic\nuser. All other retrieval/model/storage calls are real. Only UUID test rows are\ncleaned. Run: python -m scripts.verify_task_memory\n",
+  "test_rows_cleaned": true,
+  "passed": true
+}

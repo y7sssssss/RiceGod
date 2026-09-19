@@ -1,0 +1,353 @@
+{
+  "verified_at": "2026-09-18T07:09:46.015339+00:00",
+  "scope": "Four hand-written ranking checks on real Neo4j and local recipes. Checks fields, counts and backend consistency; not overall recommendation quality or answer accuracy.",
+  "cases": [
+    {
+      "id": "egg_default_three",
+      "question": "用鸡蛋推荐家常菜，不要香菜，不吃辣",
+      "checks": {
+        "expected_count": true,
+        "hard_constraints": true,
+        "backend_order_consistent": true
+      },
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [
+          "鸡蛋"
+        ],
+        "excluded_ingredients": [
+          "香菜"
+        ],
+        "flavors": [],
+        "methods": [],
+        "dish_types": [
+          "家常菜"
+        ],
+        "avoid_spicy": true
+      },
+      "request": {
+        "query": "用鸡蛋推荐家常菜，不要香菜，不吃辣",
+        "recommendation": true,
+        "limit": 3,
+        "requested_count": null,
+        "detailed": false,
+        "prefer_quick": false,
+        "prefer_simple": false,
+        "preferred_flavors": [],
+        "preferred_methods": []
+      },
+      "baseline": [
+        {
+          "name": "#萝卜#胡萝卜香肠面饼",
+          "time": "数小时"
+        },
+        {
+          "name": "三丝炒蛋",
+          "time": "十分钟"
+        },
+        {
+          "name": "三味藕丝蛋饼",
+          "time": "廿分钟"
+        }
+      ],
+      "ranked": [
+        {
+          "name": "西红柿炒鸡蛋",
+          "time": "十分钟",
+          "method": [
+            "炒"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡蛋",
+            "记录耗时：十分钟"
+          ]
+        },
+        {
+          "name": "西红柿鸡蛋饼",
+          "time": "十分钟",
+          "method": [
+            "其他"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡蛋",
+            "记录耗时：十分钟"
+          ]
+        },
+        {
+          "name": "茼蒿鸡蛋饼",
+          "time": "十分钟",
+          "method": [
+            "煎"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡蛋",
+            "记录耗时：十分钟"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "potato_quick",
+      "question": "用土豆推荐简单快手家常菜",
+      "checks": {
+        "expected_count": true,
+        "hard_constraints": true,
+        "backend_order_consistent": true
+      },
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [
+          "土豆"
+        ],
+        "excluded_ingredients": [],
+        "flavors": [],
+        "methods": [],
+        "dish_types": [
+          "家常菜"
+        ],
+        "avoid_spicy": false
+      },
+      "request": {
+        "query": "用土豆推荐简单快手家常菜",
+        "recommendation": true,
+        "limit": 3,
+        "requested_count": null,
+        "detailed": false,
+        "prefer_quick": true,
+        "prefer_simple": true,
+        "preferred_flavors": [],
+        "preferred_methods": []
+      },
+      "baseline": [
+        {
+          "name": "乱炖",
+          "time": ""
+        },
+        {
+          "name": "咖喱鸡胸肉土豆",
+          "time": "廿分钟"
+        },
+        {
+          "name": "土豆炖架豆王",
+          "time": "半小时"
+        }
+      ],
+      "ranked": [
+        {
+          "name": "清炒土豆丝",
+          "time": "十分钟",
+          "method": [
+            "炒"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：土豆",
+            "记录耗时：十分钟"
+          ]
+        },
+        {
+          "name": "懒人土豆",
+          "time": "廿分钟",
+          "method": [
+            "煎"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：土豆",
+            "记录耗时：廿分钟"
+          ]
+        },
+        {
+          "name": "怪味土豆条",
+          "time": "廿分钟",
+          "method": [
+            "炸"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：土豆",
+            "记录耗时：廿分钟"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chicken_one",
+      "question": "用鸡肉推荐一道家常菜，不要花生",
+      "checks": {
+        "expected_count": true,
+        "hard_constraints": true,
+        "backend_order_consistent": true
+      },
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [
+          "鸡肉"
+        ],
+        "excluded_ingredients": [
+          "花生"
+        ],
+        "flavors": [],
+        "methods": [],
+        "dish_types": [
+          "家常菜"
+        ],
+        "avoid_spicy": false
+      },
+      "request": {
+        "query": "用鸡肉推荐一道家常菜，不要花生",
+        "recommendation": true,
+        "limit": 1,
+        "requested_count": 1,
+        "detailed": false,
+        "prefer_quick": false,
+        "prefer_simple": false,
+        "preferred_flavors": [],
+        "preferred_methods": []
+      },
+      "baseline": [
+        {
+          "name": "孜然鸡胸肉",
+          "time": "半小时"
+        }
+      ],
+      "ranked": [
+        {
+          "name": "白萝卜鸡肉卷",
+          "time": "半小时",
+          "method": [
+            "蒸"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡肉",
+            "记录耗时：半小时"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "egg_five",
+      "question": "用鸡蛋推荐五道家常菜，不要香菜",
+      "checks": {
+        "expected_count": true,
+        "hard_constraints": true,
+        "backend_order_consistent": true
+      },
+      "constraints": {
+        "dish_name": null,
+        "required_ingredients": [
+          "鸡蛋"
+        ],
+        "excluded_ingredients": [
+          "香菜"
+        ],
+        "flavors": [],
+        "methods": [],
+        "dish_types": [
+          "家常菜"
+        ],
+        "avoid_spicy": false
+      },
+      "request": {
+        "query": "用鸡蛋推荐五道家常菜，不要香菜",
+        "recommendation": true,
+        "limit": 5,
+        "requested_count": 5,
+        "detailed": false,
+        "prefer_quick": false,
+        "prefer_simple": false,
+        "preferred_flavors": [],
+        "preferred_methods": []
+      },
+      "baseline": [
+        {
+          "name": "#萝卜#胡萝卜香肠面饼",
+          "time": "数小时"
+        },
+        {
+          "name": "三丝炒蛋",
+          "time": "十分钟"
+        },
+        {
+          "name": "三味藕丝蛋饼",
+          "time": "廿分钟"
+        },
+        {
+          "name": "三鲜南瓜麦虾",
+          "time": "廿分钟"
+        },
+        {
+          "name": "丝瓜番茄炒蛋",
+          "time": "十分钟"
+        }
+      ],
+      "ranked": [
+        {
+          "name": "西红柿炒鸡蛋",
+          "time": "十分钟",
+          "method": [
+            "炒"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡蛋",
+            "记录耗时：十分钟"
+          ]
+        },
+        {
+          "name": "西红柿鸡蛋饼",
+          "time": "十分钟",
+          "method": [
+            "其他"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡蛋",
+            "记录耗时：十分钟"
+          ]
+        },
+        {
+          "name": "茼蒿鸡蛋饼",
+          "time": "十分钟",
+          "method": [
+            "煎"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡蛋",
+            "记录耗时：十分钟"
+          ]
+        },
+        {
+          "name": "西红柿鸡蛋热汤面",
+          "time": "十分钟",
+          "method": [
+            "煮"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡蛋",
+            "记录耗时：十分钟"
+          ]
+        },
+        {
+          "name": "鸡蛋玉米卷饼",
+          "time": "十分钟",
+          "method": [
+            "烙"
+          ],
+          "ingredient_in_main": true,
+          "reasons": [
+            "指定食材用于主料：鸡蛋",
+            "记录耗时：十分钟"
+          ]
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

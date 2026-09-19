@@ -1,0 +1,506 @@
+{
+  "verified_at": "2026-09-18T09:28:10.169112+00:00",
+  "checks": [
+    {
+      "name": "save_history_matches",
+      "passed": true
+    },
+    {
+      "name": "normal_save_uses_extractor",
+      "passed": true
+    },
+    {
+      "name": "recommend_history_matches",
+      "passed": true
+    },
+    {
+      "name": "three_recommendations",
+      "passed": true
+    },
+    {
+      "name": "thanks_history_matches",
+      "passed": true
+    },
+    {
+      "name": "thanks_skips_extractor",
+      "passed": true
+    },
+    {
+      "name": "second_history_matches",
+      "passed": true
+    },
+    {
+      "name": "selection_skips_extractor",
+      "passed": true
+    },
+    {
+      "name": "mixed_feedback_history_matches",
+      "passed": true
+    },
+    {
+      "name": "mixed_feedback_still_uses_extractor",
+      "passed": true
+    },
+    {
+      "name": "correct_history_matches",
+      "passed": true
+    },
+    {
+      "name": "correction_is_same_row_and_immediate",
+      "passed": true
+    },
+    {
+      "name": "forget_history_matches",
+      "passed": true
+    },
+    {
+      "name": "forget_removes_row_before_recall",
+      "passed": true
+    },
+    {
+      "name": "ambiguous_history_matches",
+      "passed": true
+    },
+    {
+      "name": "ambiguous_target_does_not_delete",
+      "passed": true
+    },
+    {
+      "name": "foreign_history_matches",
+      "passed": true
+    },
+    {
+      "name": "foreign_target_cannot_be_deleted",
+      "passed": true
+    },
+    {
+      "name": "forget_then_recommend_history_matches",
+      "passed": true
+    },
+    {
+      "name": "forgotten_constraint_not_reapplied",
+      "passed": true
+    }
+  ],
+  "chats": [
+    {
+      "name": "save",
+      "question": "请记住，我喜欢清淡口味。",
+      "response": {
+        "answer": "收到，我已经知道您偏好清淡口味了。请问今天您想做什么菜呢？或者手头有哪些食材想要利用起来？\n\n已保存长期记忆：我喜欢清淡口味。",
+        "route": "additional_query",
+        "logic": "用户表达个人口味偏好（清淡），这属于为后续推荐或查询做铺垫的信息，但当前并未提出具体的做菜、查菜谱或询问知识的需求。根据定义，这类信息不足、需要系统进一步确认或等待具体指令的情况，归类为 additional_query。",
+        "sources": [],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 48,
+              "user_id": "memory-operations-0e41e5e75d424ab1bc9b4a462d5ec1c5",
+              "type": "dietary_preference",
+              "content": "我喜欢清淡口味",
+              "created_at": "2026-09-18T09:28:20.308732Z",
+              "updated_at": "2026-09-18T09:28:20.308732Z",
+              "source_message_id": 235,
+              "evidence": "我喜欢清淡口味"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "completed",
+          "extraction_skip_reason": null,
+          "operation": null,
+          "status": "saved"
+        }
+      },
+      "extraction_model_calls": 1
+    },
+    {
+      "name": "recommend",
+      "question": "用鸡蛋推荐三道家常菜",
+      "response": {
+        "answer": "为您找到以下三道以鸡蛋为主料的家常菜：\n\n1. **番茄鸡蛋玉米面条**\n   - **推荐理由**：符合您清淡口味的偏好，且制作快捷。\n   - **耗时**：十分钟\n   - **主要食材**：鸡蛋(2个)、番茄(3个)、玉米面条(100克)\n\n2. **西红柿炒鸡蛋**\n   - **推荐理由**：经典家常菜，制作简单。\n   - **耗时**：十分钟\n   - **主要食材**：鸡蛋(2个)、西红柿(1个)\n\n3. **西红柿鸡蛋饼**\n   - **推荐理由**：快手早餐或简餐选择。\n   - **耗时**：十分钟\n   - **主要食材**：鸡蛋(两个)、西红柿(一个)\n\n请问您想了解哪道菜的详细材料和步骤？",
+        "route": "recipe_query",
+        "logic": "用户明确要求基于特定食材（鸡蛋）推荐具体的菜品（家常菜），这属于根据食材和口味偏好进行菜谱推荐，符合 recipe_query 的定义。",
+        "sources": [
+          "neo4j:Dish:番茄鸡蛋玉米面条",
+          "neo4j:Dish:西红柿炒鸡蛋",
+          "neo4j:Dish:西红柿鸡蛋饼"
+        ],
+        "used_memories": [
+          {
+            "id": 48,
+            "type": "dietary_preference",
+            "content": "我喜欢清淡口味",
+            "score": 0.37114185565970237
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "completed",
+          "extraction_skip_reason": null,
+          "operation": null,
+          "status": "no_candidates"
+        }
+      },
+      "extraction_model_calls": 2
+    },
+    {
+      "name": "thanks",
+      "question": "谢谢！",
+      "response": {
+        "answer": "不客气！如果您之后需要更多清淡口味的食谱，或者想了解食材搭配，随时告诉我。祝您用餐愉快！",
+        "route": "general_query",
+        "logic": "用户发送了“谢谢！”，属于表达感谢的普通寒暄，符合 general_query 的定义。",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 48,
+            "type": "dietary_preference",
+            "content": "我喜欢清淡口味",
+            "score": 0.3426824275946909
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "pure_greeting",
+          "operation": null,
+          "status": "no_candidates"
+        }
+      },
+      "extraction_model_calls": 2
+    },
+    {
+      "name": "second",
+      "question": "第二道怎么做",
+      "response": {
+        "answer": "以下是**西红柿炒鸡蛋**的详细做法：\n\n**主要食材：**\n*   鸡蛋：2个\n*   西红柿：1个\n\n**辅料：**\n*   生抽：2匙\n*   葱：10g\n*   十三香：半匙\n*   盐：2匙\n\n**制作步骤：**\n1.  西红柿切成小块，葱切成丝。\n2.  鸡蛋打好，放盐、放十三香然后搅匀。\n3.  炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。\n4.  炒锅放入一点油放葱爆香。\n5.  放入西红柿，加生抽、加盐翻炒。\n6.  待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:西红柿炒鸡蛋"
+        ],
+        "used_memories": [
+          {
+            "id": 48,
+            "type": "dietary_preference",
+            "content": "我喜欢清淡口味",
+            "score": 0.28631628152609934
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "pure_recipe_selection",
+          "operation": null,
+          "status": "no_candidates"
+        }
+      },
+      "extraction_model_calls": 2
+    },
+    {
+      "name": "mixed_feedback",
+      "question": "第二道很好吃，以后多推荐这种",
+      "response": {
+        "answer": "太好了，很高兴您喜欢这道菜！既然您偏爱这种清淡又家常的风格，以后我会多为您挑选类似做法简单、口味清爽的食谱。\n\n如果您下次想尝试其他食材或换换口味，随时告诉我哦！\n\n已保存长期记忆：第二道很好吃，以后多推荐这种。",
+        "route": "additional_query",
+        "logic": "用户表达了对上一道菜（西红柿炒鸡蛋）的喜爱，并提出了未来的推荐偏好。这属于对当前交互的反馈以及设定未来的推荐规则，信息不足以直接生成新的菜谱查询，需要助手确认并记录该偏好以便后续服务，符合 additional_query 中“需要继续追问”或“建立上下文/记忆”的特征。",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 48,
+            "type": "dietary_preference",
+            "content": "我喜欢清淡口味",
+            "score": 0.40896287217253025
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 49,
+              "user_id": "memory-operations-0e41e5e75d424ab1bc9b4a462d5ec1c5",
+              "type": "recipe_feedback",
+              "content": "第二道很好吃，以后多推荐这种",
+              "created_at": "2026-09-18T09:28:52.389652Z",
+              "updated_at": "2026-09-18T09:28:52.389652Z",
+              "source_message_id": 243,
+              "evidence": "第二道很好吃，以后多推荐这种"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "completed",
+          "extraction_skip_reason": null,
+          "operation": null,
+          "status": "saved"
+        }
+      },
+      "extraction_model_calls": 3
+    },
+    {
+      "name": "correct",
+      "question": "把我喜欢清淡口味改成我喜欢麻辣口味",
+      "response": {
+        "answer": "已更新长期记忆：我喜欢麻辣口味。",
+        "route": "general_query",
+        "logic": "explicit memory operation",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 48,
+            "type": "dietary_preference",
+            "content": "我喜欢麻辣口味",
+            "score": 0.8398248063038223
+          },
+          {
+            "id": 49,
+            "type": "recipe_feedback",
+            "content": "第二道很好吃，以后多推荐这种",
+            "score": 0.4355999703271052
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 48,
+              "user_id": "memory-operations-0e41e5e75d424ab1bc9b4a462d5ec1c5",
+              "type": "dietary_preference",
+              "content": "我喜欢麻辣口味",
+              "created_at": "2026-09-18T09:28:20.308732Z",
+              "updated_at": "2026-09-18T09:28:52.698119Z",
+              "source_message_id": 245,
+              "evidence": "我喜欢麻辣口味"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "explicit_memory_operation",
+          "operation": {
+            "action": "update",
+            "status": "applied",
+            "memory_id": 48,
+            "message": "已更新长期记忆：我喜欢麻辣口味。"
+          },
+          "status": "updated"
+        }
+      },
+      "extraction_model_calls": 3
+    },
+    {
+      "name": "forget",
+      "question": "忘掉我喜欢麻辣口味这条记忆",
+      "response": {
+        "answer": "已删除长期记忆：我喜欢麻辣口味。",
+        "route": "general_query",
+        "logic": "explicit memory operation",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 49,
+            "type": "recipe_feedback",
+            "content": "第二道很好吃，以后多推荐这种",
+            "score": 0.4451150721547974
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [
+            48
+          ],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "explicit_memory_operation",
+          "operation": {
+            "action": "delete",
+            "status": "applied",
+            "memory_id": 48,
+            "message": "已删除长期记忆：我喜欢麻辣口味。"
+          },
+          "status": "deleted"
+        }
+      },
+      "extraction_model_calls": 3
+    },
+    {
+      "name": "ambiguous",
+      "question": "忘掉清淡偏好",
+      "response": {
+        "answer": "找到多条可能对应的长期记忆，请明确其中一条：偏好清淡少油；喜欢清淡。\n\n找到多条可能对应的长期记忆，请明确其中一条：偏好清淡少油；喜欢清淡。",
+        "route": "general_query",
+        "logic": "explicit memory operation",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 50,
+            "type": "dietary_preference",
+            "content": "喜欢清淡",
+            "score": 0.779568417345053
+          },
+          {
+            "id": 51,
+            "type": "dietary_preference",
+            "content": "偏好清淡少油",
+            "score": 0.7674247999399472
+          },
+          {
+            "id": 49,
+            "type": "recipe_feedback",
+            "content": "第二道很好吃，以后多推荐这种",
+            "score": 0.3823601679504438
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "explicit_memory_operation",
+          "operation": {
+            "action": "delete",
+            "status": "ambiguous",
+            "memory_id": null,
+            "message": "找到多条可能对应的长期记忆，请明确其中一条：偏好清淡少油；喜欢清淡。"
+          },
+          "status": "needs_clarification"
+        }
+      },
+      "extraction_model_calls": 3
+    },
+    {
+      "name": "foreign",
+      "question": "忘掉葱香偏好",
+      "response": {
+        "answer": "没有找到对应的长期记忆，未执行修改或删除。\n\n没有找到对应的长期记忆，未执行修改或删除。",
+        "route": "general_query",
+        "logic": "explicit memory operation",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 51,
+            "type": "dietary_preference",
+            "content": "偏好清淡少油",
+            "score": 0.5451665837865178
+          },
+          {
+            "id": 50,
+            "type": "dietary_preference",
+            "content": "喜欢清淡",
+            "score": 0.537725949743942
+          },
+          {
+            "id": 49,
+            "type": "recipe_feedback",
+            "content": "第二道很好吃，以后多推荐这种",
+            "score": 0.3858907046240142
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "explicit_memory_operation",
+          "operation": {
+            "action": "delete",
+            "status": "not_found",
+            "memory_id": null,
+            "message": "没有找到对应的长期记忆，未执行修改或删除。"
+          },
+          "status": "not_found"
+        }
+      },
+      "extraction_model_calls": 3
+    },
+    {
+      "name": "forget_then_recommend",
+      "question": "忘掉不吃鸡蛋的记忆，用鸡蛋推荐两道菜",
+      "response": {
+        "answer": "根据您的要求，已忽略“不吃鸡蛋”的限制，为您推荐以下两道以鸡蛋为主料且符合清淡口味的菜谱：\n\n1. **鸡蛋羹**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟；符合已表达的口味偏好：清淡。\n   - **主要食材**：鸡蛋(3个)\n   - **耗时**：十分钟\n\n2. **木瓜炒鸡蛋**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟；符合已表达的口味偏好：清淡。\n   - **主要食材**：木瓜(适量)、鸡蛋(3只)\n   - **耗时**：十分钟\n\n请问您想查看哪道菜的详细材料和步骤？\n\n已删除长期记忆：不吃鸡蛋。",
+        "route": "recipe_query",
+        "logic": "用户首先声明了饮食禁忌（不吃鸡蛋），这属于对后续推荐条件的约束。随后用户明确要求“用鸡蛋推荐两道菜”，这是一个具体的菜谱查询请求。虽然用户的陈述“不吃鸡蛋”与请求“用鸡蛋推荐”在逻辑上存在矛盾，但从意图分类的角度看，核心 actionable intent 是获取菜谱推荐。因此主要意图为 recipe_query。如果将“不吃鸡蛋”视为独立的偏好设置或澄清需求，可能涉及 additional_query，但在此语境下，它更像是推荐条件的一部分（尽管是冲突的）。鉴于主要目标是获得菜品列表，归类为 recipe_query 最为准确。",
+        "sources": [
+          "neo4j:Dish:鸡蛋羹",
+          "neo4j:Dish:木瓜炒鸡蛋"
+        ],
+        "used_memories": [
+          {
+            "id": 49,
+            "type": "recipe_feedback",
+            "content": "第二道很好吃，以后多推荐这种",
+            "score": 0.5366422487824276
+          },
+          {
+            "id": 51,
+            "type": "dietary_preference",
+            "content": "偏好清淡少油",
+            "score": 0.3903709327450948
+          },
+          {
+            "id": 50,
+            "type": "dietary_preference",
+            "content": "喜欢清淡",
+            "score": 0.3662164292714861
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [
+            53
+          ],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "completed",
+          "extraction_skip_reason": null,
+          "operation": {
+            "action": "delete",
+            "status": "applied",
+            "memory_id": 53,
+            "message": "已删除长期记忆：不吃鸡蛋。"
+          },
+          "status": "deleted"
+        }
+      },
+      "extraction_model_calls": 4
+    }
+  ],
+  "extraction_model_calls": 4,
+  "test_rows_cleaned": true,
+  "passed": true
+}

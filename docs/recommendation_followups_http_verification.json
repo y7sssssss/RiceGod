@@ -1,0 +1,94 @@
+{
+  "checks": [
+    {
+      "name": "recommend_three",
+      "passed": true,
+      "response": {
+        "answer": "为您找到以下三道以鸡蛋为主料的家常菜：\n\n1. **西红柿炒鸡蛋**\n   - 推荐理由：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - 主要食材：鸡蛋(2个)、西红柿(1个)\n\n2. **西红柿鸡蛋饼**\n   - 推荐理由：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - 主要食材：鸡蛋(两个)、西红柿(一个)\n\n3. **茼蒿鸡蛋饼**\n   - 推荐理由：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - 主要食材：面粉(20g)、鸡蛋(3个)、茼蒿(1把)\n\n请问您想查看哪道菜的详细材料和步骤？",
+        "route": "recipe_query",
+        "logic": "用户明确要求基于特定食材（鸡蛋）推荐具体的菜品（三道家常菜），这属于根据食材寻找菜谱的范畴，符合 recipe_query 的定义。",
+        "sources": [
+          "neo4j:Dish:西红柿炒鸡蛋",
+          "neo4j:Dish:西红柿鸡蛋饼",
+          "neo4j:Dish:茼蒿鸡蛋饼"
+        ],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      }
+    },
+    {
+      "name": "thanks",
+      "passed": true,
+      "response": {
+        "answer": "不客气！如果您之后想尝试具体的菜谱，或者需要其他食材的搭配建议，随时告诉我。祝您用餐愉快！",
+        "route": "general_query",
+        "logic": "用户发送了“谢谢”，属于表达感谢的普通寒暄，符合 general_query 的定义。",
+        "sources": [],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      }
+    },
+    {
+      "name": "second_after_thanks",
+      "passed": true,
+      "response": {
+        "answer": "以下是**西红柿鸡蛋饼**的详细做法：\n\n**主要食材：**\n*   鸡蛋：两个\n*   西红柿：一个\n\n**辅料：**\n*   香葱：一棵\n*   面粉：两大勺\n*   盐：适量\n*   五香粉：少许\n\n**制作步骤：**\n1.  **备料**：准备好所有食材。\n2.  **调糊**：把西红柿洗净去皮切碎，放到碗里；把香葱切圈放到碗里；打入鸡蛋，加入两勺面粉、适量盐和少许五香粉。\n3.  **混合**：加少许水，将上述材料调成面糊。\n4.  **煎制**：饼铛预热，刷上少许油，倒入面糊摊成饼。\n5.  **翻面**：待上面的面糊凝固后，翻面再烙一两分钟。\n6.  **出锅**：即可出锅享用。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:西红柿鸡蛋饼"
+        ],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      }
+    },
+    {
+      "name": "third_after_second_details",
+      "passed": true,
+      "response": {
+        "answer": "以下是**茼蒿鸡蛋饼**的详细做法：\n\n**主要食材：**\n*   面粉：20g\n*   鸡蛋：3个\n*   茼蒿：1把\n\n**辅料：**\n*   盐：1匙\n*   植物油：1勺\n\n**制作步骤：**\n1.  **处理茼蒿**：将茼蒿切小段。\n2.  **混合原料**：打入鸡蛋，加入面粉和盐。\n3.  **调糊**：加入少许清水，搅拌成糊状。\n4.  **煎制**：在电饼铛中加入植物油，倒入面糊铺平。\n5.  **完成**：煎至两面金黄即可出锅。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:茼蒿鸡蛋饼"
+        ],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      }
+    }
+  ],
+  "test_rows_cleaned": true,
+  "passed": true
+}

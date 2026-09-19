@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "dishes": 19669,
+    "canonical_ingredients": 11549,
+    "ingredient_aliases": 236,
+    "ingredient_categories": 14,
+    "allergens": 9,
+    "sources": 3
+  },
+  "coverage": {
+    "categorized_ingredients": {
+      "covered": 53,
+      "total": 11549,
+      "rate": 0.004589
+    },
+    "allergen_mapping_density": {
+      "mapped_ingredients": 43,
+      "total_ingredients": 11549,
+      "rate": 0.003723,
+      "mappings": 43
+    },
+    "dish_fields": {
+      "main_ingredient": {
+        "covered": 19423,
+        "total": 19669,
+        "rate": 0.987493
+      },
+      "any_ingredient": {
+        "covered": 19669,
+        "total": 19669,
+        "rate": 1.0
+      },
+      "flavor": {
+        "covered": 19669,
+        "total": 19669,
+        "rate": 1.0
+      },
+      "method": {
+        "covered": 18891,
+        "total": 19669,
+        "rate": 0.960445
+      },
+      "dish_type": {
+        "covered": 12000,
+        "total": 19669,
+        "rate": 0.610097
+      },
+      "instructions": {
+        "covered": 19669,
+        "total": 19669,
+        "rate": 1.0
+      }
+    },
+    "substitutions": {
+      "edges": 4,
+      "ingredients": 4,
+      "source_complete": 4
+    }
+  },
+  "quality": {
+    "self_aliases": 0,
+    "dangling_alias_targets": 0,
+    "dangling_category_links": 0,
+    "dangling_allergen_links": 0,
+    "substitution_endpoints_absent_from_recipes": 0,
+    "substitution_edges_without_known_source": 0
+  }
+}

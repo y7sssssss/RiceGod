@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "description": "Supplemental model-planning checks: separate non-meal requests and mixed recipe/culture tasks. Does not grade historical factual accuracy.",
+  "scenarios": [
+    {"id":"complex_planning","turns":[
+      {"id":"nonmeal_scopes","message":"分别用鸡蛋推荐两道清淡家常菜，不要香菜；用土豆推荐一道麻辣家常菜，不要花生。","routes":["recipe_query"],"recipes":[{"scope":"鸡蛋","count":2,"required":["鸡蛋"],"excluded":["香菜"],"flavors":["清淡"],"dish_types":["家常菜"]},{"scope":"土豆","count":1,"required":["土豆"],"excluded":["花生"],"flavors":["麻辣"],"dish_types":["家常菜"]}]},
+      {"id":"named_recipe_and_culture","message":"西红柿炒鸡蛋怎么做，并介绍川菜的历史与特点。","routes":["recipe_query","food_knowledge"],"recipes":[{"count":1,"dish_name":"西红柿炒鸡蛋","required":["鸡蛋"]}],"culture_evidence":true},
+      {"id":"two_named_recipes","message":"西红柿炒鸡蛋怎么做；红烧肉怎么做？","routes":["recipe_query"],"recipes":[{"scope":"西红柿炒鸡蛋","count":1,"dish_name":"西红柿炒鸡蛋","required":["鸡蛋"]},{"scope":"红烧肉","count":1,"dish_name":"红烧肉"}]}
+    ]}
+  ]
+}

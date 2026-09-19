@@ -1,0 +1,58 @@
+{
+  "version": "1.2",
+  "description": "Frozen hand-written field and workflow checks. Requiring and excluding the same ingredient requires clarification, per product requirement. Not a benchmark of culinary taste, factual accuracy, authentication or all natural-language expressions.",
+  "scenarios": [
+    {"id":"basic","turns":[
+      {"id":"greeting","message":"你好","routes":["general_query"],"extraction_status":"skipped"},
+      {"id":"egg_three","message":"用鸡蛋推荐三道家常菜","routes":["recipe_query"],"recipes":[{"count":3,"required":["鸡蛋"],"dish_types":["家常菜"]}],"baseline":true},
+      {"id":"chicken_one","message":"用鸡肉推荐一道家常菜，不要花生","recipes":[{"count":1,"required":["鸡肉"],"excluded":["花生"],"dish_types":["家常菜"]}],"baseline":true},
+      {"id":"egg_five","message":"用鸡蛋推荐五道家常菜，不要香菜","recipes":[{"count":5,"required":["鸡蛋"],"excluded":["香菜"],"dish_types":["家常菜"]}],"baseline":true},
+      {"id":"two_ingredients","message":"用土豆和鸡蛋推荐两道家常菜","recipes":[{"count":2,"allow_fewer":true,"required":["土豆","鸡蛋"],"dish_types":["家常菜"]}],"baseline":true},
+      {"id":"no_spicy","message":"不吃辣，推荐三道家常菜","recipes":[{"count":3,"dish_types":["家常菜"],"avoid_spicy":true}],"baseline":true},
+      {"id":"steamed_egg","message":"用鸡蛋推荐两道蒸的家常菜","recipes":[{"count":2,"required":["鸡蛋"],"methods":["蒸"],"dish_types":["家常菜"]}],"baseline":true},
+      {"id":"flavor_and_type","message":"用鸡肉推荐两道咸鲜热菜，不要花生","recipes":[{"count":2,"required":["鸡肉"],"excluded":["花生"],"flavors":["咸鲜"],"dish_types":["热菜"]}],"baseline":true},
+      {"id":"contradiction","message":"用鸡蛋推荐两道菜，不要鸡蛋","routes":["additional_query"],"conflict_clarification":"矛盾"},
+      {"id":"count_cap","message":"用鸡蛋推荐十二道家常菜","recipes":[{"count":10,"required":["鸡蛋"],"dish_types":["家常菜"]}]},
+      {"id":"detail_named","message":"西红柿炒鸡蛋怎么做","recipes":[{"count":1,"dish_name":"西红柿炒鸡蛋","required":["鸡蛋"]}]}
+    ]},
+    {"id":"independent_tasks","turns":[
+      {"id":"meal_ingredients","message":"早餐用鸡蛋推荐两道家常菜，晚餐用土豆推荐一道家常菜。","recipes":[{"scope":"早餐","count":2,"required":["鸡蛋"],"dish_types":["家常菜"]},{"scope":"晚餐","count":1,"required":["土豆"],"dish_types":["家常菜"]}]},
+      {"id":"meal_local_flavor","message":"早餐用鸡蛋推荐两道家常菜，不吃辣；晚餐用土豆推荐一道麻辣家常菜。","recipes":[{"scope":"早餐","count":2,"required":["鸡蛋"],"dish_types":["家常菜"],"avoid_spicy":true},{"scope":"晚餐","count":1,"required":["土豆"],"flavors":["麻辣"],"dish_types":["家常菜"]}]},
+      {"id":"shared_allergy","message":"我对花生过敏，早餐用鸡蛋推荐一道家常菜，晚餐用土豆推荐一道家常菜。","recipes":[{"scope":"早餐","count":1,"required":["鸡蛋"],"excluded":["花生"],"dish_types":["家常菜"]},{"scope":"晚餐","count":1,"required":["土豆"],"excluded":["花生"],"dish_types":["家常菜"]}]}
+    ]},
+    {"id":"followups","turns":[
+      {"id":"followup_seed","message":"用鸡蛋推荐三道家常菜","recipes":[{"count":3,"required":["鸡蛋"],"dish_types":["家常菜"]}]},
+      {"id":"thanks","message":"谢谢！","routes":["general_query"],"extraction_status":"skipped"},
+      {"id":"choose_second","message":"第二道怎么做","selection":{"from_turn":"followup_seed","number":2},"extraction_status":"skipped"},
+      {"id":"choose_third","message":"第三道怎么做","selection":{"from_turn":"followup_seed","number":3}},
+      {"id":"out_of_range","message":"第九道怎么做","clarification":"只有"},
+      {"id":"group_seed","message":"早餐用鸡蛋推荐两道家常菜，晚餐用土豆推荐两道家常菜。","recipes":[{"scope":"早餐","count":2,"required":["鸡蛋"],"dish_types":["家常菜"]},{"scope":"晚餐","count":2,"required":["土豆"],"dish_types":["家常菜"]}]},
+      {"id":"ambiguous_group","message":"第二道怎么做","clarification":"明确"},
+      {"id":"choose_dinner","message":"晚餐第二道怎么做","selection":{"from_turn":"group_seed","group":1,"number":2}},
+      {"id":"conversation_isolation","conversation":"other","message":"第二道怎么做","clarification":"还没有"}
+    ]},
+    {"id":"long_history","turns":[
+      {"id":"long_seed","history_fixture_turns":30,"message":"用鸡蛋推荐三道家常菜","recipes":[{"count":3,"required":["鸡蛋"],"dish_types":["家常菜"]}]},
+      {"id":"long_selection","message":"第二道怎么做","selection":{"from_turn":"long_seed","number":2}}
+    ]},
+    {"id":"memory_operations","seeds":[{"type":"dietary_preference","content":"喜欢清淡"},{"type":"disliked_ingredient","content":"不吃香菜"}],"turns":[
+      {"id":"remembered_constraint","message":"用鸡蛋推荐两道家常菜","recipes":[{"count":2,"required":["鸡蛋"],"excluded":["香菜"],"dish_types":["家常菜"]}],"memory_contains":["不吃香菜"],"baseline":true},
+      {"id":"correct_memory","message":"把清淡偏好改成喜欢麻辣","memory_status":"updated","memory_contains":["喜欢麻辣"],"memory_absent":["喜欢清淡"],"extraction_status":"skipped"},
+      {"id":"forget_and_query","message":"忘掉不吃香菜的记忆，推荐一道含香菜的家常菜","memory_status":"deleted","memory_absent":["不吃香菜"],"recipes":[{"count":1,"required":["香菜"],"dish_types":["家常菜"]}]},
+      {"id":"missing_memory","message":"忘掉葱香偏好","memory_status":"not_found"},
+      {"id":"reject_bulk_forget","message":"忘掉全部记忆","memory_status":"needs_clarification"}
+    ]},
+    {"id":"ambiguous_memory","seeds":[{"type":"dietary_preference","content":"喜欢清淡"},{"type":"dietary_preference","content":"偏好清淡少油"}],"turns":[
+      {"id":"ambiguous_forget","message":"忘掉清淡偏好","memory_status":"needs_clarification","memory_contains":["喜欢清淡","偏好清淡少油"]}
+    ]},
+    {"id":"live_extraction","turns":[
+      {"id":"save_dislike","modes":["live"],"message":"请长期记住，我不吃香菜。","memory_status":"saved","memory_contains":["不吃香菜"]},
+      {"id":"recall_across_sessions","modes":["live"],"conversation":"new","message":"用鸡蛋推荐两道家常菜","memory_contains":["不吃香菜"],"recipes":[{"count":2,"required":["鸡蛋"],"excluded":["香菜"],"dish_types":["家常菜"]}]},
+      {"id":"temporary_request","modes":["live"],"message":"今晚用土豆推荐一道家常菜","recipes":[{"count":1,"required":["土豆"],"dish_types":["家常菜"]}],"memory_absent":["今晚"]}
+    ]},
+    {"id":"live_culture","turns":[
+      {"id":"culture_query","modes":["live"],"message":"介绍川菜的历史与特点","routes":["food_knowledge"],"culture_evidence":true},
+      {"id":"dependent_culture","modes":["live"],"message":"推荐一道鸡蛋家常菜，并介绍这道菜的来历","routes":["recipe_query","food_knowledge"],"recipes":[{"count":1,"required":["鸡蛋"],"dish_types":["家常菜"]}],"recipe_dependency":true}
+    ]}
+  ]
+}

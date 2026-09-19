@@ -1,0 +1,313 @@
+{
+  "verified_at": "2026-09-18T08:55:30.057228+00:00",
+  "user": "state-live-12fa3c6d55164ea38d2d152d798aa5f1",
+  "conversation": "restart",
+  "checks": [
+    {
+      "name": "save_preference_answer_and_history_match",
+      "passed": true
+    },
+    {
+      "name": "memory_save_confirmed",
+      "passed": true
+    },
+    {
+      "name": "recommend_answer_and_history_match",
+      "passed": true
+    },
+    {
+      "name": "three_structured_recommendations",
+      "passed": true
+    },
+    {
+      "name": "before_phase_complete",
+      "passed": true
+    },
+    {
+      "name": "different_api_process",
+      "passed": true
+    },
+    {
+      "name": "recommendations_restored_before_new_turn",
+      "passed": true
+    },
+    {
+      "name": "message_ids_and_order_restored",
+      "passed": true
+    },
+    {
+      "name": "typed_groups_restored",
+      "passed": true
+    },
+    {
+      "name": "thanks_answer_and_history_match",
+      "passed": true
+    },
+    {
+      "name": "thanks_preserves_original_list",
+      "passed": true
+    },
+    {
+      "name": "second_answer_and_history_match",
+      "passed": true
+    },
+    {
+      "name": "second_preserves_original_list",
+      "passed": true
+    },
+    {
+      "name": "second_selects_original_recipe",
+      "passed": true
+    },
+    {
+      "name": "third_answer_and_history_match",
+      "passed": true
+    },
+    {
+      "name": "third_preserves_original_list",
+      "passed": true
+    },
+    {
+      "name": "third_selects_original_recipe",
+      "passed": true
+    },
+    {
+      "name": "no_duplicate_messages_after_restore",
+      "passed": true
+    },
+    {
+      "name": "user_and_conversation_isolation",
+      "passed": true
+    }
+  ],
+  "chats": [
+    {
+      "name": "save_preference",
+      "question": "请记住，我喜欢清淡口味。",
+      "response": {
+        "answer": "请问您今天想尝试做什么类型的菜品？或者家里有哪些主要食材需要处理呢？\n\n已保存长期记忆：我喜欢清淡口味。",
+        "route": "additional_query",
+        "logic": "用户表达个人口味偏好（清淡），这属于建立用户画像或记忆的信息，并非具体的菜谱查询、知识问答或寒暄。在当前的分类体系中，没有专门的'preference_update'类型。由于该意图无法直接触发具体的食谱推荐（缺少具体食材或菜系限制），且不属于对现有问题的补充追问，它更接近于一种广义的交互指令。但在严格的四分类下，它最接近 'general_query' 中的非功能性交互，或者因信息不足需后续引导而归类为 'additional_query' 的前置状态。然而，考虑到助手通常需要确认或记录此信息以便后续服务，这通常被视为一种需要被‘记住’的状态更新。若必须从四类中选，它不属于 recipe_query, food_knowledge。它也不是典型的 general_query (问候/感谢)。在某些系统中，这种偏好设置可能被归为 additional_query 的一种变体，即“我需要你基于这个条件提供服务”，但当前无具体任务。鉴于其作为独立语句的性质，且未指向具体做菜动作，最贴切的可能是将其视为一种广义的对话管理意图。但在本约束下，若无完美匹配，通常此类偏好声明会被视为后续 recipe_query 的上下文准备。如果必须选一个，它更像是一个需要被系统‘处理’的请求，而非查询。对比示例，'我想做菜'是 additional_query。这里用户说'请记住...'，隐含了后续可能基于此做菜的意图，但目前没有具体菜品需求。因此，归类为 additional_query 较为合适，因为它暗示了用户希望系统进行某种操作（记忆）并可能导向未来的推荐，但当前缺乏具体执行目标。不过，更严谨地看，这其实是一个 Preference Update。如果只能选四个，且没有 preference 选项，通常这类非查询性陈述在缺乏明确 action 时，可能被误判或强行归类。让我们重新审视：用户没有问怎么做菜，没有问知识，没有打招呼。这是一个状态设定。在很多 NLP 任务中，这会被标记为 Intent: Set_Preference。在这里，如果没有该标签，最接近的可能是 'general_query' (作为一般性对话输入) 或 'additional_query' (因为系统可能需要追问'您喜欢清淡口味的什么菜？')。考虑到 'additional_query' 的定义是'信息不足，需要继续追问'，用户只说了口味，没说做什么，确实信息不足以生成具体食谱，因此系统可能会追问。所以 additional_query 是合理的。)",
+        "sources": [],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 41,
+              "user_id": "state-live-12fa3c6d55164ea38d2d152d798aa5f1",
+              "type": "dietary_preference",
+              "content": "我喜欢清淡口味",
+              "created_at": "2026-09-18T08:55:51.089189Z",
+              "updated_at": "2026-09-18T08:55:51.089189Z",
+              "source_message_id": 203,
+              "evidence": "我喜欢清淡口味"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "saved"
+        }
+      },
+      "elapsed_seconds": 20.92
+    },
+    {
+      "name": "recommend",
+      "question": "用鸡蛋推荐三道不辣的家常菜",
+      "response": {
+        "answer": "根据您的要求，为您推荐以下三道以鸡蛋为主料、不辣的家常菜：\n\n1. **番茄鸡蛋玉米面条**\n   - **推荐理由**：口味清淡，符合您的偏好；使用鸡蛋作为主料。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋(2个)、番茄(3个)、玉米面条(100克)\n\n2. **西红柿炒鸡蛋**\n   - **推荐理由**：经典家常菜，使用鸡蛋作为主料。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋(2个)、西红柿(1个)\n\n3. **西红柿鸡蛋饼**\n   - **推荐理由**：制作简单，使用鸡蛋作为主料。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋(两个)、西红柿(一个)\n\n请问您想了解哪道菜的详细材料和步骤？\n\n已保存长期记忆：不辣；家常菜。",
+        "route": "recipe_query",
+        "logic": "用户明确要求推荐菜品（'推荐三道...家常菜'），且指定了食材（'鸡蛋'）和口味偏好（'不辣'），这属于具体的菜谱查询需求。",
+        "sources": [
+          "neo4j:Dish:番茄鸡蛋玉米面条",
+          "neo4j:Dish:西红柿炒鸡蛋",
+          "neo4j:Dish:西红柿鸡蛋饼"
+        ],
+        "used_memories": [
+          {
+            "id": 41,
+            "type": "dietary_preference",
+            "content": "我喜欢清淡口味",
+            "score": 0.43753081894478685
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 42,
+              "user_id": "state-live-12fa3c6d55164ea38d2d152d798aa5f1",
+              "type": "dietary_preference",
+              "content": "不辣",
+              "created_at": "2026-09-18T08:56:12.587431Z",
+              "updated_at": "2026-09-18T08:56:12.587431Z",
+              "source_message_id": 208,
+              "evidence": "不辣"
+            },
+            {
+              "id": 43,
+              "user_id": "state-live-12fa3c6d55164ea38d2d152d798aa5f1",
+              "type": "cooking_constraint",
+              "content": "家常菜",
+              "created_at": "2026-09-18T08:56:14.644040Z",
+              "updated_at": "2026-09-18T08:56:14.644040Z",
+              "source_message_id": 208,
+              "evidence": "家常菜"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "saved"
+        }
+      },
+      "elapsed_seconds": 23.56
+    },
+    {
+      "name": "thanks",
+      "question": "谢谢",
+      "response": {
+        "answer": "不客气！如果您之后想查看具体做法，或者有其他清淡口味的家常菜需求，随时告诉我。祝您用餐愉快！",
+        "route": "general_query",
+        "logic": "用户发送“谢谢”，属于表达感谢的普通寒暄，符合 general_query 的定义。",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 41,
+            "type": "dietary_preference",
+            "content": "我喜欢清淡口味",
+            "score": 0.34212209137653404
+          },
+          {
+            "id": 43,
+            "type": "cooking_constraint",
+            "content": "家常菜",
+            "score": 0.31940585976054203
+          },
+          {
+            "id": 42,
+            "type": "dietary_preference",
+            "content": "不辣",
+            "score": 0.2766240046382309
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "elapsed_seconds": 5.14
+    },
+    {
+      "name": "second",
+      "question": "第二道菜怎么做",
+      "response": {
+        "answer": "以下是**西红柿炒鸡蛋**的详细做法：\n\n**主要食材：**\n*   鸡蛋：2个\n*   西红柿：1个\n\n**辅料：**\n*   生抽：2匙\n*   葱：10g\n*   十三香：半匙\n*   盐：2匙\n\n**制作步骤：**\n1.  将西红柿切成小块，葱切成丝。\n2.  把鸡蛋打散，加入盐和十三香，搅拌均匀。\n3.  在炒锅中放油加热，倒入蛋液翻炒至成团后盛出备用。\n4.  锅中再放入少许油，放入葱丝爆香。\n5.  放入西红柿块，加入生抽和盐，翻炒至西红柿变软。\n6.  最后加入之前炒好的鸡蛋，一起翻炒均匀即可出锅。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:西红柿炒鸡蛋"
+        ],
+        "used_memories": [
+          {
+            "id": 43,
+            "type": "cooking_constraint",
+            "content": "家常菜",
+            "score": 0.48639075484665684
+          },
+          {
+            "id": 42,
+            "type": "dietary_preference",
+            "content": "不辣",
+            "score": 0.35344606726713035
+          },
+          {
+            "id": 41,
+            "type": "dietary_preference",
+            "content": "我喜欢清淡口味",
+            "score": 0.325906582608424
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "elapsed_seconds": 3.99
+    },
+    {
+      "name": "third",
+      "question": "第三道菜怎么做",
+      "response": {
+        "answer": "以下是**西红柿鸡蛋饼**的详细做法：\n\n**主要食材：**\n*   鸡蛋：2个\n*   西红柿：1个\n\n**辅料：**\n*   香葱：1棵\n*   面粉：2大勺\n*   盐：适量\n*   五香粉：少许\n\n**制作步骤：**\n1.  备好所有食材。\n2.  把西红柿洗净去皮切碎，放到碗里；把香葱切圈放到碗里。\n3.  打入鸡蛋，加入两勺面粉、适量盐和少许五香粉。\n4.  加少许水调成面糊。\n5.  饼铛预热，刷上少许油，倒入面糊摊成饼。\n6.  待上面的面糊凝固后翻面，再烙一两分钟即可出锅。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:西红柿鸡蛋饼"
+        ],
+        "used_memories": [
+          {
+            "id": 43,
+            "type": "cooking_constraint",
+            "content": "家常菜",
+            "score": 0.5138600995471401
+          },
+          {
+            "id": 42,
+            "type": "dietary_preference",
+            "content": "不辣",
+            "score": 0.3435467062496499
+          },
+          {
+            "id": 41,
+            "type": "dietary_preference",
+            "content": "我喜欢清淡口味",
+            "score": 0.3400797943027687
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "status": "no_candidates"
+        }
+      },
+      "elapsed_seconds": 3.03
+    }
+  ],
+  "server_pids": [
+    60332,
+    15324
+  ],
+  "test_rows_cleaned": true,
+  "original_names": [
+    [
+      "番茄鸡蛋玉米面条",
+      "西红柿炒鸡蛋",
+      "西红柿鸡蛋饼"
+    ]
+  ],
+  "original_message_ids": [
+    "b3b1b969-e4fd-4174-8a9f-285f6891ebba",
+    "971de8e8-01af-4b28-8f4b-1dae3bdf9dec",
+    "80de8109-0332-41cf-bd11-623b4678f893",
+    "777b91be-fbed-4ee8-9892-faef3538b754"
+  ],
+  "before_complete": true
+}

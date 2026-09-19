@@ -1,0 +1,106 @@
+{
+  "checks": [
+    {
+      "name": "http_200",
+      "passed": true
+    },
+    {
+      "name": "stored_reply_matches_http",
+      "passed": true
+    },
+    {
+      "name": "memory_confirmation_backed_by_storage",
+      "passed": true
+    },
+    {
+      "name": "http_200",
+      "passed": true
+    },
+    {
+      "name": "stored_reply_matches_http",
+      "passed": true
+    },
+    {
+      "name": "two_egg_and_one_potato_recipes",
+      "passed": true
+    },
+    {
+      "name": "all_selected_recipes_in_http_answer",
+      "passed": true
+    }
+  ],
+  "test_rows_cleaned": true,
+  "chats": [
+    {
+      "answer": "收到！\n\n请问您今天想吃什么类型的菜？或者家里有哪些食材想要处理呢？\n\n已保存长期记忆：我不吃香菜；也不能吃辣。",
+      "route": "additional_query",
+      "logic": "用户明确提出了个人饮食偏好（不吃香菜、不能吃辣），这属于为后续食谱推荐或查询提供约束条件的信息。虽然当前没有直接询问具体菜谱，但这类陈述通常作为“additional_query”的前置条件，或者被视为一种隐式的个性化设置请求，旨在让系统记住这些限制以便未来生成符合要求的食谱。在意图分类中，这种提供背景信息以辅助后续交互的行为最接近 additional_query（需要系统确认并记录上下文）或 general_query（如果是首次建立人设）。考虑到这是测试用户的设定指令，且未直接要求做菜，归类为 additional_query 更为合适，因为它暗示了后续会有基于此偏好的需求，或者需要系统对此进行确认和记忆处理。",
+      "sources": [],
+      "used_memories": [],
+      "memory_write": {
+        "available": true,
+        "saved": [
+          {
+            "id": 26,
+            "user_id": "tcp-task-memory-28ad44c66d8740ba9b4383a2ef27e91a",
+            "type": "disliked_ingredient",
+            "content": "我不吃香菜",
+            "created_at": "2026-09-18T07:41:00.188280Z",
+            "updated_at": "2026-09-18T07:41:00.188280Z",
+            "source_message_id": 99,
+            "evidence": "我不吃香菜"
+          },
+          {
+            "id": 27,
+            "user_id": "tcp-task-memory-28ad44c66d8740ba9b4383a2ef27e91a",
+            "type": "dietary_preference",
+            "content": "也不能吃辣",
+            "created_at": "2026-09-18T07:41:01.801667Z",
+            "updated_at": "2026-09-18T07:41:01.801667Z",
+            "source_message_id": 99,
+            "evidence": "也不能吃辣"
+          }
+        ],
+        "unchanged": [],
+        "deleted_ids": [],
+        "failed_count": 0,
+        "skipped_count": 0,
+        "status": "saved"
+      }
+    },
+    {
+      "answer": "根据您的要求，为您筛选了以下符合“不吃香菜、不吃辣”条件的菜谱：\n\n**早餐（鸡蛋）：**\n\n1. **鸡蛋羹**\n   - **推荐理由**：清淡口味，适合早餐；主食材为鸡蛋。\n   - **耗时**：十分钟\n   - **主要食材**：鸡蛋(3个)、番茄沙司(适量)\n\n2. **水煮鸡蛋**\n   - **推荐理由**：原味健康，制作简单；主食材为鸡蛋。\n   - **耗时**：十分钟\n   - **主要食材**：鸡蛋(个)\n\n**晚餐（土豆）：**\n\n1. **拔丝土豆**\n   - **推荐理由**：咸甜口味，主食材为土豆。\n   - **耗时**：十分钟\n   - **主要食材**：土豆(3个)、白糖(适量)、盐(适量)\n\n请问您想了解哪道菜的详细材料和步骤？",
+      "route": "recipe_query",
+      "logic": "用户明确指定了食材（鸡蛋、土豆）和餐次（早餐、晚餐），并要求推荐具体的菜品，这属于根据特定食材寻找菜谱的意图。",
+      "sources": [
+        "neo4j:Dish:鸡蛋羹",
+        "neo4j:Dish:水煮鸡蛋",
+        "neo4j:Dish:拔丝土豆"
+      ],
+      "used_memories": [
+        {
+          "id": 26,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "score": 0.365752983565231
+        },
+        {
+          "id": 27,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "score": 0.29850300883141634
+        }
+      ],
+      "memory_write": {
+        "available": true,
+        "saved": [],
+        "unchanged": [],
+        "deleted_ids": [],
+        "failed_count": 0,
+        "skipped_count": 0,
+        "status": "no_candidates"
+      }
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,5 @@
+[flake8]
+jobs = 1
+max-line-length = 120
+select = E9,F63,F7,F82
+exclude = .git,.venv,.codex_tmp,__pycache__,GustoBot-develop

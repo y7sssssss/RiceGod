@@ -1,0 +1,1753 @@
+{
+  "verified_at": "2026-09-18T08:29:09.598244+00:00",
+  "scope": "Real FastAPI handlers through TestClient, real LLM, Embedding and databases; no mocked retrieval. Optional LangSmith upload is disabled during verification.",
+  "configuration": {
+    "llm_model": "qwen3.7-flash",
+    "embedding_model": "qwen3.7-text-embedding-flash",
+    "embedding_dimension": 1024,
+    "milvus_collection": "food_knowledge_qwen37_flash_1024"
+  },
+  "checks": [
+    {
+      "name": "postgres_startup",
+      "passed": true
+    },
+    {
+      "name": "neo4j_seed_data",
+      "passed": true,
+      "dish_count": 19669
+    },
+    {
+      "name": "remember_preferences_http",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "remember_preferences_route",
+      "passed": true
+    },
+    {
+      "name": "remember_preferences_memory_evidence",
+      "passed": true
+    },
+    {
+      "name": "memory_persisted",
+      "passed": true,
+      "memories": [
+        {
+          "type": "dietary_preference",
+          "content": "也不能吃辣"
+        },
+        {
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜"
+        }
+      ]
+    },
+    {
+      "name": "memory_types_preserved",
+      "passed": true
+    },
+    {
+      "name": "memory_facts_not_combined",
+      "passed": true
+    },
+    {
+      "name": "cross_session_recipe_http",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "cross_session_recipe_route",
+      "passed": true
+    },
+    {
+      "name": "cross_session_recipe_memory_evidence",
+      "passed": true
+    },
+    {
+      "name": "cross_session_recipe_no_invented_flavor",
+      "passed": true
+    },
+    {
+      "name": "cross_session_recipe_restrictions_preserved",
+      "passed": true
+    },
+    {
+      "name": "cross_session_recall",
+      "passed": true
+    },
+    {
+      "name": "memory_applied_to_filters",
+      "passed": true
+    },
+    {
+      "name": "real_neo4j_constrained_recipe",
+      "passed": true
+    },
+    {
+      "name": "culture_retrieval_http",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "culture_retrieval_route",
+      "passed": true
+    },
+    {
+      "name": "culture_retrieval_memory_evidence",
+      "passed": true
+    },
+    {
+      "name": "culture_retrieval_no_invented_flavor",
+      "passed": true
+    },
+    {
+      "name": "culture_retrieval_restrictions_preserved",
+      "passed": true
+    },
+    {
+      "name": "real_milvus_culture",
+      "passed": true
+    },
+    {
+      "name": "recipe_then_culture_http",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "recipe_then_culture_route",
+      "passed": true
+    },
+    {
+      "name": "recipe_then_culture_memory_evidence",
+      "passed": true
+    },
+    {
+      "name": "recipe_then_culture_no_invented_flavor",
+      "passed": true
+    },
+    {
+      "name": "recipe_then_culture_restrictions_preserved",
+      "passed": true
+    },
+    {
+      "name": "dependent_culture_uses_retrieved_dish",
+      "passed": true
+    },
+    {
+      "name": "explicit_new_flavor_http",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "explicit_new_flavor_route",
+      "passed": true
+    },
+    {
+      "name": "explicit_new_flavor_memory_evidence",
+      "passed": true
+    },
+    {
+      "name": "explicit_flavor_can_be_saved",
+      "passed": true
+    },
+    {
+      "name": "independent_restrictions_retained",
+      "passed": true
+    },
+    {
+      "name": "ranked_default_three_http",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "ranked_default_three_route",
+      "passed": true
+    },
+    {
+      "name": "ranked_default_three_memory_evidence",
+      "passed": true
+    },
+    {
+      "name": "ranking_default_three",
+      "passed": true
+    },
+    {
+      "name": "ranking_reasons_and_restrictions",
+      "passed": true
+    },
+    {
+      "name": "ranking_three_shown_in_answer",
+      "passed": true
+    },
+    {
+      "name": "selected_second_recipe_http",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "selected_second_recipe_route",
+      "passed": true
+    },
+    {
+      "name": "selected_second_recipe_memory_evidence",
+      "passed": true
+    },
+    {
+      "name": "selection_uses_previous_second_recipe",
+      "passed": true
+    },
+    {
+      "name": "ranked_explicit_five_http",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "ranked_explicit_five_route",
+      "passed": true
+    },
+    {
+      "name": "ranked_explicit_five_memory_evidence",
+      "passed": true
+    },
+    {
+      "name": "ranking_explicit_five",
+      "passed": true
+    },
+    {
+      "name": "ranking_five_shown_in_answer",
+      "passed": true
+    },
+    {
+      "name": "user_isolation",
+      "passed": true
+    },
+    {
+      "name": "foreign_delete_rejected",
+      "passed": true
+    }
+  ],
+  "chats": [
+    {
+      "name": "remember_preferences",
+      "question": "这是自动化测试中虚构用户的对话，不含真实个人信息。请长期记住我的饮食习惯：我不吃香菜，也不能吃辣。",
+      "elapsed_seconds": 21.31,
+      "answer": "如果您需要查询符合这些要求的食谱或食材搭配，随时告诉我！\n\n已保存长期记忆：我不吃香菜；也不能吃辣。",
+      "route": "general_query",
+      "sources": [],
+      "used_memories": [],
+      "saved_memories": [
+        {
+          "id": 35,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "source_message_id": 171,
+          "evidence": "也不能吃辣"
+        },
+        {
+          "id": 34,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "source_message_id": 171,
+          "evidence": "我不吃香菜"
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "general_query",
+            "question": "这是自动化测试中虚构用户的对话，不含真实个人信息。请长期记住我的饮食习惯：我不吃香菜，也不能吃辣。",
+            "depends_on": [],
+            "source_text": "",
+            "constraints": null,
+            "recipe_request": null
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "这是自动化测试中虚构用户的对话，不含真实个人信息。请长期记住我的饮食习惯：我不吃香菜，也不能吃辣。",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "general_query",
+          "question": "这是自动化测试中虚构用户的对话，不含真实个人信息。请长期记住我的饮食习惯：我不吃香菜，也不能吃辣。",
+          "status": "ok",
+          "content": "收到，我会记住您不吃香菜且不能吃辣的饮食偏好。如果您需要查询符合这些要求的食谱或食材搭配，随时告诉我！",
+          "records": [],
+          "sources": [],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "cross_session_recipe",
+      "question": "用鸡蛋推荐一道家常菜，给出材料和步骤。",
+      "elapsed_seconds": 13.44,
+      "answer": "为您推荐一道家常菜：**西红柿炒鸡蛋**\n\n*   **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟\n*   **主要食材**：鸡蛋(2个)、西红柿(1个)\n*   **辅料**：生抽(2匙)、葱(10g)、十三香(半匙)、盐(2匙)\n*   **耗时**：十分钟\n\n**材料清单：**\n*   鸡蛋 2个\n*   西红柿 1个\n*   葱 10g\n*   生抽 2匙\n*   十三香 半匙\n*   盐 2匙\n*   食用油（适量）\n\n**制作步骤：**\n1. 西红柿切成小块，葱切成丝。\n2. 鸡蛋打好，放盐、放十三香然后搅匀。\n3. 炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。\n4. 炒锅放入一点油，放葱爆香。\n5. 放入西红柿，加生抽、加盐翻炒。\n6. 待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+      "route": "recipe_query",
+      "sources": [
+        "neo4j:Dish:西红柿炒鸡蛋"
+      ],
+      "used_memories": [
+        {
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜"
+        },
+        {
+          "type": "dietary_preference",
+          "content": "也不能吃辣"
+        }
+      ],
+      "saved_memories": [
+        {
+          "id": 35,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "source_message_id": 171,
+          "evidence": "也不能吃辣"
+        },
+        {
+          "id": 34,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "source_message_id": 171,
+          "evidence": "我不吃香菜"
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "recipe_query",
+            "question": "用鸡蛋推荐一道家常菜，给出材料和步骤。",
+            "depends_on": [],
+            "source_text": "用鸡蛋推荐一道家常菜，给出材料和步骤。",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "鸡蛋"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [
+                "家常菜"
+              ],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "用鸡蛋推荐一道家常菜，给出材料和步骤。",
+              "recommendation": true,
+              "limit": 1,
+              "requested_count": 1,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [
+            "鸡蛋"
+          ],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [
+            "家常菜"
+          ],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "用鸡蛋推荐一道家常菜，给出材料和步骤。",
+          "recommendation": true,
+          "limit": 1,
+          "requested_count": 1,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "recipe_query",
+          "question": "用鸡蛋推荐一道家常菜，给出材料和步骤。",
+          "status": "ok",
+          "content": "菜谱 1: 西红柿炒鸡蛋\n类型: ['家常菜']\n口味: ['咸香']\n工艺: ['炒']\n耗时: 十分钟\n主食材: 鸡蛋(2个)、西红柿(1个)\n辅料: 生抽(2匙)、葱(10g)、十三香(半匙)、盐(2匙)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n做法: 1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:西红柿炒鸡蛋"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "culture_retrieval",
+      "question": "辣椒是什么时候传入中国的？请根据知识库回答。",
+      "elapsed_seconds": 13.35,
+      "answer": "根据知识库资料，辣椒传入中国的时间主要涉及以下两个阶段：\n\n1.  **引入时间**：辣椒在**明朝**时期经由下南洋的商人引入中国。当时它被称为“番椒”或“卡晏辣椒”，起初因其独特的观赏价值，常被当作珍稀的景观盆栽种植，而非直接用于烹饪。\n2.  **食用时间**：直到**清乾隆年间**，辣椒才开始在贵州、湖南等地被食用，而普遍作为调味品进入大众饮食则更晚至道光以后。\n\n因此，在明朝之前，中国是没有辣椒这种食材的；而在清朝中期以前，辣椒也并未成为普遍的烹饪调料。",
+      "route": "food_knowledge",
+      "sources": [
+        "data.txt#4",
+        "data.txt#1",
+        "data.txt#12",
+        "data.txt#2"
+      ],
+      "used_memories": [
+        {
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜"
+        },
+        {
+          "type": "dietary_preference",
+          "content": "也不能吃辣"
+        }
+      ],
+      "saved_memories": [
+        {
+          "id": 35,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "source_message_id": 171,
+          "evidence": "也不能吃辣"
+        },
+        {
+          "id": 34,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "source_message_id": 171,
+          "evidence": "我不吃香菜"
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "food_knowledge",
+            "question": "辣椒是什么时候传入中国的？请根据知识库回答。",
+            "depends_on": [],
+            "source_text": "辣椒是什么时候传入中国的？请根据知识库回答。",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "辣椒"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": null
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [
+            "辣椒"
+          ],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "辣椒是什么时候传入中国的？请根据知识库回答。",
+          "recommendation": true,
+          "limit": 3,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "food_knowledge",
+          "question": "辣椒是什么时候传入中国的？请根据知识库回答。",
+          "status": "ok",
+          "content": "片段 1\n来源: data.txt#4\n相似度: 0.9803614200359194\n内容: 元朝多了豇豆、金针菇等蔬菜。\n明朝引进的食物就更多了。此时期蔬菜品种进一步增加，如番茄（又名西红柿）、芋艿、卷心菜、苤蓝、南瓜、笋瓜、西葫芦、辣椒、芸豆、红薯、玉米、蕺菜（鱼腥草）、花生、胡萝卜（此时已有多种品种）、苦瓜等。其中，诸如番茄、辣椒、玉米等珍稀作物，均源自遥远的美洲大陆，被引入中国后逐渐成为了餐桌上的常客。\n如汉朝、唐朝、明朝、清朝等朝代，来自全球各地的番邦进贡为中华大地带来了诸多异域美食。\n许多蔬菜，其实很晚才被人们用于烹饪之中。\n例如辣椒，这一热辣之物，在明朝时期经由勇敢的下南洋商人之手，被引入中国，初时名为「卡晏辣椒」，亦或称「番椒」，因其独特的观赏价值，甚至一度被当作珍稀的景观盆栽，点缀于庭院之中。\n《遵生八笺》是这么描述辣椒：「番椒丛生，白花，果俨似秃笔头，味辣色红，甚可观。」\n戏曲家汤显祖的著作《牡丹亭·冥判》中也提到了辣椒：「凌霄花，阳壮的咍；辣椒花，把阴热窄；」\n所以，如果你穿越到古代，又喜欢吃辣，在明朝之前肯定是没有口福了。\n随着时间的推移，食物种类的丰富程度亦随之变化，现代人的餐桌琳琅满目，而回溯至更久远的时代，则往往显得单调而匮乏。\n\n片段 2\n来源: data.txt#1\n相似度: 0.7957389125197161\n内容: 在探讨古代饮食文化时，我们不得不注意到几个重要的历史节点。在明代之前，辣椒尚未传入中国，直到清乾隆年间才开始在贵州、湖南等地被食用，而普遍食用则更迟至道光以后。与此同时，红薯、土豆和玉米这些作物在清朝之前也未被广泛种植。更令人惊讶的是，在北宋之前，铁锅并未广泛普及于民间，这导致了烹饪方式与我们今天所熟悉的有着显著的差异。\n想了解古代吃什么，就得先知道古代有什么吃的。\n\n片段 3\n来源: data.txt#12\n相似度: 0.7729427980040582\n内容: 糖\n唐初，中国引进了印度的蔗糖加工技术，使得中国也能生产颗粒状的沙糖，彻底改变了过去仅能制造块状饴糖的历史。\n\n其他调味品\n梅子在古代也是重要的果醋类调味品。\n梅子性酸，能够去除食物中的腥膻之气，同时具有开胃消食的功效。\n此外，梅子还可以用于酿酒，以及制作干果或果脯。\n花椒，是中国本土特产的一种辛香料。它能产生麻辣感，刺激味觉和食欲。\n除了花椒，还有葱、姜、芥、薤、韭等本土辅助调味菜。\n豉，是汉代发明的调味品，主要用于菜肴的加工烹饪。到了魏晋时期，豉的制造技术迅速发展，并从国外引入了新的制作方法。\n魏晋南北朝时期还引进了胡椒。隋唐两宋时期，又增加了花椒、豆蔻、桂皮、橘皮、蜜、乳、酪、油等天然调味品。到了明清时期，又增添了虾油、鱼露、腐乳、草果、砂仁、苏叶、辣椒、大香、苗香等调味品。\n\n片段 4\n来源: data.txt#2\n相似度: 0.510501967686707\n内容: 蔬菜\n众所周知，张骞与郑和这两位伟大的探险家，如同慧眼识珠的伯乐，老祖宗严选的食物如同珍宝般被引入中原，不仅极大地丰富了中国的饮食文化，更如同璀璨的光芒，映照出中国古代对外贸易的辉煌与繁荣。\n要区分这些食物其实并不难，只需观察它们的名字便可见一斑。\n例如带洋字的，带番字的，带胡字的。\n玉米以前别名叫番麦，马铃薯也叫洋番芋，番仔薯，红薯 甘薯以前也叫番薯，包括现在很多地方也叫番薯。\n还有一些农作物也有一些产地特点，例如西瓜，为什么叫西瓜呢，因为是从西域带回来的，所以叫西瓜。\n胡萝卜之所以得名，是因为古代将北方外族称为胡人，而胡萝卜正是从阿富汗等地传入，故有此称，与打篮球的『胡人』并无关联。\n菠菜之名，并非因『对你放秋波』的戏谑，而是源于其从波斯引进的历史，故而得名。\n所以，食物的变化之一，就是中国自古以来对外贸易带来的变化。\n秦以及之前的蔬菜种类主要包括：莕菜、莼菜、蒌蒿、青菜（北方地区称之为白菜，但大白菜是后来才出现的）、大豆、葫芦、瓠子、萝卜、荠菜、黄花菜、花椒、蕨、枸杞、水芹、笋、荷（包括莲藕等）、芥菜、小蒜、芜菁（即蔓菁，也叫芥菜疙瘩，主要用来腌咸菜吃）、甜瓜、菱、甘蔗、芡实、荸荠、芋艿等。此外，还有大豆叶子、蒲菜、苦苣菜、冬寒菜（葵是冬葵，又名冬寒菜，是古代的重要蔬菜）、水蓼、款冬等现在不大吃的蔬菜。\n汉朝蔬菜种类有所增加，主要包括：芝麻、百合、薤（野蒜）、苋、生姜、木耳、茭白、冬瓜、茄子、豇豆、魔芋、山药、葱、旱芹、蕹菜、慈姑、酸浆、紫苏、木耳菜（又名落葵，古代重要蔬菜）、豌豆、扁豆、生菜等。此外，张骞从西域引进了紫花苜蓿、胡桃、芝麻（有争议）、蚕豆、黄瓜（当时叫胡瓜）、红花、大蒜、芫荽（香菜）、胡椒等蔬菜品种。\n隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。",
+          "records": [
+            {
+              "id": "data.txt_4",
+              "content": "元朝多了豇豆、金针菇等蔬菜。\n明朝引进的食物就更多了。此时期蔬菜品种进一步增加，如番茄（又名西红柿）、芋艿、卷心菜、苤蓝、南瓜、笋瓜、西葫芦、辣椒、芸豆、红薯、玉米、蕺菜（鱼腥草）、花生、胡萝卜（此时已有多种品种）、苦瓜等。其中，诸如番茄、辣椒、玉米等珍稀作物，均源自遥远的美洲大陆，被引入中国后逐渐成为了餐桌上的常客。\n如汉朝、唐朝、明朝、清朝等朝代，来自全球各地的番邦进贡为中华大地带来了诸多异域美食。\n许多蔬菜，其实很晚才被人们用于烹饪之中。\n例如辣椒，这一热辣之物，在明朝时期经由勇敢的下南洋商人之手，被引入中国，初时名为「卡晏辣椒」，亦或称「番椒」，因其独特的观赏价值，甚至一度被当作珍稀的景观盆栽，点缀于庭院之中。\n《遵生八笺》是这么描述辣椒：「番椒丛生，白花，果俨似秃笔头，味辣色红，甚可观。」\n戏曲家汤显祖的著作《牡丹亭·冥判》中也提到了辣椒：「凌霄花，阳壮的咍；辣椒花，把阴热窄；」\n所以，如果你穿越到古代，又喜欢吃辣，在明朝之前肯定是没有口福了。\n随着时间的推移，食物种类的丰富程度亦随之变化，现代人的餐桌琳琅满目，而回溯至更久远的时代，则往往显得单调而匮乏。",
+              "score": 0.9803614200359194,
+              "source": "data.txt",
+              "chunk_index": 4,
+              "vector_score": 0.6570839285850525
+            },
+            {
+              "id": "data.txt_1",
+              "content": "在探讨古代饮食文化时，我们不得不注意到几个重要的历史节点。在明代之前，辣椒尚未传入中国，直到清乾隆年间才开始在贵州、湖南等地被食用，而普遍食用则更迟至道光以后。与此同时，红薯、土豆和玉米这些作物在清朝之前也未被广泛种植。更令人惊讶的是，在北宋之前，铁锅并未广泛普及于民间，这导致了烹饪方式与我们今天所熟悉的有着显著的差异。\n想了解古代吃什么，就得先知道古代有什么吃的。",
+              "score": 0.7957389125197161,
+              "source": "data.txt",
+              "chunk_index": 1,
+              "vector_score": 0.5784297585487366
+            },
+            {
+              "id": "data.txt_12",
+              "content": "糖\n唐初，中国引进了印度的蔗糖加工技术，使得中国也能生产颗粒状的沙糖，彻底改变了过去仅能制造块状饴糖的历史。\n\n其他调味品\n梅子在古代也是重要的果醋类调味品。\n梅子性酸，能够去除食物中的腥膻之气，同时具有开胃消食的功效。\n此外，梅子还可以用于酿酒，以及制作干果或果脯。\n花椒，是中国本土特产的一种辛香料。它能产生麻辣感，刺激味觉和食欲。\n除了花椒，还有葱、姜、芥、薤、韭等本土辅助调味菜。\n豉，是汉代发明的调味品，主要用于菜肴的加工烹饪。到了魏晋时期，豉的制造技术迅速发展，并从国外引入了新的制作方法。\n魏晋南北朝时期还引进了胡椒。隋唐两宋时期，又增加了花椒、豆蔻、桂皮、橘皮、蜜、乳、酪、油等天然调味品。到了明清时期，又增添了虾油、鱼露、腐乳、草果、砂仁、苏叶、辣椒、大香、苗香等调味品。",
+              "score": 0.7729427980040582,
+              "source": "data.txt",
+              "chunk_index": 12,
+              "vector_score": 0.4373658001422882
+            },
+            {
+              "id": "data.txt_2",
+              "content": "蔬菜\n众所周知，张骞与郑和这两位伟大的探险家，如同慧眼识珠的伯乐，老祖宗严选的食物如同珍宝般被引入中原，不仅极大地丰富了中国的饮食文化，更如同璀璨的光芒，映照出中国古代对外贸易的辉煌与繁荣。\n要区分这些食物其实并不难，只需观察它们的名字便可见一斑。\n例如带洋字的，带番字的，带胡字的。\n玉米以前别名叫番麦，马铃薯也叫洋番芋，番仔薯，红薯 甘薯以前也叫番薯，包括现在很多地方也叫番薯。\n还有一些农作物也有一些产地特点，例如西瓜，为什么叫西瓜呢，因为是从西域带回来的，所以叫西瓜。\n胡萝卜之所以得名，是因为古代将北方外族称为胡人，而胡萝卜正是从阿富汗等地传入，故有此称，与打篮球的『胡人』并无关联。\n菠菜之名，并非因『对你放秋波』的戏谑，而是源于其从波斯引进的历史，故而得名。\n所以，食物的变化之一，就是中国自古以来对外贸易带来的变化。\n秦以及之前的蔬菜种类主要包括：莕菜、莼菜、蒌蒿、青菜（北方地区称之为白菜，但大白菜是后来才出现的）、大豆、葫芦、瓠子、萝卜、荠菜、黄花菜、花椒、蕨、枸杞、水芹、笋、荷（包括莲藕等）、芥菜、小蒜、芜菁（即蔓菁，也叫芥菜疙瘩，主要用来腌咸菜吃）、甜瓜、菱、甘蔗、芡实、荸荠、芋艿等。此外，还有大豆叶子、蒲菜、苦苣菜、冬寒菜（葵是冬葵，又名冬寒菜，是古代的重要蔬菜）、水蓼、款冬等现在不大吃的蔬菜。\n汉朝蔬菜种类有所增加，主要包括：芝麻、百合、薤（野蒜）、苋、生姜、木耳、茭白、冬瓜、茄子、豇豆、魔芋、山药、葱、旱芹、蕹菜、慈姑、酸浆、紫苏、木耳菜（又名落葵，古代重要蔬菜）、豌豆、扁豆、生菜等。此外，张骞从西域引进了紫花苜蓿、胡桃、芝麻（有争议）、蚕豆、黄瓜（当时叫胡瓜）、红花、大蒜、芫荽（香菜）、胡椒等蔬菜品种。\n隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。",
+              "score": 0.510501967686707,
+              "source": "data.txt",
+              "chunk_index": 2,
+              "vector_score": 0.46931296586990356
+            }
+          ],
+          "sources": [
+            "data.txt#4",
+            "data.txt#1",
+            "data.txt#12",
+            "data.txt#2"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "recipe_then_culture",
+      "question": "推荐一道含鸡蛋的家常菜，并介绍这道菜的历史来历。",
+      "elapsed_seconds": 17.83,
+      "answer": "为您推荐一道家常菜：**西红柿炒鸡蛋**。\n\n*   **推荐理由**：符合您要求的含鸡蛋家常菜，口味咸香，不含香菜，且非辣味。\n*   **记录耗时**：十分钟\n*   **主要食材**：鸡蛋、西红柿\n\n**关于这道菜的历史来历：**\n\n本次未找到可靠的来历资料。\n\n根据检索到的背景资料显示，西红柿（番茄）是明朝时期从美洲大陆引入中国的作物。在西红柿传入之前，中国饮食中并无此食材，因此“西红柿炒鸡蛋”并非古代传统菜肴，而是随着外来食材普及后形成的现代家常菜。",
+      "route": "recipe_query+food_knowledge",
+      "sources": [
+        "neo4j:Dish:西红柿炒鸡蛋",
+        "data.txt#4",
+        "data.txt#2",
+        "data.txt#26",
+        "data.txt#3"
+      ],
+      "used_memories": [
+        {
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜"
+        },
+        {
+          "type": "dietary_preference",
+          "content": "也不能吃辣"
+        }
+      ],
+      "saved_memories": [
+        {
+          "id": 35,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "source_message_id": 171,
+          "evidence": "也不能吃辣"
+        },
+        {
+          "id": 34,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "source_message_id": 171,
+          "evidence": "我不吃香菜"
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "recipe_query",
+            "question": "推荐一道含鸡蛋的家常菜，并介绍这道菜的历史来历。",
+            "depends_on": [],
+            "source_text": "推荐一道含鸡蛋的家常菜，并介绍这道菜的历史来历。",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "鸡蛋"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [
+                "家常菜"
+              ],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "推荐一道含鸡蛋的家常菜，并介绍这道菜的历史来历。",
+              "recommendation": true,
+              "limit": 1,
+              "requested_count": 1,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          },
+          {
+            "id": "task_2",
+            "route": "food_knowledge",
+            "question": "介绍这道菜的历史来历。",
+            "depends_on": [
+              "task_1"
+            ],
+            "source_text": "并介绍这道菜的历史来历。",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [],
+              "excluded_ingredients": [],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": false
+            },
+            "recipe_request": {
+              "query": "历史来历",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": 1,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [
+            "鸡蛋"
+          ],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [
+            "家常菜"
+          ],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "推荐一道含鸡蛋的家常菜，并介绍这道菜的历史来历。",
+          "recommendation": true,
+          "limit": 1,
+          "requested_count": 1,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "recipe_query",
+          "question": "推荐一道含鸡蛋的家常菜，并介绍这道菜的历史来历。",
+          "status": "ok",
+          "content": "菜谱 1: 西红柿炒鸡蛋\n类型: ['家常菜']\n口味: ['咸香']\n工艺: ['炒']\n耗时: 十分钟\n主食材: 鸡蛋(2个)、西红柿(1个)\n辅料: 生抽(2匙)、葱(10g)、十三香(半匙)、盐(2匙)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:西红柿炒鸡蛋"
+          ],
+          "error_code": null
+        },
+        {
+          "task_id": "task_2",
+          "route": "food_knowledge",
+          "question": "西红柿炒鸡蛋的历史、来历与典故。介绍这道菜的历史来历。",
+          "status": "ok",
+          "content": "片段 1\n来源: data.txt#4\n相似度: 0.43055394850141626\n内容: 元朝多了豇豆、金针菇等蔬菜。\n明朝引进的食物就更多了。此时期蔬菜品种进一步增加，如番茄（又名西红柿）、芋艿、卷心菜、苤蓝、南瓜、笋瓜、西葫芦、辣椒、芸豆、红薯、玉米、蕺菜（鱼腥草）、花生、胡萝卜（此时已有多种品种）、苦瓜等。其中，诸如番茄、辣椒、玉米等珍稀作物，均源自遥远的美洲大陆，被引入中国后逐渐成为了餐桌上的常客。\n如汉朝、唐朝、明朝、清朝等朝代，来自全球各地的番邦进贡为中华大地带来了诸多异域美食。\n许多蔬菜，其实很晚才被人们用于烹饪之中。\n例如辣椒，这一热辣之物，在明朝时期经由勇敢的下南洋商人之手，被引入中国，初时名为「卡晏辣椒」，亦或称「番椒」，因其独特的观赏价值，甚至一度被当作珍稀的景观盆栽，点缀于庭院之中。\n《遵生八笺》是这么描述辣椒：「番椒丛生，白花，果俨似秃笔头，味辣色红，甚可观。」\n戏曲家汤显祖的著作《牡丹亭·冥判》中也提到了辣椒：「凌霄花，阳壮的咍；辣椒花，把阴热窄；」\n所以，如果你穿越到古代，又喜欢吃辣，在明朝之前肯定是没有口福了。\n随着时间的推移，食物种类的丰富程度亦随之变化，现代人的餐桌琳琅满目，而回溯至更久远的时代，则往往显得单调而匮乏。\n\n片段 2\n来源: data.txt#2\n相似度: 0.20700636561587793\n内容: 蔬菜\n众所周知，张骞与郑和这两位伟大的探险家，如同慧眼识珠的伯乐，老祖宗严选的食物如同珍宝般被引入中原，不仅极大地丰富了中国的饮食文化，更如同璀璨的光芒，映照出中国古代对外贸易的辉煌与繁荣。\n要区分这些食物其实并不难，只需观察它们的名字便可见一斑。\n例如带洋字的，带番字的，带胡字的。\n玉米以前别名叫番麦，马铃薯也叫洋番芋，番仔薯，红薯 甘薯以前也叫番薯，包括现在很多地方也叫番薯。\n还有一些农作物也有一些产地特点，例如西瓜，为什么叫西瓜呢，因为是从西域带回来的，所以叫西瓜。\n胡萝卜之所以得名，是因为古代将北方外族称为胡人，而胡萝卜正是从阿富汗等地传入，故有此称，与打篮球的『胡人』并无关联。\n菠菜之名，并非因『对你放秋波』的戏谑，而是源于其从波斯引进的历史，故而得名。\n所以，食物的变化之一，就是中国自古以来对外贸易带来的变化。\n秦以及之前的蔬菜种类主要包括：莕菜、莼菜、蒌蒿、青菜（北方地区称之为白菜，但大白菜是后来才出现的）、大豆、葫芦、瓠子、萝卜、荠菜、黄花菜、花椒、蕨、枸杞、水芹、笋、荷（包括莲藕等）、芥菜、小蒜、芜菁（即蔓菁，也叫芥菜疙瘩，主要用来腌咸菜吃）、甜瓜、菱、甘蔗、芡实、荸荠、芋艿等。此外，还有大豆叶子、蒲菜、苦苣菜、冬寒菜（葵是冬葵，又名冬寒菜，是古代的重要蔬菜）、水蓼、款冬等现在不大吃的蔬菜。\n汉朝蔬菜种类有所增加，主要包括：芝麻、百合、薤（野蒜）、苋、生姜、木耳、茭白、冬瓜、茄子、豇豆、魔芋、山药、葱、旱芹、蕹菜、慈姑、酸浆、紫苏、木耳菜（又名落葵，古代重要蔬菜）、豌豆、扁豆、生菜等。此外，张骞从西域引进了紫花苜蓿、胡桃、芝麻（有争议）、蚕豆、黄瓜（当时叫胡瓜）、红花、大蒜、芫荽（香菜）、胡椒等蔬菜品种。\n隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。\n\n片段 3\n来源: data.txt#26\n相似度: 0.15893286496071424\n内容: 杨万里虽一生清寒，然其对美食之追求，却堪称南宋时期数一数二的食中高手。\n老子平生汤饼肠，客间汤饼亦何尝。怪来今晚加餐饭，一味庐山笋蕨香。\n汤饼，笋和蕨。\n白质黑章三四点，细鳞巨口一双鲜。秋风想见真风味，只是春风已迥然。\n松江鲈鱼。\n秋风起，蟹脚痒。\n农历十月吃大闸蟹。\n长江绕郭知鱼美，好竹连山绕笋香。\n此时节，正是竹笋鲜嫩可口，不容错过的佳期。\n西塞山前白鹭飞，桃花流水鳜鱼肥。\n鳜鱼之味，鲜美异常，令人回味无穷。\n诗词中的美食太多了，也太美了。\n在古代食谱研究领域，众多典籍为我们提供了丰富的知识。《食珍录》便是其中的佼佼者，它由南北朝时期余姚人虞悰所著，详细记载了诸多珍贵食材的烹饪方法。虞悰，作为六朝余姚虞氏家族中的著名人物，其家族在经济上的优势使得他们有条件追求饮食上的极致，虞悰本人更是以擅长烹饪而闻名，其作品《食珍录》不仅收录了魏晋以来皇室、门阀的珍贵烹饪菜品，如「邺中鹿尾」，还包含了各种肴馔的「饮食方」，即烹饪原料与烹制方法、程序以及某些食疗方的介绍。此外，还有《清异录》《食经》《本心斋食谱》《山家清供》《饮膳正要》《饮食须知》《云林堂饮食制度集》《易牙遗意》和《随园食单》等经典食谱，它们犹如璀璨明珠，共同镶嵌在中国古代饮食文化的长河中，熠熠生辉。\n\n片段 4\n来源: data.txt#3\n相似度: 0.1585513183131821\n内容: 隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。\n宋朝增加了豆芽菜、韭黄、胡萝卜、乌塌菜、丝瓜、西瓜、莴苣、香菇、南苜蓿（又名金花菜、草头）、马兰、香椿等蔬菜品种开始被广泛种植。还从越南引进了占城稻，使得很多水稻可以两季熟，更耐旱。",
+          "records": [
+            {
+              "id": "data.txt_4",
+              "content": "元朝多了豇豆、金针菇等蔬菜。\n明朝引进的食物就更多了。此时期蔬菜品种进一步增加，如番茄（又名西红柿）、芋艿、卷心菜、苤蓝、南瓜、笋瓜、西葫芦、辣椒、芸豆、红薯、玉米、蕺菜（鱼腥草）、花生、胡萝卜（此时已有多种品种）、苦瓜等。其中，诸如番茄、辣椒、玉米等珍稀作物，均源自遥远的美洲大陆，被引入中国后逐渐成为了餐桌上的常客。\n如汉朝、唐朝、明朝、清朝等朝代，来自全球各地的番邦进贡为中华大地带来了诸多异域美食。\n许多蔬菜，其实很晚才被人们用于烹饪之中。\n例如辣椒，这一热辣之物，在明朝时期经由勇敢的下南洋商人之手，被引入中国，初时名为「卡晏辣椒」，亦或称「番椒」，因其独特的观赏价值，甚至一度被当作珍稀的景观盆栽，点缀于庭院之中。\n《遵生八笺》是这么描述辣椒：「番椒丛生，白花，果俨似秃笔头，味辣色红，甚可观。」\n戏曲家汤显祖的著作《牡丹亭·冥判》中也提到了辣椒：「凌霄花，阳壮的咍；辣椒花，把阴热窄；」\n所以，如果你穿越到古代，又喜欢吃辣，在明朝之前肯定是没有口福了。\n随着时间的推移，食物种类的丰富程度亦随之变化，现代人的餐桌琳琅满目，而回溯至更久远的时代，则往往显得单调而匮乏。",
+              "score": 0.43055394850141626,
+              "source": "data.txt",
+              "chunk_index": 4,
+              "vector_score": 0.4120084345340729
+            },
+            {
+              "id": "data.txt_2",
+              "content": "蔬菜\n众所周知，张骞与郑和这两位伟大的探险家，如同慧眼识珠的伯乐，老祖宗严选的食物如同珍宝般被引入中原，不仅极大地丰富了中国的饮食文化，更如同璀璨的光芒，映照出中国古代对外贸易的辉煌与繁荣。\n要区分这些食物其实并不难，只需观察它们的名字便可见一斑。\n例如带洋字的，带番字的，带胡字的。\n玉米以前别名叫番麦，马铃薯也叫洋番芋，番仔薯，红薯 甘薯以前也叫番薯，包括现在很多地方也叫番薯。\n还有一些农作物也有一些产地特点，例如西瓜，为什么叫西瓜呢，因为是从西域带回来的，所以叫西瓜。\n胡萝卜之所以得名，是因为古代将北方外族称为胡人，而胡萝卜正是从阿富汗等地传入，故有此称，与打篮球的『胡人』并无关联。\n菠菜之名，并非因『对你放秋波』的戏谑，而是源于其从波斯引进的历史，故而得名。\n所以，食物的变化之一，就是中国自古以来对外贸易带来的变化。\n秦以及之前的蔬菜种类主要包括：莕菜、莼菜、蒌蒿、青菜（北方地区称之为白菜，但大白菜是后来才出现的）、大豆、葫芦、瓠子、萝卜、荠菜、黄花菜、花椒、蕨、枸杞、水芹、笋、荷（包括莲藕等）、芥菜、小蒜、芜菁（即蔓菁，也叫芥菜疙瘩，主要用来腌咸菜吃）、甜瓜、菱、甘蔗、芡实、荸荠、芋艿等。此外，还有大豆叶子、蒲菜、苦苣菜、冬寒菜（葵是冬葵，又名冬寒菜，是古代的重要蔬菜）、水蓼、款冬等现在不大吃的蔬菜。\n汉朝蔬菜种类有所增加，主要包括：芝麻、百合、薤（野蒜）、苋、生姜、木耳、茭白、冬瓜、茄子、豇豆、魔芋、山药、葱、旱芹、蕹菜、慈姑、酸浆、紫苏、木耳菜（又名落葵，古代重要蔬菜）、豌豆、扁豆、生菜等。此外，张骞从西域引进了紫花苜蓿、胡桃、芝麻（有争议）、蚕豆、黄瓜（当时叫胡瓜）、红花、大蒜、芫荽（香菜）、胡椒等蔬菜品种。\n隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。",
+              "score": 0.20700636561587793,
+              "source": "data.txt",
+              "chunk_index": 2,
+              "vector_score": 0.4093027114868164
+            },
+            {
+              "id": "data.txt_26",
+              "content": "杨万里虽一生清寒，然其对美食之追求，却堪称南宋时期数一数二的食中高手。\n老子平生汤饼肠，客间汤饼亦何尝。怪来今晚加餐饭，一味庐山笋蕨香。\n汤饼，笋和蕨。\n白质黑章三四点，细鳞巨口一双鲜。秋风想见真风味，只是春风已迥然。\n松江鲈鱼。\n秋风起，蟹脚痒。\n农历十月吃大闸蟹。\n长江绕郭知鱼美，好竹连山绕笋香。\n此时节，正是竹笋鲜嫩可口，不容错过的佳期。\n西塞山前白鹭飞，桃花流水鳜鱼肥。\n鳜鱼之味，鲜美异常，令人回味无穷。\n诗词中的美食太多了，也太美了。\n在古代食谱研究领域，众多典籍为我们提供了丰富的知识。《食珍录》便是其中的佼佼者，它由南北朝时期余姚人虞悰所著，详细记载了诸多珍贵食材的烹饪方法。虞悰，作为六朝余姚虞氏家族中的著名人物，其家族在经济上的优势使得他们有条件追求饮食上的极致，虞悰本人更是以擅长烹饪而闻名，其作品《食珍录》不仅收录了魏晋以来皇室、门阀的珍贵烹饪菜品，如「邺中鹿尾」，还包含了各种肴馔的「饮食方」，即烹饪原料与烹制方法、程序以及某些食疗方的介绍。此外，还有《清异录》《食经》《本心斋食谱》《山家清供》《饮膳正要》《饮食须知》《云林堂饮食制度集》《易牙遗意》和《随园食单》等经典食谱，它们犹如璀璨明珠，共同镶嵌在中国古代饮食文化的长河中，熠熠生辉。",
+              "score": 0.15893286496071424,
+              "source": "data.txt",
+              "chunk_index": 26,
+              "vector_score": 0.32412803173065186
+            },
+            {
+              "id": "data.txt_3",
+              "content": "隋唐时期又引进了新的蔬菜品种，如菠菜、茼蒿，并出现了大白菜。\n宋朝增加了豆芽菜、韭黄、胡萝卜、乌塌菜、丝瓜、西瓜、莴苣、香菇、南苜蓿（又名金花菜、草头）、马兰、香椿等蔬菜品种开始被广泛种植。还从越南引进了占城稻，使得很多水稻可以两季熟，更耐旱。",
+              "score": 0.1585513183131821,
+              "source": "data.txt",
+              "chunk_index": 3,
+              "vector_score": 0.34935444593429565
+            }
+          ],
+          "sources": [
+            "data.txt#4",
+            "data.txt#2",
+            "data.txt#26",
+            "data.txt#3"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "explicit_new_flavor",
+      "question": "这是同一虚构测试用户的偏好：请长期记住，我喜欢葱香口味。",
+      "elapsed_seconds": 17.99,
+      "answer": "您好！我是 RiceGod。我注意到您不喜欢香菜和辛辣口味，且偏爱葱香风味。\n\n为了给您提供最合适的食谱建议，请问您今天想做什么类型的菜呢？（例如：主菜、汤品、主食或甜点？）\n\n已保存长期记忆：我喜欢葱香口味。",
+      "route": "additional_query",
+      "sources": [],
+      "used_memories": [
+        {
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜"
+        },
+        {
+          "type": "dietary_preference",
+          "content": "也不能吃辣"
+        }
+      ],
+      "saved_memories": [
+        {
+          "id": 36,
+          "type": "liked_cuisine",
+          "content": "我喜欢葱香口味",
+          "source_message_id": 187,
+          "evidence": "我喜欢葱香口味"
+        },
+        {
+          "id": 35,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "source_message_id": 171,
+          "evidence": "也不能吃辣"
+        },
+        {
+          "id": 34,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "source_message_id": 171,
+          "evidence": "我不吃香菜"
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "additional_query",
+            "question": "这是同一虚构测试用户的偏好：请长期记住，我喜欢葱香口味。",
+            "depends_on": [],
+            "source_text": "",
+            "constraints": null,
+            "recipe_request": null
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [
+            "葱香"
+          ],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "这是同一虚构测试用户的偏好：请长期记住，我喜欢葱香口味。",
+          "recommendation": true,
+          "limit": 3,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "additional_query",
+          "question": "这是同一虚构测试用户的偏好：请长期记住，我喜欢葱香口味。",
+          "status": "ok",
+          "content": "您好！我是 RiceGod。我注意到您不喜欢香菜和辛辣口味，且偏爱葱香风味。\n\n为了给您提供最合适的食谱建议，请问您今天想做什么类型的菜呢？（例如：主菜、汤品、主食或甜点？）",
+          "records": [],
+          "sources": [],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "ranked_default_three",
+      "question": "用鸡蛋推荐家常菜，给我几个选择。",
+      "elapsed_seconds": 13.06,
+      "answer": "根据您的口味偏好（葱香、不吃香菜、不吃辣）及指定食材（鸡蛋），为您推荐以下三道家常菜：\n\n1. **芹菜叶鸡蛋早餐饼**\n   - **推荐理由**：符合您偏好的葱香口味，耗时短。\n   - **记录耗时**：十分钟\n   - **主要食材**：面粉、芹菜叶、鸡蛋、小葱\n\n2. **小米鸡蛋饼**\n   - **推荐理由**：符合您偏好的葱香口味，口感丰富。\n   - **记录耗时**：半小时\n   - **主要食材**：小米、鸡蛋、葱花、胡萝卜\n\n3. **西红柿炒鸡蛋**\n   - **推荐理由**：经典家常菜，制作简单快捷。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋、西红柿、葱\n\n请问您想查看哪道菜的详细材料和步骤？",
+      "route": "recipe_query",
+      "sources": [
+        "neo4j:Dish:芹菜叶鸡蛋早餐饼",
+        "neo4j:Dish:小米鸡蛋饼",
+        "neo4j:Dish:西红柿炒鸡蛋"
+      ],
+      "used_memories": [
+        {
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜"
+        },
+        {
+          "type": "liked_cuisine",
+          "content": "我喜欢葱香口味"
+        },
+        {
+          "type": "dietary_preference",
+          "content": "也不能吃辣"
+        }
+      ],
+      "saved_memories": [
+        {
+          "id": 36,
+          "type": "liked_cuisine",
+          "content": "我喜欢葱香口味",
+          "source_message_id": 187,
+          "evidence": "我喜欢葱香口味"
+        },
+        {
+          "id": 35,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "source_message_id": 171,
+          "evidence": "也不能吃辣"
+        },
+        {
+          "id": 34,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "source_message_id": 171,
+          "evidence": "我不吃香菜"
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "recipe_query",
+            "question": "用鸡蛋推荐家常菜，给我几个选择。",
+            "depends_on": [],
+            "source_text": "用鸡蛋推荐家常菜，给我几个选择。",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "鸡蛋"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [
+                "家常菜"
+              ],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "用鸡蛋推荐家常菜，给我几个选择。",
+              "recommendation": true,
+              "limit": 3,
+              "requested_count": null,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [
+                "葱香"
+              ],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [
+            "鸡蛋"
+          ],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [
+            "家常菜"
+          ],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "用鸡蛋推荐家常菜，给我几个选择。",
+          "recommendation": true,
+          "limit": 3,
+          "requested_count": null,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [
+            "葱香"
+          ],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "recipe_query",
+          "question": "用鸡蛋推荐家常菜，给我几个选择。",
+          "status": "ok",
+          "content": "菜谱 1: 芹菜叶鸡蛋早餐饼\n类型: ['家常菜']\n口味: ['葱香']\n工艺: ['烙']\n耗时: 十分钟\n主食材: 面粉(30克)、芹菜叶(一盘)、鸡蛋(两个)\n辅料: 盐(2克)、小葱(2棵)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟；符合已表达的口味偏好：葱香\n\n菜谱 2: 小米鸡蛋饼\n类型: ['家常菜']\n口味: ['葱香']\n工艺: ['煎']\n耗时: 半小时\n主食材: 小米(2杯)、鸡蛋(1个)\n辅料: 葱花(适量)、盐(一勺)、植物油(适量)、胡萝卜(适量)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：半小时；符合已表达的口味偏好：葱香\n\n菜谱 3: 西红柿炒鸡蛋\n类型: ['家常菜']\n口味: ['咸香']\n工艺: ['炒']\n耗时: 十分钟\n主食材: 鸡蛋(2个)、西红柿(1个)\n辅料: 生抽(2匙)、葱(10g)、十三香(半匙)、盐(2匙)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "芹菜叶鸡蛋早餐饼",
+              "耗时": "十分钟",
+              "做法": "1:准备食材:芹菜叶一盘，鸡蛋两个，小葱两棵，面粉30克左右，盐2克，2:先把芹菜叶开水焯一下，锅里烧开水后直接放入3:芹菜叶子翻动几下烫软，焯水后还可以去除草酸。4:焯水2分钟即可，捞出后清水冲洗两遍，去热，在紧握成菜团，挤出多余水分，5:在把芹菜叶子切细碎点，6:小葱切成葱花备用。7:把芹菜叶碎，葱花放入小盆中，加入面粉，打入鸡蛋，加少许的盐，8:如果看到面粉比较稠的话可以加小半碗的清水，然后搅拌均匀成糊9:热锅倒入少许的植物油， 我用的这个德国卡特马克的麦饭石炒锅特别赞，锅深容量大，采用意大利建筑八角设计，一点都不粘锅，烙饼最好用了10:把菜叶糊糊用勺子舀到锅里，摊成小圆饼11:小火烙至两面金黄即可，大约5-8分钟左右12:最后出锅即可，闻着就很清香，芹菜叶早餐饼就可以吃了。这样做是不是很简单，剩余的芹菜叶以后别扔了，这样做成小饼可香了！13:加点胡萝卜丝会更好吃，搭配豆浆，热粥做早餐是营养美味哦！",
+              "主食材": [
+                {
+                  "amount": "30克",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "一盘",
+                  "name": "芹菜叶"
+                },
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2克",
+                  "name": "盐"
+                },
+                {
+                  "amount": "2棵",
+                  "name": "小葱"
+                }
+              ],
+              "口味": [
+                "葱香"
+              ],
+              "工艺": [
+                "烙"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟",
+                "符合已表达的口味偏好：葱香"
+              ]
+            },
+            {
+              "菜名": "小米鸡蛋饼",
+              "耗时": "半小时",
+              "做法": "1:准备好主要的食材，胡萝卜先削皮洗干净，然后切碎备用，大葱洗干净切成碎碎的葱花。2:小米要用量杯量二杯米。我家6人吃饭的量，如果人少就一杯米。小米做饭会吸水，能够煮很多饭，老话说：小米做饭比大米出数，就是饭熟了量很多的意思。3:小米淘洗一下。先在臻米脱糖饭煲内胆里边加水，水量不要超过标注的刻度。蒸网放在上边，把米倒进网上。锅的特点米汤分离，这样煮饭可达到米和汤分开，没有米汤了，脱糖效果会更好。煮的饭口感Q弹好吃，爷爷喜欢吃的饭脱糖的。小时候吃的小米质量不好，偶尔会吃到牙碜。那时候的工艺不行米里有沙子。4:一切都OK 了，设置脱糖饭煲煮饭功能，时间显示需要25分钟，我米放二杯，减掉三分钟就可以。现在去切胡萝卜碎，还有葱花，鸡蛋也得打散备用。5:一直忙着做菜中听见提示音，滴滴好快呀，小米饭已经熟咯，掀开锅盖凉一下做煎饼。6:小米饭被我从锅里挖出来了，蒸的米粉颗粒分离，不会粘糊糊的，做米饼就是需要这样的米饭。虽然是小米但是米好，所以米粒很大。7:碎胡萝卜和葱花盐加到小米饭里边用筷子混合一下，盐会均匀。半杯面粉舔到混合好的米饭里混合，下一步要放鸡蛋液的。8:加鸡蛋液混合均匀，如果你的米饭比较软，多加点面粉，自家调节一下。9:烙饼我喜欢用稳定好控制的火候。电陶炉温度来得比较快，手触控温也方便，最大的火候是8档，我开始就用4档火。放植物油二勺，用模具放面糊压实就脱模。没模具做成圆形或者整个煎饼OK。10:不到四分钟翻饼，一面已经煎的金黄。电陶炉可降低温度调置到2档。继续加热三分钟饼就煎好了。11:小米饭就是熟的，面粉很少。所以只要煎到二面金黄，多放点油哈，自家吃就是任性！共煎置二锅一次吃光。12:孩子不吃饭，做煎饼花样，不用劝不用哄，端上桌稀里哗啦光光盘哈。没想到哈，来试下这方法。",
+              "主食材": [
+                {
+                  "amount": "2杯",
+                  "name": "小米"
+                },
+                {
+                  "amount": "1个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "葱花"
+                },
+                {
+                  "amount": "一勺",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "植物油"
+                },
+                {
+                  "amount": "适量",
+                  "name": "胡萝卜"
+                }
+              ],
+              "口味": [
+                "葱香"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：半小时",
+                "符合已表达的口味偏好：葱香"
+              ]
+            },
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:芹菜叶鸡蛋早餐饼",
+            "neo4j:Dish:小米鸡蛋饼",
+            "neo4j:Dish:西红柿炒鸡蛋"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "selected_second_recipe",
+      "question": "第二道菜怎么做？给出材料和步骤。",
+      "elapsed_seconds": 8.07,
+      "answer": "以下是**小米鸡蛋饼**的详细材料和做法：\n\n### **材料准备**\n*   **主食材**：\n    *   小米：2杯（若人数较少可用1杯）\n    *   鸡蛋：1个\n*   **辅料**：\n    *   胡萝卜：适量（切碎）\n    *   葱花：适量（大葱切碎）\n    *   面粉：半杯（根据米饭软硬程度可适当调整）\n    *   盐：一勺\n    *   植物油：适量（用于煎制）\n\n### **制作步骤**\n1.  **备菜**：将胡萝卜削皮洗净并切碎；大葱洗净切成碎葱花；鸡蛋打散备用。\n2.  **煮小米**：\n    *   量取2杯小米，淘洗干净。\n    *   放入电饭煲（建议使用具有米汤分离功能的饭煲），加水至不超过刻度线，蒸网放在上方倒入小米。\n    *   设置煮饭功能，时间约25分钟（可根据实际情况微调）。\n3.  **混合馅料**：\n    *   小米饭煮熟后，掀开锅盖稍作冷却。此时米粒应颗粒分明，不粘糊。\n    *   将小米饭挖出，加入切好的胡萝卜碎、葱花和盐，用筷子搅拌均匀。\n    *   加入半杯面粉，再次混合均匀。\n    *   倒入打散的鸡蛋液，充分混合。如果米饭较软，可酌情多加一点面粉调节稠度。\n4.  **煎制**：\n    *   电陶炉预热，初始火力设为4档。\n    *   锅中放两勺植物油，使用模具盛入面糊压实后脱模（若无模具可直接做成圆形或整张煎饼）。\n    *   煎制约4分钟，待一面金黄后翻面。\n    *   将火力调至2档，继续加热约3分钟，直至两面金黄即可出锅。\n\n这道饼外酥里嫩，葱香浓郁，非常适合家庭食用。",
+      "route": "recipe_query",
+      "sources": [
+        "neo4j:Dish:小米鸡蛋饼"
+      ],
+      "used_memories": [
+        {
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜"
+        },
+        {
+          "type": "liked_cuisine",
+          "content": "我喜欢葱香口味"
+        },
+        {
+          "type": "dietary_preference",
+          "content": "也不能吃辣"
+        }
+      ],
+      "saved_memories": [
+        {
+          "id": 36,
+          "type": "liked_cuisine",
+          "content": "我喜欢葱香口味",
+          "source_message_id": 187,
+          "evidence": "我喜欢葱香口味"
+        },
+        {
+          "id": 35,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "source_message_id": 171,
+          "evidence": "也不能吃辣"
+        },
+        {
+          "id": 34,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "source_message_id": 171,
+          "evidence": "我不吃香菜"
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_0",
+            "route": "recipe_query",
+            "question": "第二道菜怎么做？给出材料和步骤。",
+            "depends_on": [],
+            "source_text": "第二道菜怎么做？给出材料和步骤。",
+            "constraints": {
+              "dish_name": "小米鸡蛋饼",
+              "required_ingredients": [],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "第二道菜怎么做？给出材料和步骤。",
+              "recommendation": false,
+              "limit": 1,
+              "requested_count": null,
+              "detailed": true,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [
+                "葱香"
+              ],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": "小米鸡蛋饼",
+          "required_ingredients": [],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "第二道菜怎么做？给出材料和步骤。",
+          "recommendation": false,
+          "limit": 1,
+          "requested_count": null,
+          "detailed": true,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [
+            "葱香"
+          ],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": "小米鸡蛋饼",
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_0",
+          "route": "recipe_query",
+          "question": "第二道菜怎么做？给出材料和步骤。",
+          "status": "ok",
+          "content": "[\n  {\n    \"菜名\": \"小米鸡蛋饼\",\n    \"耗时\": \"半小时\",\n    \"做法\": \"1:准备好主要的食材，胡萝卜先削皮洗干净，然后切碎备用，大葱洗干净切成碎碎的葱花。2:小米要用量杯量二杯米。我家6人吃饭的量，如果人少就一杯米。小米做饭会吸水，能够煮很多饭，老话说：小米做饭比大米出数，就是饭熟了量很多的意思。3:小米淘洗一下。先在臻米脱糖饭煲内胆里边加水，水量不要超过标注的刻度。蒸网放在上边，把米倒进网上。锅的特点米汤分离，这样煮饭可达到米和汤分开，没有米汤了，脱糖效果会更好。煮的饭口感Q弹好吃，爷爷喜欢吃的饭脱糖的。小时候吃的小米质量不好，偶尔会吃到牙碜。那时候的工艺不行米里有沙子。4:一切都OK 了，设置脱糖饭煲煮饭功能，时间显示需要25分钟，我米放二杯，减掉三分钟就可以。现在去切胡萝卜碎，还有葱花，鸡蛋也得打散备用。5:一直忙着做菜中听见提示音，滴滴好快呀，小米饭已经熟咯，掀开锅盖凉一下做煎饼。6:小米饭被我从锅里挖出来了，蒸的米粉颗粒分离，不会粘糊糊的，做米饼就是需要这样的米饭。虽然是小米但是米好，所以米粒很大。7:碎胡萝卜和葱花盐加到小米饭里边用筷子混合一下，盐会均匀。半杯面粉舔到混合好的米饭里混合，下一步要放鸡蛋液的。8:加鸡蛋液混合均匀，如果你的米饭比较软，多加点面粉，自家调节一下。9:烙饼我喜欢用稳定好控制的火候。电陶炉温度来得比较快，手触控温也方便，最大的火候是8档，我开始就用4档火。放植物油二勺，用模具放面糊压实就脱模。没模具做成圆形或者整个煎饼OK。10:不到四分钟翻饼，一面已经煎的金黄。电陶炉可降低温度调置到2档。继续加热三分钟饼就煎好了。11:小米饭就是熟的，面粉很少。所以只要煎到二面金黄，多放点油哈，自家吃就是任性！共煎置二锅一次吃光。12:孩子不吃饭，做煎饼花样，不用劝不用哄，端上桌稀里哗啦光光盘哈。没想到哈，来试下这方法。\",\n    \"主食材\": [\n      {\n        \"amount\": \"2杯\",\n        \"name\": \"小米\"\n      },\n      {\n        \"amount\": \"1个\",\n        \"name\": \"鸡蛋\"\n      }\n    ],\n    \"辅料\": [\n      {\n        \"amount\": \"适量\",\n        \"name\": \"葱花\"\n      },\n      {\n        \"amount\": \"一勺\",\n        \"name\": \"盐\"\n      },\n      {\n        \"amount\": \"适量\",\n        \"name\": \"植物油\"\n      },\n      {\n        \"amount\": \"适量\",\n        \"name\": \"胡萝卜\"\n      }\n    ],\n    \"口味\": [\n      \"葱香\"\n    ],\n    \"工艺\": [\n      \"煎\"\n    ],\n    \"类型\": [\n      \"家常菜\"\n    ]\n  }\n]",
+          "records": [
+            {
+              "菜名": "小米鸡蛋饼",
+              "耗时": "半小时",
+              "做法": "1:准备好主要的食材，胡萝卜先削皮洗干净，然后切碎备用，大葱洗干净切成碎碎的葱花。2:小米要用量杯量二杯米。我家6人吃饭的量，如果人少就一杯米。小米做饭会吸水，能够煮很多饭，老话说：小米做饭比大米出数，就是饭熟了量很多的意思。3:小米淘洗一下。先在臻米脱糖饭煲内胆里边加水，水量不要超过标注的刻度。蒸网放在上边，把米倒进网上。锅的特点米汤分离，这样煮饭可达到米和汤分开，没有米汤了，脱糖效果会更好。煮的饭口感Q弹好吃，爷爷喜欢吃的饭脱糖的。小时候吃的小米质量不好，偶尔会吃到牙碜。那时候的工艺不行米里有沙子。4:一切都OK 了，设置脱糖饭煲煮饭功能，时间显示需要25分钟，我米放二杯，减掉三分钟就可以。现在去切胡萝卜碎，还有葱花，鸡蛋也得打散备用。5:一直忙着做菜中听见提示音，滴滴好快呀，小米饭已经熟咯，掀开锅盖凉一下做煎饼。6:小米饭被我从锅里挖出来了，蒸的米粉颗粒分离，不会粘糊糊的，做米饼就是需要这样的米饭。虽然是小米但是米好，所以米粒很大。7:碎胡萝卜和葱花盐加到小米饭里边用筷子混合一下，盐会均匀。半杯面粉舔到混合好的米饭里混合，下一步要放鸡蛋液的。8:加鸡蛋液混合均匀，如果你的米饭比较软，多加点面粉，自家调节一下。9:烙饼我喜欢用稳定好控制的火候。电陶炉温度来得比较快，手触控温也方便，最大的火候是8档，我开始就用4档火。放植物油二勺，用模具放面糊压实就脱模。没模具做成圆形或者整个煎饼OK。10:不到四分钟翻饼，一面已经煎的金黄。电陶炉可降低温度调置到2档。继续加热三分钟饼就煎好了。11:小米饭就是熟的，面粉很少。所以只要煎到二面金黄，多放点油哈，自家吃就是任性！共煎置二锅一次吃光。12:孩子不吃饭，做煎饼花样，不用劝不用哄，端上桌稀里哗啦光光盘哈。没想到哈，来试下这方法。",
+              "主食材": [
+                {
+                  "amount": "2杯",
+                  "name": "小米"
+                },
+                {
+                  "amount": "1个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "葱花"
+                },
+                {
+                  "amount": "一勺",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "植物油"
+                },
+                {
+                  "amount": "适量",
+                  "name": "胡萝卜"
+                }
+              ],
+              "口味": [
+                "葱香"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:小米鸡蛋饼"
+          ],
+          "error_code": null
+        }
+      ]
+    },
+    {
+      "name": "ranked_explicit_five",
+      "question": "用鸡蛋推荐五道家常菜。",
+      "elapsed_seconds": 14.78,
+      "answer": "根据您的口味偏好（葱香）和饮食禁忌（不吃香菜、不吃辣），为您精选了以下五道以鸡蛋为主的家常菜：\n\n1. **芹菜叶鸡蛋早餐饼**\n   - **推荐理由**：符合您喜欢的葱香口味，制作简单。\n   - **记录耗时**：十分钟\n   - **主要食材**：面粉、芹菜叶、鸡蛋、小葱\n\n2. **小米鸡蛋饼**\n   - **推荐理由**：符合您喜欢的葱香口味，口感丰富。\n   - **记录耗时**：半小时\n   - **主要食材**：小米、鸡蛋、葱花、胡萝卜\n\n3. **西红柿炒鸡蛋**\n   - **推荐理由**：经典家常菜，下饭首选。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋、西红柿、葱\n\n4. **西红柿鸡蛋饼**\n   - **推荐理由**：快手主食，营养均衡。\n   - **记录耗时**：十分钟\n   - **主要食材**：鸡蛋、西红柿、香葱、面粉\n\n5. **西红柿鸡蛋热汤面**\n   - **推荐理由**：暖胃舒适，适合喜欢汤食的时候。\n   - **记录耗时**：十分钟\n   - **主要食材**：面条、鸡蛋、西红柿、葱\n\n请问您想了解哪一道菜的详细材料和步骤？",
+      "route": "recipe_query",
+      "sources": [
+        "neo4j:Dish:芹菜叶鸡蛋早餐饼",
+        "neo4j:Dish:小米鸡蛋饼",
+        "neo4j:Dish:西红柿炒鸡蛋",
+        "neo4j:Dish:西红柿鸡蛋饼",
+        "neo4j:Dish:西红柿鸡蛋热汤面"
+      ],
+      "used_memories": [
+        {
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜"
+        },
+        {
+          "type": "liked_cuisine",
+          "content": "我喜欢葱香口味"
+        },
+        {
+          "type": "dietary_preference",
+          "content": "也不能吃辣"
+        }
+      ],
+      "saved_memories": [
+        {
+          "id": 36,
+          "type": "liked_cuisine",
+          "content": "我喜欢葱香口味",
+          "source_message_id": 187,
+          "evidence": "我喜欢葱香口味"
+        },
+        {
+          "id": 35,
+          "type": "dietary_preference",
+          "content": "也不能吃辣",
+          "source_message_id": 171,
+          "evidence": "也不能吃辣"
+        },
+        {
+          "id": 34,
+          "type": "disliked_ingredient",
+          "content": "我不吃香菜",
+          "source_message_id": 171,
+          "evidence": "我不吃香菜"
+        }
+      ],
+      "plan": {
+        "tasks": [
+          {
+            "id": "task_1",
+            "route": "recipe_query",
+            "question": "用鸡蛋推荐五道家常菜。",
+            "depends_on": [],
+            "source_text": "用鸡蛋推荐五道家常菜。",
+            "constraints": {
+              "dish_name": null,
+              "required_ingredients": [
+                "鸡蛋"
+              ],
+              "excluded_ingredients": [
+                "香菜"
+              ],
+              "flavors": [],
+              "methods": [],
+              "dish_types": [
+                "家常菜"
+              ],
+              "avoid_spicy": true
+            },
+            "recipe_request": {
+              "query": "用鸡蛋推荐五道家常菜。",
+              "recommendation": true,
+              "limit": 5,
+              "requested_count": 5,
+              "detailed": false,
+              "prefer_quick": false,
+              "prefer_simple": false,
+              "preferred_flavors": [
+                "葱香"
+              ],
+              "preferred_methods": []
+            }
+          }
+        ],
+        "constraints": {
+          "dish_name": null,
+          "required_ingredients": [
+            "鸡蛋"
+          ],
+          "excluded_ingredients": [
+            "香菜"
+          ],
+          "flavors": [],
+          "methods": [],
+          "dish_types": [
+            "家常菜"
+          ],
+          "avoid_spicy": true
+        },
+        "recipe_request": {
+          "query": "用鸡蛋推荐五道家常菜。",
+          "recommendation": true,
+          "limit": 5,
+          "requested_count": 5,
+          "detailed": false,
+          "prefer_quick": false,
+          "prefer_simple": false,
+          "preferred_flavors": [
+            "葱香"
+          ],
+          "preferred_methods": []
+        },
+        "selected_recipe_name": null,
+        "recipe_selection_error": null
+      },
+      "task_results": [
+        {
+          "task_id": "task_1",
+          "route": "recipe_query",
+          "question": "用鸡蛋推荐五道家常菜。",
+          "status": "ok",
+          "content": "菜谱 1: 芹菜叶鸡蛋早餐饼\n类型: ['家常菜']\n口味: ['葱香']\n工艺: ['烙']\n耗时: 十分钟\n主食材: 面粉(30克)、芹菜叶(一盘)、鸡蛋(两个)\n辅料: 盐(2克)、小葱(2棵)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟；符合已表达的口味偏好：葱香\n\n菜谱 2: 小米鸡蛋饼\n类型: ['家常菜']\n口味: ['葱香']\n工艺: ['煎']\n耗时: 半小时\n主食材: 小米(2杯)、鸡蛋(1个)\n辅料: 葱花(适量)、盐(一勺)、植物油(适量)、胡萝卜(适量)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：半小时；符合已表达的口味偏好：葱香\n\n菜谱 3: 西红柿炒鸡蛋\n类型: ['家常菜']\n口味: ['咸香']\n工艺: ['炒']\n耗时: 十分钟\n主食材: 鸡蛋(2个)、西红柿(1个)\n辅料: 生抽(2匙)、葱(10g)、十三香(半匙)、盐(2匙)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n\n菜谱 4: 西红柿鸡蛋饼\n类型: ['家常菜']\n口味: ['咸鲜']\n工艺: ['其他']\n耗时: 十分钟\n主食材: 鸡蛋(两个)、西红柿(一个)\n辅料: 香葱(一棵)、五香粉(少许)、盐(适量)、面粉(两大勺)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n\n菜谱 5: 西红柿鸡蛋热汤面\n类型: ['家常菜']\n口味: ['咸香']\n工艺: ['煮']\n耗时: 十分钟\n主食材: 面条(适量)、鸡蛋(两个)、西红柿(两个)\n辅料: 油(适量)、胡椒粉(随意)、盐(适量)、葱(适量)\n推荐理由: 指定食材用于主料：鸡蛋；记录耗时：十分钟\n你想看哪道菜的详细材料和步骤？",
+          "records": [
+            {
+              "菜名": "芹菜叶鸡蛋早餐饼",
+              "耗时": "十分钟",
+              "做法": "1:准备食材:芹菜叶一盘，鸡蛋两个，小葱两棵，面粉30克左右，盐2克，2:先把芹菜叶开水焯一下，锅里烧开水后直接放入3:芹菜叶子翻动几下烫软，焯水后还可以去除草酸。4:焯水2分钟即可，捞出后清水冲洗两遍，去热，在紧握成菜团，挤出多余水分，5:在把芹菜叶子切细碎点，6:小葱切成葱花备用。7:把芹菜叶碎，葱花放入小盆中，加入面粉，打入鸡蛋，加少许的盐，8:如果看到面粉比较稠的话可以加小半碗的清水，然后搅拌均匀成糊9:热锅倒入少许的植物油， 我用的这个德国卡特马克的麦饭石炒锅特别赞，锅深容量大，采用意大利建筑八角设计，一点都不粘锅，烙饼最好用了10:把菜叶糊糊用勺子舀到锅里，摊成小圆饼11:小火烙至两面金黄即可，大约5-8分钟左右12:最后出锅即可，闻着就很清香，芹菜叶早餐饼就可以吃了。这样做是不是很简单，剩余的芹菜叶以后别扔了，这样做成小饼可香了！13:加点胡萝卜丝会更好吃，搭配豆浆，热粥做早餐是营养美味哦！",
+              "主食材": [
+                {
+                  "amount": "30克",
+                  "name": "面粉"
+                },
+                {
+                  "amount": "一盘",
+                  "name": "芹菜叶"
+                },
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2克",
+                  "name": "盐"
+                },
+                {
+                  "amount": "2棵",
+                  "name": "小葱"
+                }
+              ],
+              "口味": [
+                "葱香"
+              ],
+              "工艺": [
+                "烙"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟",
+                "符合已表达的口味偏好：葱香"
+              ]
+            },
+            {
+              "菜名": "小米鸡蛋饼",
+              "耗时": "半小时",
+              "做法": "1:准备好主要的食材，胡萝卜先削皮洗干净，然后切碎备用，大葱洗干净切成碎碎的葱花。2:小米要用量杯量二杯米。我家6人吃饭的量，如果人少就一杯米。小米做饭会吸水，能够煮很多饭，老话说：小米做饭比大米出数，就是饭熟了量很多的意思。3:小米淘洗一下。先在臻米脱糖饭煲内胆里边加水，水量不要超过标注的刻度。蒸网放在上边，把米倒进网上。锅的特点米汤分离，这样煮饭可达到米和汤分开，没有米汤了，脱糖效果会更好。煮的饭口感Q弹好吃，爷爷喜欢吃的饭脱糖的。小时候吃的小米质量不好，偶尔会吃到牙碜。那时候的工艺不行米里有沙子。4:一切都OK 了，设置脱糖饭煲煮饭功能，时间显示需要25分钟，我米放二杯，减掉三分钟就可以。现在去切胡萝卜碎，还有葱花，鸡蛋也得打散备用。5:一直忙着做菜中听见提示音，滴滴好快呀，小米饭已经熟咯，掀开锅盖凉一下做煎饼。6:小米饭被我从锅里挖出来了，蒸的米粉颗粒分离，不会粘糊糊的，做米饼就是需要这样的米饭。虽然是小米但是米好，所以米粒很大。7:碎胡萝卜和葱花盐加到小米饭里边用筷子混合一下，盐会均匀。半杯面粉舔到混合好的米饭里混合，下一步要放鸡蛋液的。8:加鸡蛋液混合均匀，如果你的米饭比较软，多加点面粉，自家调节一下。9:烙饼我喜欢用稳定好控制的火候。电陶炉温度来得比较快，手触控温也方便，最大的火候是8档，我开始就用4档火。放植物油二勺，用模具放面糊压实就脱模。没模具做成圆形或者整个煎饼OK。10:不到四分钟翻饼，一面已经煎的金黄。电陶炉可降低温度调置到2档。继续加热三分钟饼就煎好了。11:小米饭就是熟的，面粉很少。所以只要煎到二面金黄，多放点油哈，自家吃就是任性！共煎置二锅一次吃光。12:孩子不吃饭，做煎饼花样，不用劝不用哄，端上桌稀里哗啦光光盘哈。没想到哈，来试下这方法。",
+              "主食材": [
+                {
+                  "amount": "2杯",
+                  "name": "小米"
+                },
+                {
+                  "amount": "1个",
+                  "name": "鸡蛋"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "葱花"
+                },
+                {
+                  "amount": "一勺",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "植物油"
+                },
+                {
+                  "amount": "适量",
+                  "name": "胡萝卜"
+                }
+              ],
+              "口味": [
+                "葱香"
+              ],
+              "工艺": [
+                "煎"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：半小时",
+                "符合已表达的口味偏好：葱香"
+              ]
+            },
+            {
+              "菜名": "西红柿炒鸡蛋",
+              "耗时": "十分钟",
+              "做法": "1:西红柿切成小块，葱切成丝。2:鸡蛋打好放盐放十三香然后搅匀。3:炒锅放油加热，放入鸡蛋翻炒成团，盛出备用。4:炒锅放入一点油放葱爆香。5:放入西红柿，加生抽加盐翻炒6:待西红柿炒软后加入备用的鸡蛋翻炒，出锅。",
+              "主食材": [
+                {
+                  "amount": "2个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "1个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "2匙",
+                  "name": "生抽"
+                },
+                {
+                  "amount": "10g",
+                  "name": "葱"
+                },
+                {
+                  "amount": "半匙",
+                  "name": "十三香"
+                },
+                {
+                  "amount": "2匙",
+                  "name": "盐"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "炒"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋饼",
+              "耗时": "十分钟",
+              "做法": "1:备好食材2:把西红柿洗净去皮切碎，放到碗里，把香葱切圈放到碗里，再打上鸡蛋，放两勺面粉，适量盐和少许五香粉3:加少许的水调成面糊4:饼铛预热，刷上少许油，倒入面糊，摊成饼5:上面的面糊凝固，翻面，再烙一两分钟6:出锅啦7:来一碗燕麦粥，加爽口萝卜条，嗯～不错哦",
+              "主食材": [
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "一个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "一棵",
+                  "name": "香葱"
+                },
+                {
+                  "amount": "少许",
+                  "name": "五香粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "两大勺",
+                  "name": "面粉"
+                }
+              ],
+              "口味": [
+                "咸鲜"
+              ],
+              "工艺": [
+                "其他"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            },
+            {
+              "菜名": "西红柿鸡蛋热汤面",
+              "耗时": "十分钟",
+              "做法": "1:食材2:切好。有时间西红柿可去皮。3:锅里放油，烧热。放葱花爆香。放入西红柿翻炒。4:西红柿要多炒一会。炒好西红柿后加水。水开后下面条。面条煮熟后放鸡蛋，鸡蛋可以在碗里打散再放入锅内搅拌下。放盐，胡椒粉。5:装饰朵西兰花。成品图",
+              "主食材": [
+                {
+                  "amount": "适量",
+                  "name": "面条"
+                },
+                {
+                  "amount": "两个",
+                  "name": "鸡蛋"
+                },
+                {
+                  "amount": "两个",
+                  "name": "西红柿"
+                }
+              ],
+              "辅料": [
+                {
+                  "amount": "适量",
+                  "name": "油"
+                },
+                {
+                  "amount": "随意",
+                  "name": "胡椒粉"
+                },
+                {
+                  "amount": "适量",
+                  "name": "盐"
+                },
+                {
+                  "amount": "适量",
+                  "name": "葱"
+                }
+              ],
+              "口味": [
+                "咸香"
+              ],
+              "工艺": [
+                "煮"
+              ],
+              "类型": [
+                "家常菜"
+              ],
+              "推荐理由": [
+                "指定食材用于主料：鸡蛋",
+                "记录耗时：十分钟"
+              ]
+            }
+          ],
+          "sources": [
+            "neo4j:Dish:芹菜叶鸡蛋早餐饼",
+            "neo4j:Dish:小米鸡蛋饼",
+            "neo4j:Dish:西红柿炒鸡蛋",
+            "neo4j:Dish:西红柿鸡蛋饼",
+            "neo4j:Dish:西红柿鸡蛋热汤面"
+          ],
+          "error_code": null
+        }
+      ]
+    }
+  ],
+  "test_rows_cleaned": true,
+  "passed": true
+}

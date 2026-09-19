@@ -1,0 +1,282 @@
+{
+  "verified_at": "2026-09-18T09:55:42.154659+00:00",
+  "checks": [
+    {
+      "name": "history_matches_1",
+      "passed": true
+    },
+    {
+      "name": "three_actual_recommendations",
+      "passed": true
+    },
+    {
+      "name": "old_history_excluded",
+      "passed": true
+    },
+    {
+      "name": "window_bounded_all_nodes",
+      "passed": true
+    },
+    {
+      "name": "full_checkpoint_history",
+      "passed": true
+    },
+    {
+      "name": "history_matches_2",
+      "passed": true
+    },
+    {
+      "name": "correction_does_not_call_dialogue_models",
+      "passed": true
+    },
+    {
+      "name": "history_matches_3",
+      "passed": true
+    },
+    {
+      "name": "selection_survives_runtime_restart",
+      "passed": true
+    },
+    {
+      "name": "history_boundary_persisted",
+      "passed": true
+    },
+    {
+      "name": "stale_preference_absent_from_model_input",
+      "passed": true
+    },
+    {
+      "name": "current_memory_present",
+      "passed": true
+    },
+    {
+      "name": "history_matches_4",
+      "passed": true
+    },
+    {
+      "name": "forget_does_not_call_dialogue_models",
+      "passed": true
+    },
+    {
+      "name": "history_matches_5",
+      "passed": true
+    },
+    {
+      "name": "forgotten_preference_absent",
+      "passed": true
+    },
+    {
+      "name": "complete_history_still_available",
+      "passed": true
+    }
+  ],
+  "contexts": [
+    {
+      "purpose": "router",
+      "checkpoint_messages": 61,
+      "model_messages": 14,
+      "estimated_input_tokens": 1965,
+      "historical_assistants": 6
+    },
+    {
+      "purpose": "planner",
+      "checkpoint_messages": 61,
+      "model_messages": 16,
+      "estimated_input_tokens": 2785,
+      "historical_assistants": 6
+    },
+    {
+      "purpose": "answer",
+      "checkpoint_messages": 61,
+      "model_messages": 16,
+      "estimated_input_tokens": 5513,
+      "historical_assistants": 6
+    },
+    {
+      "purpose": "answer",
+      "checkpoint_messages": 65,
+      "model_messages": 5,
+      "estimated_input_tokens": 4257,
+      "historical_assistants": 0
+    },
+    {
+      "purpose": "router",
+      "checkpoint_messages": 69,
+      "model_messages": 3,
+      "estimated_input_tokens": 1725,
+      "historical_assistants": 0
+    },
+    {
+      "purpose": "conversation",
+      "checkpoint_messages": 69,
+      "model_messages": 3,
+      "estimated_input_tokens": 1267,
+      "historical_assistants": 0
+    }
+  ],
+  "chats": [
+    {
+      "question": "用鸡蛋推荐三道家常菜",
+      "response": {
+        "answer": "根据您的口味偏好（清淡）及指定食材（鸡蛋），为您推荐以下三道家常菜：\n\n1. **番茄鸡蛋玉米面条**\n   - **推荐理由**：符合您喜欢的清淡口味，且以鸡蛋为主料。\n   - **耗时**：十分钟\n   - **主要食材**：鸡蛋、番茄、玉米面条\n\n2. **西红柿炒鸡蛋**\n   - **推荐理由**：经典家常菜，以鸡蛋为主料。\n   - **耗时**：十分钟\n   - **主要食材**：鸡蛋、西红柿\n\n3. **西红柿鸡蛋饼**\n   - **推荐理由**：以鸡蛋为主料，制作简单。\n   - **耗时**：十分钟\n   - **主要食材**：鸡蛋、西红柿、面粉\n\n请告诉我您想详细了解哪一道菜的材料和步骤？",
+        "route": "recipe_query",
+        "logic": "用户明确要求基于特定食材（鸡蛋）推荐具体的菜品（家常菜），属于具体菜谱查询意图。",
+        "sources": [
+          "neo4j:Dish:番茄鸡蛋玉米面条",
+          "neo4j:Dish:西红柿炒鸡蛋",
+          "neo4j:Dish:西红柿鸡蛋饼"
+        ],
+        "used_memories": [
+          {
+            "id": 75,
+            "type": "dietary_preference",
+            "content": "喜欢清淡口味",
+            "score": 0.380517550763227
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "completed",
+          "extraction_skip_reason": null,
+          "operation": null,
+          "status": "no_candidates"
+        }
+      }
+    },
+    {
+      "question": "把清淡口味改成喜欢麻辣口味",
+      "response": {
+        "answer": "已更新长期记忆：喜欢麻辣口味。",
+        "route": "general_query",
+        "logic": "explicit memory operation",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 75,
+            "type": "dietary_preference",
+            "content": "喜欢麻辣口味",
+            "score": 0.7980019027730617
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 75,
+              "user_id": "context-verification-8a9fd7099fae4859b712f9aa32e39bb7",
+              "type": "dietary_preference",
+              "content": "喜欢麻辣口味",
+              "created_at": "2026-09-18T09:55:44.377047Z",
+              "updated_at": "2026-09-18T09:55:57.601921Z",
+              "source_message_id": 505,
+              "evidence": "喜欢麻辣口味"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "explicit_memory_operation",
+          "operation": {
+            "action": "update",
+            "status": "applied",
+            "memory_id": 75,
+            "message": "已更新长期记忆：喜欢麻辣口味。"
+          },
+          "status": "updated"
+        }
+      }
+    },
+    {
+      "question": "第二道怎么做",
+      "response": {
+        "answer": "根据本次检索到的本地数据，**西红柿炒鸡蛋**的做法如下：\n\n1. **备料**：将西红柿切成小块，葱切成丝。\n2. **打蛋**：将鸡蛋打好，加入盐和十三香搅匀。\n3. **炒蛋**：炒锅放油加热，放入鸡蛋翻炒成团后盛出备用。\n4. **爆香**：炒锅中放入少许油，放入葱丝爆香。\n5. **炒西红柿**：放入西红柿，加入生抽和盐进行翻炒。\n6. **混合出锅**：待西红柿炒软后，加入之前备用的鸡蛋一起翻炒均匀，即可出锅。\n\n*注：本次记录显示该菜品耗时约十分钟，主要食材为鸡蛋（2个）和西红柿（1个）。*",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:西红柿炒鸡蛋"
+        ],
+        "used_memories": [
+          {
+            "id": 75,
+            "type": "dietary_preference",
+            "content": "喜欢麻辣口味",
+            "score": 0.3277088747343262
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "pure_recipe_selection",
+          "operation": null,
+          "status": "no_candidates"
+        }
+      }
+    },
+    {
+      "question": "忘掉麻辣口味偏好",
+      "response": {
+        "answer": "已删除长期记忆：喜欢麻辣口味。",
+        "route": "general_query",
+        "logic": "explicit memory operation",
+        "sources": [],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [
+            75
+          ],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "explicit_memory_operation",
+          "operation": {
+            "action": "delete",
+            "status": "applied",
+            "memory_id": 75,
+            "message": "已删除长期记忆：喜欢麻辣口味。"
+          },
+          "status": "deleted"
+        }
+      }
+    },
+    {
+      "question": "你好",
+      "response": {
+        "answer": "你好！很高兴见到你。我是 RiceGod，你的食谱与饮食知识助手。有什么我可以帮你的吗？",
+        "route": "general_query",
+        "logic": "用户发送了标准的问候语“你好”，属于典型的寒暄行为，不涉及具体的食谱查询、知识询问或需要补充信息的场景。",
+        "sources": [],
+        "used_memories": [],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "pure_greeting",
+          "operation": null,
+          "status": "no_candidates"
+        }
+      }
+    }
+  ],
+  "fixture_history_turns": 30,
+  "test_rows_cleaned": true,
+  "passed": true
+}

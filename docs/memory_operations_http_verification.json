@@ -1,0 +1,181 @@
+{
+  "verified_at": "2026-09-18T09:35:12.277234+00:00",
+  "checks": [
+    {
+      "name": "thanks",
+      "passed": true
+    },
+    {
+      "name": "correct",
+      "passed": true
+    },
+    {
+      "name": "forget_then_query",
+      "passed": true
+    },
+    {
+      "name": "select",
+      "passed": true
+    }
+  ],
+  "chats": [
+    {
+      "question": "谢谢",
+      "response": {
+        "answer": "不客气！既然您喜欢清淡口味且不吃鸡蛋，我可以为您推荐一些低油少盐、营养均衡的食谱，比如清蒸鱼、白灼蔬菜或菌菇汤等。如果您有具体的食材偏好或想尝试某类菜肴，随时告诉我！",
+        "route": "general_query+additional_query",
+        "logic": "用户首先表达了饮食偏好（清淡、不吃鸡蛋），这属于对后续推荐或查询的限制条件，但并未直接提出具体的菜谱查询请求。随后用户发送了“谢谢”，这是一个明确的感谢/寒暄意图。虽然“喜欢清淡”和“不吃鸡蛋”可能隐含了想要获取食谱的潜在需求（additional_query 或 recipe_query），但在当前语境下，结合“谢谢”这一明确的社交互动信号，且没有具体的菜品询问，最直接的意图是处理社交礼仪。然而，通常在多轮对话中，前两句往往是建立上下文。如果视为独立单轮，",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 63,
+            "type": "disliked_ingredient",
+            "content": "不吃鸡蛋",
+            "score": 0.24454831456876103
+          },
+          {
+            "id": 62,
+            "type": "dietary_preference",
+            "content": "喜欢清淡",
+            "score": 0.3877196731671785
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "pure_greeting",
+          "operation": null,
+          "status": "no_candidates"
+        }
+      }
+    },
+    {
+      "question": "把清淡偏好改成喜欢麻辣",
+      "response": {
+        "answer": "已更新长期记忆：喜欢麻辣。",
+        "route": "general_query",
+        "logic": "explicit memory operation",
+        "sources": [],
+        "used_memories": [
+          {
+            "id": 63,
+            "type": "disliked_ingredient",
+            "content": "不吃鸡蛋",
+            "score": 0.38034747051183393
+          },
+          {
+            "id": 62,
+            "type": "dietary_preference",
+            "content": "喜欢麻辣",
+            "score": 0.7650574168421109
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [
+            {
+              "id": 62,
+              "user_id": "memory-operations-http-fa30ff7fc072477c960ab94d601923ec",
+              "type": "dietary_preference",
+              "content": "喜欢麻辣",
+              "created_at": "2026-09-18T09:35:14.090134Z",
+              "updated_at": "2026-09-18T09:35:33.629431Z",
+              "source_message_id": 291,
+              "evidence": "喜欢麻辣"
+            }
+          ],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "explicit_memory_operation",
+          "operation": {
+            "action": "update",
+            "status": "applied",
+            "memory_id": 62,
+            "message": "已更新长期记忆：喜欢麻辣。"
+          },
+          "status": "updated"
+        }
+      }
+    },
+    {
+      "question": "忘掉不吃鸡蛋的记忆，用鸡蛋推荐两道菜",
+      "response": {
+        "answer": "为您找到两道以鸡蛋为主料的菜谱：\n\n1. **鸡蛋羹**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - **主要食材**：鸡蛋(3个)\n\n2. **水煮鸡蛋**\n   - **推荐理由**：指定食材用于主料：鸡蛋；记录耗时：十分钟\n   - **主要食材**：鸡蛋\n\n请告诉我您想查看哪道菜的详细材料和步骤？\n\n已删除长期记忆：不吃鸡蛋。",
+        "route": "recipe_query",
+        "logic": "用户明确要求使用特定食材（鸡蛋）进行菜品推荐，属于具体的菜谱查询需求。",
+        "sources": [
+          "neo4j:Dish:鸡蛋羹",
+          "neo4j:Dish:水煮鸡蛋"
+        ],
+        "used_memories": [
+          {
+            "id": 62,
+            "type": "dietary_preference",
+            "content": "喜欢麻辣",
+            "score": 0.2837033541345808
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [
+            63
+          ],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "completed",
+          "extraction_skip_reason": null,
+          "operation": {
+            "action": "delete",
+            "status": "applied",
+            "memory_id": 63,
+            "message": "已删除长期记忆：不吃鸡蛋。"
+          },
+          "status": "deleted"
+        }
+      }
+    },
+    {
+      "question": "第二道怎么做",
+      "response": {
+        "answer": "**水煮鸡蛋**的做法如下：\n\n1. 锅里加水。\n2. 鸡蛋冷水下锅，煮10分钟。\n3. 用勺子捞起，再用凉水冲一下，鸡蛋壳会更容易剥开。\n4. 成品哟，不喜欢吃半熟的可以煮久一些。",
+        "route": "recipe_query",
+        "logic": "keyword fallback: recipe graph query",
+        "sources": [
+          "neo4j:Dish:水煮鸡蛋"
+        ],
+        "used_memories": [
+          {
+            "id": 62,
+            "type": "dietary_preference",
+            "content": "喜欢麻辣",
+            "score": 0.30679722208956883
+          }
+        ],
+        "memory_write": {
+          "available": true,
+          "saved": [],
+          "unchanged": [],
+          "deleted_ids": [],
+          "failed_count": 0,
+          "skipped_count": 0,
+          "extraction_status": "skipped",
+          "extraction_skip_reason": "pure_recipe_selection",
+          "operation": null,
+          "status": "no_candidates"
+        }
+      }
+    }
+  ],
+  "passed": true,
+  "test_rows_cleaned": true
+}
