@@ -1,0 +1,1329 @@
+{
+  "suite_version": "1.0",
+  "top_k": 4,
+  "summary": {
+    "cases": 42,
+    "answerable_cases": 37,
+    "unanswerable_cases": 5,
+    "recall_at_k": 1.0,
+    "mrr": 1.0,
+    "no_answer_accuracy": 0.0,
+    "source_coverage": 1.0,
+    "passed_cases": 37
+  },
+  "cases": [
+    {
+      "id": "pepper_introduction",
+      "category": "ingredient_history",
+      "query": "辣椒什么时候传入中国并开始普遍食用？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_1",
+        "data.txt_4"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_4",
+        "data.txt_1",
+        "data.txt_12",
+        "data.txt_2"
+      ],
+      "returned_scores": [
+        0.9506904123418962,
+        0.8665652213928541,
+        0.6835402617574516,
+        0.48931596666932864
+      ],
+      "returned_vector_scores": [
+        0.6523051857948303,
+        0.6316999197006226,
+        0.43589723110198975,
+        0.44633710384368896
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "american_crops",
+      "category": "ingredient_history",
+      "query": "哪些常见作物是明代从美洲传入中国的？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_4"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_4",
+        "data.txt_2",
+        "data.txt_10",
+        "data.txt_9"
+      ],
+      "returned_scores": [
+        0.9609569587354452,
+        0.693151320951515,
+        0.6164132809747069,
+        0.5512628604912237
+      ],
+      "returned_vector_scores": [
+        0.6545118093490601,
+        0.5015026330947876,
+        0.46474137902259827,
+        0.44490301609039307
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "han_vegetables",
+      "category": "ingredient_history",
+      "query": "汉代增加了哪些蔬菜和香料？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_2"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_2",
+        "data.txt_12",
+        "data.txt_4",
+        "data.txt_3"
+      ],
+      "returned_scores": [
+        0.96211269811785,
+        0.7810698047061702,
+        0.6637201506062693,
+        0.53891941215335
+      ],
+      "returned_vector_scores": [
+        0.5797274112701416,
+        0.4872225821018219,
+        0.5275806784629822,
+        0.5772643685340881
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "spinach_origin",
+      "category": "naming_origin",
+      "query": "菠菜为什么叫菠菜，它从哪里传入？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_2"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_2",
+        "data.txt_3",
+        "data.txt_4",
+        "data.txt_16"
+      ],
+      "returned_scores": [
+        0.9511461372348429,
+        0.5935606115844196,
+        0.23093991586118862,
+        0.014086028977737253
+      ],
+      "returned_vector_scores": [
+        0.5688911080360413,
+        0.48386216163635254,
+        0.42674392461776733,
+        0.29389724135398865
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "corn_old_name",
+      "category": "naming_origin",
+      "query": "玉米过去为什么叫番麦？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_2"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_2",
+        "data.txt_4",
+        "data.txt_10",
+        "data.txt_3"
+      ],
+      "returned_scores": [
+        0.8600815257759982,
+        0.4058739795721893,
+        0.22187758123132828,
+        0.12083398731743245
+      ],
+      "returned_vector_scores": [
+        0.5361363887786865,
+        0.461838960647583,
+        0.3595971465110779,
+        0.36447960138320923
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "carrot_name",
+      "category": "naming_origin",
+      "query": "胡萝卜名称中的胡字和传播来源有什么关系？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_2"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_2",
+        "data.txt_4",
+        "data.txt_3",
+        "data.txt_9"
+      ],
+      "returned_scores": [
+        0.9496162898400193,
+        0.43813175404856686,
+        0.401850779544099,
+        0.18475214644428356
+      ],
+      "returned_vector_scores": [
+        0.4341341555118561,
+        0.34551292657852173,
+        0.2949065566062927,
+        0.26390746235847473
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "iron_pot_popularity",
+      "category": "cooking_history",
+      "query": "铁锅在什么时候开始在民间普及？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_1",
+        "data.txt_5"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_5",
+        "data.txt_10",
+        "data.txt_1",
+        "data.txt_6"
+      ],
+      "returned_scores": [
+        0.9900957462579755,
+        0.9248606532074539,
+        0.6031727297004295,
+        0.3647704636875153
+      ],
+      "returned_vector_scores": [
+        0.7375040650367737,
+        0.435632586479187,
+        0.5700391530990601,
+        0.47399425506591797
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "bronze_cookware",
+      "category": "cooking_history",
+      "query": "夏商周时期有哪些青铜炊具？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_5"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_5",
+        "data.txt_6",
+        "data.txt_7",
+        "data.txt_10"
+      ],
+      "returned_scores": [
+        0.8877982803904416,
+        0.22162623303117268,
+        0.19981088781566025,
+        0.04698061766613737
+      ],
+      "returned_vector_scores": [
+        0.6111716032028198,
+        0.5366178154945374,
+        0.365913987159729,
+        0.3928791284561157
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "han_barbecue",
+      "category": "cooking_history",
+      "query": "汉代人使用什么器具烧烤？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_6"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_6",
+        "data.txt_7",
+        "data.txt_5",
+        "data.txt_16"
+      ],
+      "returned_scores": [
+        0.9286184641020334,
+        0.46211035870002154,
+        0.33459616789240765,
+        0.24337073913234086
+      ],
+      "returned_vector_scores": [
+        0.6884430050849915,
+        0.523048996925354,
+        0.4386958181858063,
+        0.41439300775527954
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "ancient_hotpot",
+      "category": "cooking_history",
+      "query": "古代贵族吃火锅通常使用哪些肉类？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_6"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_6",
+        "data.txt_16",
+        "data.txt_15",
+        "data.txt_14"
+      ],
+      "returned_scores": [
+        0.9786005331845226,
+        0.6617257922633308,
+        0.45889595511695536,
+        0.44352901752674423
+      ],
+      "returned_vector_scores": [
+        0.6648027300834656,
+        0.48721957206726074,
+        0.3754820227622986,
+        0.4119761288166046
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "steamer_origin",
+      "category": "cooking_history",
+      "query": "蒸笼的起源和早期材料是什么？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_7"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_7",
+        "data.txt_8",
+        "data.txt_5",
+        "data.txt_6"
+      ],
+      "returned_scores": [
+        0.9999999999816399,
+        0.2747573629917024,
+        0.1973652547873992,
+        0.14436105272828836
+      ],
+      "returned_vector_scores": [
+        0.8127940893173218,
+        0.47634387016296387,
+        0.42036187648773193,
+        0.45925942063331604
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "mantou_early_name",
+      "category": "naming_origin",
+      "query": "馒头在古代还被写成什么名称？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_7",
+        "data.txt_8"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_8",
+        "data.txt_7",
+        "data.txt_25",
+        "data.txt_24"
+      ],
+      "returned_scores": [
+        0.9479427875652295,
+        0.8045633458423209,
+        0.7517662204139489,
+        0.5343500115153893
+      ],
+      "returned_vector_scores": [
+        0.6711584329605103,
+        0.4815099835395813,
+        0.4230107367038727,
+        0.3784463405609131
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "mantou_baozi_split",
+      "category": "naming_origin",
+      "query": "馒头和包子的名称什么时候逐渐产生南北差异？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_8"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_8",
+        "data.txt_7",
+        "data.txt_21",
+        "data.txt_3"
+      ],
+      "returned_scores": [
+        0.9975497652684779,
+        0.513619189222982,
+        0.3073301089651196,
+        0.20020083714778653
+      ],
+      "returned_vector_scores": [
+        0.6494394540786743,
+        0.4642716646194458,
+        0.3800985515117645,
+        0.39627447724342346
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "followup_mantou",
+      "category": "dependent_followup",
+      "query": "刚才推荐的是馒头，它过去还有什么称呼？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_7",
+        "data.txt_8"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_8",
+        "data.txt_7",
+        "data.txt_24",
+        "data.txt_20"
+      ],
+      "returned_scores": [
+        0.953056544639173,
+        0.7997621043574585,
+        0.55849505356661,
+        0.42489575142485847
+      ],
+      "returned_vector_scores": [
+        0.5848376750946045,
+        0.4204843044281006,
+        0.3610609173774719,
+        0.3952978849411011
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "sesame_oil",
+      "category": "ingredient_history",
+      "query": "芝麻油在古代是怎样出现和使用的？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_9",
+        "data.txt_10"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_9",
+        "data.txt_10",
+        "data.txt_2",
+        "data.txt_12"
+      ],
+      "returned_scores": [
+        0.9433158568554769,
+        0.8846688091419865,
+        0.45143782635571916,
+        0.3751105452965674
+      ],
+      "returned_vector_scores": [
+        0.7337318658828735,
+        0.6579211354255676,
+        0.3774047791957855,
+        0.4197460412979126
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "song_frying",
+      "category": "cooking_history",
+      "query": "宋代铁锅和油炸食品的发展情况如何？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_10"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_10",
+        "data.txt_5",
+        "data.txt_21",
+        "data.txt_8"
+      ],
+      "returned_scores": [
+        0.9886376782039898,
+        0.8376364923421425,
+        0.36157599325820794,
+        0.26973261386944314
+      ],
+      "returned_vector_scores": [
+        0.6608733534812927,
+        0.6602944731712341,
+        0.4906938970088959,
+        0.4851279556751251
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "ancient_sauce",
+      "category": "condiment_history",
+      "query": "先秦时期的酱称为什么，主要用什么制作？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_11"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_11",
+        "data.txt_12",
+        "data.txt_26",
+        "data.txt_20"
+      ],
+      "returned_scores": [
+        0.9584971178888686,
+        0.32673496208619346,
+        0.06759959364327606,
+        0.037895689767850904
+      ],
+      "returned_vector_scores": [
+        0.6277676820755005,
+        0.4407731294631958,
+        0.4652637839317322,
+        0.4481223225593567
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "soy_sauce_development",
+      "category": "condiment_history",
+      "query": "酱油和豆酱在古代如何发展？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_11"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_11",
+        "data.txt_12",
+        "data.txt_4",
+        "data.txt_22"
+      ],
+      "returned_scores": [
+        0.8497639153633081,
+        0.7192783209637906,
+        0.15537380922171423,
+        0.15518276982023665
+      ],
+      "returned_vector_scores": [
+        0.6320706605911255,
+        0.4369737505912781,
+        0.36493754386901855,
+        0.3718082904815674
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "ancient_vinegar",
+      "category": "condiment_history",
+      "query": "古代醋的制作和称呼有什么变化？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_11"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_11",
+        "data.txt_12",
+        "data.txt_8",
+        "data.txt_2"
+      ],
+      "returned_scores": [
+        0.7414910637946235,
+        0.3317583623636161,
+        0.17543536219501132,
+        0.14898309821364009
+      ],
+      "returned_vector_scores": [
+        0.6102958917617798,
+        0.48198404908180237,
+        0.4358590543270111,
+        0.41834598779678345
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "tang_sugar",
+      "category": "condiment_history",
+      "query": "唐代从哪里引进了蔗糖加工技术？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_12"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_12",
+        "data.txt_11",
+        "data.txt_3",
+        "data.txt_2"
+      ],
+      "returned_scores": [
+        0.9657067920300426,
+        0.8689043215236181,
+        0.2788608692329757,
+        0.2650553813028591
+      ],
+      "returned_vector_scores": [
+        0.6125863194465637,
+        0.47062259912490845,
+        0.36467722058296204,
+        0.3186906576156616
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "plum_condiment",
+      "category": "condiment_history",
+      "query": "梅子在古代为什么可以用作调味品？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_12"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_12",
+        "data.txt_11",
+        "data.txt_4",
+        "data.txt_24"
+      ],
+      "returned_scores": [
+        0.9608523339761635,
+        0.4909213513100945,
+        0.16222387257741244,
+        0.13181061199372474
+      ],
+      "returned_vector_scores": [
+        0.6469782590866089,
+        0.5239277482032776,
+        0.44842997193336487,
+        0.4212820827960968
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "fermented_black_beans",
+      "category": "condiment_history",
+      "query": "豉在什么时期成为调味品？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_12"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_12",
+        "data.txt_11",
+        "data.txt_4",
+        "data.txt_3"
+      ],
+      "returned_scores": [
+        0.9715830355527745,
+        0.6465163998593421,
+        0.44913853523303543,
+        0.2705043646391746
+      ],
+      "returned_vector_scores": [
+        0.5931481719017029,
+        0.6224381923675537,
+        0.47721216082572937,
+        0.4264003336429596
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "commoners_meals",
+      "category": "food_culture",
+      "query": "古代普通百姓通常一天吃几顿，主要吃什么？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_13"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_13",
+        "data.txt_16",
+        "data.txt_26",
+        "data.txt_22"
+      ],
+      "returned_scores": [
+        0.9597647579111181,
+        0.3398161358789097,
+        0.32808093522619586,
+        0.3208343881594218
+      ],
+      "returned_vector_scores": [
+        0.49888792634010315,
+        0.47543591260910034,
+        0.3895961046218872,
+        0.36009910702705383
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "shaowei_banquet",
+      "category": "menu_history",
+      "query": "唐代烧尾宴食单是谁记录的，有多少种菜点？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_14"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_14",
+        "data.txt_13",
+        "data.txt_15",
+        "data.txt_21"
+      ],
+      "returned_scores": [
+        0.985436814809958,
+        0.9820971454310323,
+        0.6465849350267094,
+        0.36056638687265513
+      ],
+      "returned_vector_scores": [
+        0.7315690517425537,
+        0.6669753193855286,
+        0.39456599950790405,
+        0.43985554575920105
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "shaowei_dishes",
+      "category": "menu_history",
+      "query": "烧尾宴中的金铃炙和光明虾炙是什么？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_14",
+        "data.txt_15"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_14",
+        "data.txt_21",
+        "data.txt_13",
+        "data.txt_17"
+      ],
+      "returned_scores": [
+        0.9989089958714228,
+        0.6004307109651368,
+        0.44337114582916226,
+        0.2280619619580625
+      ],
+      "returned_vector_scores": [
+        0.7013421058654785,
+        0.29155173897743225,
+        0.509791910648346,
+        0.33091357350349426
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "ancient_pork_status",
+      "category": "ingredient_history",
+      "query": "猪肉为什么在古代贵族餐桌上地位不高？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_16"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_16",
+        "data.txt_6",
+        "data.txt_9",
+        "data.txt_13"
+      ],
+      "returned_scores": [
+        0.9716524001620094,
+        0.4945653935867113,
+        0.38455313537713215,
+        0.3049897119083631
+      ],
+      "returned_vector_scores": [
+        0.6214735507965088,
+        0.4190864562988281,
+        0.4173518419265747,
+        0.46036720275878906
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "hongmen_pork",
+      "category": "food_culture",
+      "query": "鸿门宴上项羽赏赐樊哙的彘肩是什么？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_16"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_16",
+        "data.txt_15",
+        "data.txt_11",
+        "data.txt_24"
+      ],
+      "returned_scores": [
+        0.8728657527313053,
+        0.319064459114741,
+        0.20474029032933244,
+        0.20126946743051227
+      ],
+      "returned_vector_scores": [
+        0.4082339406013489,
+        0.32932692766189575,
+        0.3128620684146881,
+        0.36936119198799133
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "oil_cake",
+      "category": "dish_history",
+      "query": "油糕的历史可以追溯到哪个朝代？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_17"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_17",
+        "data.txt_20",
+        "data.txt_18",
+        "data.txt_10"
+      ],
+      "returned_scores": [
+        0.9805653317727718,
+        0.6122098660706576,
+        0.5242072078538708,
+        0.4748977745681874
+      ],
+      "returned_vector_scores": [
+        0.6182391047477722,
+        0.4972783923149109,
+        0.5018415451049805,
+        0.5941863059997559
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "green_bean_cake",
+      "category": "dish_history",
+      "query": "绿豆糕据文章记载起源于什么时期？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_18"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_18",
+        "data.txt_17",
+        "data.txt_20",
+        "data.txt_21"
+      ],
+      "returned_scores": [
+        0.9447012113780422,
+        0.8741447455917757,
+        0.4534398576905766,
+        0.4253777233332879
+      ],
+      "returned_vector_scores": [
+        0.6040450930595398,
+        0.5958532691001892,
+        0.46405577659606934,
+        0.38985562324523926
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "jiuhuang_cake_name",
+      "category": "naming_origin",
+      "query": "九黄饼为什么叫九黄饼？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_19"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_19",
+        "data.txt_20",
+        "data.txt_18",
+        "data.txt_17"
+      ],
+      "returned_scores": [
+        0.9732654555282868,
+        0.27243624599964256,
+        0.24730648198454402,
+        0.18976803131656778
+      ],
+      "returned_vector_scores": [
+        0.5979258418083191,
+        0.4225378930568695,
+        0.41304469108581543,
+        0.36243560910224915
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "donkey_roll_name",
+      "category": "naming_origin",
+      "query": "驴打滚这个名字是怎么来的？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_20"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_20",
+        "data.txt_19",
+        "data.txt_17",
+        "data.txt_13"
+      ],
+      "returned_scores": [
+        0.978626891350598,
+        0.9677530481646248,
+        0.32393757271527124,
+        0.2616062005322297
+      ],
+      "returned_vector_scores": [
+        0.5114983916282654,
+        0.4516080915927887,
+        0.33811771869659424,
+        0.3037065863609314
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "guanghan_cake",
+      "category": "dish_history",
+      "query": "广寒糕记载在哪部古代食谱中？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_21"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_21",
+        "data.txt_26",
+        "data.txt_20",
+        "data.txt_18"
+      ],
+      "returned_scores": [
+        0.979142839960897,
+        0.5777686037655905,
+        0.5579619754130165,
+        0.45253873423864344
+      ],
+      "returned_vector_scores": [
+        0.5984105467796326,
+        0.4971923828125,
+        0.44422128796577454,
+        0.49577924609184265
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "ancient_fishing",
+      "category": "food_culture",
+      "query": "古人怎样通过敲船或听水下声音捕鱼？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_22"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_22",
+        "data.txt_26",
+        "data.txt_15",
+        "data.txt_16"
+      ],
+      "returned_scores": [
+        0.9252091382764405,
+        0.11456969647390569,
+        0.04301276548647448,
+        0.005915130156504522
+      ],
+      "returned_vector_scores": [
+        0.6405457258224487,
+        0.32305407524108887,
+        0.32939425110816956,
+        0.308700829744339
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "water_margin_food",
+      "category": "literature_food",
+      "query": "水浒传里出现过哪些鱼汤和豆腐菜？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_23"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_23",
+        "data.txt_15",
+        "data.txt_3",
+        "data.txt_22"
+      ],
+      "returned_scores": [
+        0.9805570083117006,
+        0.31165552130876517,
+        0.2428986531028262,
+        0.2384330091846869
+      ],
+      "returned_vector_scores": [
+        0.6535896062850952,
+        0.4749208092689514,
+        0.4552067816257477,
+        0.5110256671905518
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "su_shi_food",
+      "category": "literature_food",
+      "query": "苏轼诗文中写过哪些食物？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_24",
+        "data.txt_25"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_24",
+        "data.txt_25",
+        "data.txt_21",
+        "data.txt_10"
+      ],
+      "returned_scores": [
+        0.9265200889035943,
+        0.8766681176627513,
+        0.8185762043217221,
+        0.7004099165075177
+      ],
+      "returned_vector_scores": [
+        0.6834093928337097,
+        0.6434725522994995,
+        0.5310875177383423,
+        0.46531689167022705
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "lu_you_food",
+      "category": "literature_food",
+      "query": "陆游诗词中写过炒栗子或猎物吗？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_25"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_25",
+        "data.txt_24",
+        "data.txt_15",
+        "data.txt_26"
+      ],
+      "returned_scores": [
+        0.9698887136647756,
+        0.432692797374706,
+        0.2575150022028522,
+        0.24638979768040442
+      ],
+      "returned_vector_scores": [
+        0.6243689060211182,
+        0.571817934513092,
+        0.36881646513938904,
+        0.4286709129810333
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "yang_wanli_food",
+      "category": "literature_food",
+      "query": "杨万里写过哪些与笼饼有关的诗句？",
+      "answerable": true,
+      "expected_chunk_ids": [
+        "data.txt_25",
+        "data.txt_26"
+      ],
+      "returned_chunk_ids": [
+        "data.txt_25",
+        "data.txt_26",
+        "data.txt_24",
+        "data.txt_14"
+      ],
+      "returned_scores": [
+        0.9140453493412708,
+        0.7100958698436003,
+        0.3834238424461924,
+        0.20282327340916506
+      ],
+      "returned_vector_scores": [
+        0.5033035278320312,
+        0.5205349326133728,
+        0.4283960163593292,
+        0.3675704300403595
+      ],
+      "rank": 1,
+      "source_covered": true,
+      "passed": true,
+      "error_type": null
+    },
+    {
+      "id": "kungpao_origin_absent",
+      "category": "unanswerable",
+      "query": "宫保鸡丁为什么以丁宝桢的官衔命名？",
+      "answerable": false,
+      "expected_chunk_ids": [],
+      "returned_chunk_ids": [
+        "data.txt_12",
+        "data.txt_23",
+        "data.txt_20",
+        "data.txt_10"
+      ],
+      "returned_scores": [
+        0.0846253140744147,
+        0.06688808139265756,
+        0.05243644162449845,
+        0.0366811288366537
+      ],
+      "returned_vector_scores": [
+        0.28811949491500854,
+        0.2804602086544037,
+        0.347633957862854,
+        0.3011328876018524
+      ],
+      "rank": null,
+      "source_covered": null,
+      "passed": false,
+      "error_type": null
+    },
+    {
+      "id": "fotiaoqiang_origin_absent",
+      "category": "unanswerable",
+      "query": "佛跳墙这道菜的名字是谁取的？",
+      "answerable": false,
+      "expected_chunk_ids": [],
+      "returned_chunk_ids": [
+        "data.txt_25",
+        "data.txt_26",
+        "data.txt_24",
+        "data.txt_22"
+      ],
+      "returned_scores": [
+        0.26863842817923145,
+        0.2558379298800988,
+        0.2546315791471386,
+        0.20579440704210333
+      ],
+      "returned_vector_scores": [
+        0.3294745087623596,
+        0.37424859404563904,
+        0.37381333112716675,
+        0.38936230540275574
+      ],
+      "rank": null,
+      "source_covered": null,
+      "passed": false,
+      "error_type": null
+    },
+    {
+      "id": "cantonese_cuisine_absent",
+      "category": "unanswerable",
+      "query": "粤菜作为菜系是在什么时候形成的？",
+      "answerable": false,
+      "expected_chunk_ids": [],
+      "returned_chunk_ids": [
+        "data.txt_4",
+        "data.txt_3",
+        "data.txt_10",
+        "data.txt_15"
+      ],
+      "returned_scores": [
+        0.1499930353854666,
+        0.14101192418284492,
+        0.10112431217206042,
+        0.09967269291632663
+      ],
+      "returned_vector_scores": [
+        0.3520204722881317,
+        0.3921729028224945,
+        0.3425307869911194,
+        0.3468354046344757
+      ],
+      "rank": null,
+      "source_covered": null,
+      "passed": false,
+      "error_type": null
+    },
+    {
+      "id": "coffee_absent",
+      "category": "distractor",
+      "query": "意式浓缩咖啡机是谁发明的？",
+      "answerable": false,
+      "expected_chunk_ids": [],
+      "returned_chunk_ids": [
+        "data.txt_12",
+        "data.txt_26",
+        "data.txt_7",
+        "data.txt_11"
+      ],
+      "returned_scores": [
+        0.010430090839104067,
+        0.0085831231294623,
+        0.0075726581088126355,
+        0.0036581803730736384
+      ],
+      "returned_vector_scores": [
+        0.24692557752132416,
+        0.2307501584291458,
+        0.25629642605781555,
+        0.23905470967292786
+      ],
+      "rank": null,
+      "source_covered": null,
+      "passed": false,
+      "error_type": null
+    },
+    {
+      "id": "pizza_absent",
+      "category": "distractor",
+      "query": "那不勒斯披萨的历史和认证标准是什么？",
+      "answerable": false,
+      "expected_chunk_ids": [],
+      "returned_chunk_ids": [
+        "data.txt_21",
+        "data.txt_13",
+        "data.txt_19",
+        "data.txt_20"
+      ],
+      "returned_scores": [
+        0.06740631099807348,
+        0.018258614766437087,
+        0.012305006007093111,
+        0.008854716476747015
+      ],
+      "returned_vector_scores": [
+        0.25580334663391113,
+        0.2547266483306885,
+        0.2895578444004059,
+        0.3110167384147644
+      ],
+      "rank": null,
+      "source_covered": null,
+      "passed": false,
+      "error_type": null
+    }
+  ],
+  "passed": false,
+  "metadata": {
+    "evaluated_at": "2026-09-19T14:51:47.717250+00:00",
+    "suite_sha256": "6dcf35c931423e6ff96238db62128b1040bcc84d337865865bd7f729a2b8fd23",
+    "corpus_sha256": "47bdfba86384e10693b7734a5012185995e65202add5d56c8859fe5abfd617f8",
+    "chunk_size": 800,
+    "chunk_overlap": 120,
+    "collection": "food_knowledge_qwen37_flash_1024",
+    "embedding_model": "qwen3.7-text-embedding-flash",
+    "rerank_model": "qwen3.7-text-rerank",
+    "vector_similarity_threshold": -1.0,
+    "rerank_relevance_threshold": 0.0
+  }
+}

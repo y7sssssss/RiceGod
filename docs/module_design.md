@@ -11,11 +11,10 @@
 | `application/chat/models.py` | 聊天请求、响应和使用记忆的接口契约 |
 | `application/performance.py` | 请求级阶段计时、并行任务区间、回退与状态事件，不进入持久化 State |
 | `application/chat/service.py` | 会话串行控制、历史恢复、记忆召回、调用 Graph、取得写入结果、确认回复与保存消息 |
-| `application/agents/router.py` | 意图识别，模型失败时回退到规则路由，序号选菜走确定性识别 |
-| `application/agents/planner.py` | 规划子任务、校验依赖和覆盖范围、定位用户选择的菜谱、无效计划回退 |
+| `application/agents/planner.py` | 统一识别领域、规划子任务、校验依赖与原文范围、定位用户选择的菜谱并生成兼容路由摘要 |
 | `application/agents/planning_policy.py` | 识别能直接构造计划的请求，保留复杂请求的模型规划 |
 | `application/agents/context.py` | 统一模型输入，按完整轮次裁剪历史、控制预算、保留关键上下文并隔离已失效旧历史 |
-| `application/agents/task_conditions.py` | 从用户对应原文构造每个任务的条件，继承全局限制，保留各自数量 |
+| `application/agents/task_conditions.py` | 从用户对应原文构造每个任务的条件与菜谱操作，校验操作目标，继承全局限制并保留各自数量 |
 | `application/agents/workflow.py` | 图节点与边、分发就绪任务、等待依赖、任务超时和故障隔离、每轮临时结果清理 |
 | `application/agents/recipe_retrieval.py` | 参数化菜谱查询、候选排序调用、只读 Cypher 校验与重试、本地检索兜底 |
 | `application/agents/knowledge_retrieval.py` | 文化检索，依赖菜谱时使用上游实际菜名，缺少证据时阻断 |
@@ -23,7 +22,7 @@
 | `application/agents/answer.py` | 根据任务证据回答、汇总来源、校验推荐展示顺序并保存推荐快照 |
 | `application/agents/recommendations.py` | 推荐分组、序号定位、歧义与范围澄清、推荐快照更新规则 |
 | `application/agents/state.py` | 图内任务、结果、状态字段和合并规则 |
-| `application/agents/prompts.py` | 路由、规划、回答和查询生成的系统提示词 |
+| `application/agents/prompts.py` | 统一任务规划、回答和查询生成的系统提示词 |
 | `application/memory/` | 记忆提取、来源核验、召回、写入结果与成功声明校验 |
 | `domain/` | 食材与口味条件、菜谱数量和评分规则，与图调度和 HTTP 无关 |
 | `evaluation/` | 版本化固定案例、独立字段与流程判定、耗时统计、报告和比较 |
@@ -38,7 +37,7 @@ flowchart TD
     S --> H[必要时恢复历史，记录当前用户消息]
     H --> O[必要时执行明确更正与遗忘]
     O --> M[召回更新后的长期记忆]
-    M --> G[Graph：路由 → 规划 → 分轮检索 → 回答]
+    M --> G[Graph：统一任务规划 → 分轮检索 → 回答]
     G --> W[必要时提取新增记忆并取得结果]
     W --> C[确认保存情况，必要时替换 Checkpoint 回复]
     C --> P[保存最终 assistant 消息]
@@ -53,19 +52,19 @@ flowchart TD
 
 ## 资源与入口
 
-导入 `ricegod.main` 或 `router` 时不创建 Graph、加载菜谱仓库或初始化 PostgreSQL。FastAPI lifespan 启动时调用 `create_runtime()`，将资源放在该应用的 `app.state.runtime`；关闭时释放 Checkpointer 连接池、Neo4j 客户端并移除应用引用。启动或 Graph 构建失败也释放已创建资源。默认 PostgreSQL Checkpointer 初始化失败会阻止启动；它成功后，记忆组件单独初始化失败仍保留查询能力，记忆管理接口返回 503。
+导入 `ricegod.main` 时不创建 Graph、加载菜谱仓库或初始化 PostgreSQL。FastAPI lifespan 启动时调用 `create_runtime()`，将资源放在该应用的 `app.state.runtime`；关闭时释放 Checkpointer 连接池、Neo4j 客户端并移除应用引用。启动或 Graph 构建失败也释放已创建资源。默认 PostgreSQL Checkpointer 初始化失败会阻止启动；它成功后，记忆组件单独初始化失败仍保留查询能力，记忆管理接口返回 503。
 
 长期记忆与原始消息的 PostgreSQL 连接按每次操作关闭；Checkpointer 使用应用持有的连接池，关闭应用时释放。文化检索仓库在检索结束时关闭，LLM 客户端按调用构造。`Runtime` 通过 `ExitStack` 管理长期组件，关闭操作可重复调用。
 
 HTTP 入口保持 `python -m uvicorn ricegod.main:app`。独立测试可以通过 `create_app(runtime_factory=...)` 注入资源，服务测试直接构造 `ChatService(graph, store, memory_service)`，不再修改接口文件里的全局变量。
 
-终端 Graph 演示移到 `python -m ricegod.cli`；原 `python -m ricegod.application.agents.router` 入口仍转交该演示。此入口直接演示图内流程，完整记忆确认链路通过 `/chat` 验证。
+终端 Graph 演示使用 `python -m ricegod.cli`。此入口直接演示图内流程，完整记忆确认链路通过 `/chat` 验证。
 
 真实验收脚本在 TestClient 启动后从 `app.state.runtime` 获取当前资源；关闭后只清理该轮 UUID 测试用户的数据。
 
 ## 验证与边界
 
-严格 Msgpack 模式下最新全量回归 **257 项通过**，其中 8 项使用真实 PostgreSQL（通过 `RICEGOD_TEST_POSTGRES=1` 启用）。覆盖模块生命周期、错误转换与会话并发、数据库失败、迁移失败释放资源、异步调用不阻塞事件循环、新连接池与新 Graph 状态恢复、上下文管理，以及请求级计时隔离、并行跨度和固定评测。实际 HTTP 计时与连续追问验收 **13/13** 项通过，详见 [固定评测设计](evaluation_design.md)。
+当前 GustoBot Conda 环境全量回归 **301 项通过、9 项跳过**；本轮同时启用了真实 Neo4j 集成测试。覆盖统一规划、操作识别、模块生命周期、错误转换与会话并发、数据库失败、异步调用、上下文管理、请求级计时、并行跨度和固定评测。需要 PostgreSQL 的测试仍通过 `RICEGOD_TEST_POSTGRES=1` 单独启用。固定集与历史线上报告见 [固定评测设计](evaluation_design.md)。
 
 模块整理后的真实服务检查：
 

@@ -12,7 +12,7 @@ from ricegod.domain.recipe_ranking import display_name
 from ricegod.application.performance import record_event
 
 logger = logging.getLogger(__name__)
-Purpose = Literal["router", "planner", "conversation", "answer"]
+Purpose = Literal["planner", "conversation", "answer"]
 
 
 class ContextBudgetExceeded(ValueError):
@@ -54,7 +54,7 @@ def build_model_context(state: AgentState, purpose: Purpose, *, system_prompt: s
                         evidence: str | None = None) -> list[BaseMessage]:
     """Protect current request, memory and evidence; remove oldest whole turns."""
     prefix: list[BaseMessage] = [SystemMessage(content=system_prompt)] if system_prompt else []
-    if purpose != "router" and state.memory_context:
+    if state.memory_context:
         prefix.append(SystemMessage(content=state.memory_context))
     if state.last_recommendations:
         groups = [{"label": group.label, "recipes": [
@@ -64,8 +64,7 @@ def build_model_context(state: AgentState, purpose: Purpose, *, system_prompt: s
                                    json.dumps(groups, ensure_ascii=False)))
     turns, current = _recent_turns(state)
     suffix = [HumanMessage(content=evidence)] if evidence is not None else []
-    budget = {"router": settings.CONTEXT_ROUTER_TOKEN_BUDGET,
-              "planner": settings.CONTEXT_PLANNER_TOKEN_BUDGET,
+    budget = {"planner": settings.CONTEXT_PLANNER_TOKEN_BUDGET,
               "conversation": settings.CONTEXT_ANSWER_TOKEN_BUDGET,
               "answer": settings.CONTEXT_ANSWER_TOKEN_BUDGET}[purpose]
     protected = [*prefix, current, *suffix]

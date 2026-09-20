@@ -88,16 +88,15 @@ def test_service_history_and_checkpoint_use_confirmed_answer(monkeypatch, fail_u
 
 
 def test_initial_graph_checkpoint_never_records_an_unconfirmed_memory_claim(monkeypatch, catalog, local):
-    from ricegod.application.agents import router, workflow
-    from ricegod.application.agents.state import Router
+    from ricegod.application.agents import workflow
     from langchain_core.messages import HumanMessage
 
     async def prematurely_acknowledge(state):
         return {"messages": [AIMessage(content="我已经记住你的喜好了。") ]}
 
     monkeypatch.setattr(settings, "LLM_API_KEY", None)
-    graph = workflow.build_graph(lambda state: {"router": Router(type=["general_query"])},
-        prematurely_acknowledge, None, None, catalog, local)
+    graph = workflow.build_graph(prematurely_acknowledge,
+        prematurely_acknowledge, None, catalog, local)
     config = {"configurable": {"thread_id": "pending-confirmation"}}
     result = asyncio.run(graph.ainvoke({"messages": [HumanMessage(content="请记住我的偏好")]}, config))
     assert "已记住" not in result["answer"] and "已经记住" not in result["answer"]

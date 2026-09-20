@@ -40,6 +40,8 @@ async def general_query(state: AgentState) -> dict[str, list[BaseMessage]]:
 
 async def additional_query(state: AgentState) -> dict[str, list[BaseMessage]]:
     """Ask focused follow-up questions when the user's recipe request is vague."""
+    if state.plan.clarification:
+        return {"messages": [AIMessage(content=state.plan.clarification)]}
     if not settings.LLM_API_KEY:
         return {
             "messages": [

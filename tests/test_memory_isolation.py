@@ -6,7 +6,8 @@ from fastapi.testclient import TestClient
 from langchain_core.messages import HumanMessage
 
 import ricegod.main as main_module
-from ricegod.application.agents import router, conversation, workflow
+from ricegod.application.agents import conversation, workflow
+from ricegod.config import settings
 from ricegod.application.chat.service import _thread_key
 from ricegod.application.memory.models import MemoryRecord, MemorySearchResult
 from ricegod.application.memory.service import MemoryService
@@ -90,9 +91,9 @@ def test_message_query_and_deletion_are_always_user_scoped():
 
 
 def test_same_conversation_id_does_not_share_checkpoints_between_users(monkeypatch, catalog, local):
-    monkeypatch.setattr(router.settings, "LLM_API_KEY", None)
+    monkeypatch.setattr(settings, "LLM_API_KEY", None)
 
-    graph = workflow.build_graph(router.analyze_intent, conversation.general_query, conversation.additional_query, router._build_llm, catalog, local)
+    graph = workflow.build_graph(conversation.general_query, conversation.additional_query, None, catalog, local)
 
     async def scenario():
         first = {"configurable": {"thread_id": _thread_key("u1", "shared-isolation-test")}}

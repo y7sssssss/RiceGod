@@ -3,7 +3,7 @@
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
-from ricegod.application.agents import conversation, router, workflow
+from ricegod.application.agents import conversation, workflow
 from ricegod.application.memory.extractor import MemoryExtractor
 from ricegod.application.memory.models import MemoryRecord, MemorySearchResult, MessageRecord
 from ricegod.application.memory.service import MemoryService
@@ -11,6 +11,7 @@ from ricegod.bootstrap import Runtime
 from ricegod.config import settings
 from ricegod.infrastructure.recipe_graph_repository import RecipeGraphRepository
 from ricegod.infrastructure.recipe_repository import RecipeRepository
+from ricegod.infrastructure.llm_client import build_chat_model
 
 
 class FixtureMemoryStore:
@@ -77,8 +78,8 @@ class FixtureMemoryStore:
 def create_offline_runtime():
     catalog, local = RecipeGraphRepository(), RecipeRepository()
     try:
-        graph = workflow.build_graph(router.analyze_intent, conversation.general_query,
-                                    conversation.additional_query, router._build_llm, catalog, local)
+        graph = workflow.build_graph(conversation.general_query,
+                                    conversation.additional_query, build_chat_model, catalog, local)
         store = FixtureMemoryStore()
         service = MemoryService.__new__(MemoryService)
         service.store, service.extractor = store, MemoryExtractor()

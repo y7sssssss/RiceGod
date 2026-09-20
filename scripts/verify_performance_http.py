@@ -36,7 +36,7 @@ def main():
                 report["responses"].append(body)
                 performance = body["performance"]
                 check(f"timing_{index}", performance["total_ms"] > 0 and
-                      {"total", "graph", "router", "planner", "recipe_retrieval", "answer"}
+                      {"total", "graph", "planner", "recipe_retrieval", "answer"}
                       <= {stage["name"] for stage in performance["stages"]})
                 check(f"nonnegative_intervals_{index}", all(stage["duration_ms"] >= 0 and stage["start_ms"] >= 0
                                                             for stage in performance["stages"]))

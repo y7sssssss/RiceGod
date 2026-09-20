@@ -356,17 +356,25 @@ ORDER BY shared_main_count DESC, similarity_score DESC, 菜名
 LIMIT $limit
 """, params={"dish_name": dish_name, "limit": limit}, source="graph_v2_similar_recipes")
 
-    def build_substitution_cypher(self, ingredient: str, limit: int = 5) -> CypherRequest:
+    def build_substitution_cypher(
+        self,
+        ingredient: str,
+        limit: int = 5,
+        replacement: str | None = None,
+    ) -> CypherRequest:
         canonical = canonical_ingredient(ingredient)
         return CypherRequest(cypher="""
 MATCH (ingredient:Ingredient {name: $ingredient})-[rel:CAN_SUBSTITUTE]->(replacement:Ingredient)
+WHERE $replacement IS NULL OR replacement.name = $replacement
 OPTIONAL MATCH (source:Source {id: rel.source_id})
 RETURN ingredient.name AS 原食材, replacement.name AS 替代食材,
        rel.context AS 使用场景, rel.score AS 置信度,
        source.name AS 来源, source.url AS 来源地址
 ORDER BY 置信度 DESC, 替代食材
 LIMIT $limit
-""", params={"ingredient": canonical, "limit": limit}, source="graph_v2_substitutions")
+""", params={"ingredient": canonical,
+               "replacement": canonical_ingredient(replacement) if replacement else None,
+               "limit": limit}, source="graph_v2_substitutions")
 
     def find_similar_recipes(self, dish_name: str, limit: int = 5) -> list[dict[str, Any]]:
         request = self.build_similar_recipe_cypher(dish_name, limit)

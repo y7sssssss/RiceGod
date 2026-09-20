@@ -77,15 +77,29 @@ class FoodKnowledgeRepository:
             print(f"Ingested food knowledge chunks {total}/{len(rows)}", flush=True)
         return total
 
-    def search(self, query: str, top_k: int | None = None) -> list[dict[str, Any]]:
+    def search(
+        self,
+        query: str,
+        top_k: int | None = None,
+        *,
+        vector_similarity_threshold: float | None = None,
+        rerank_relevance_threshold: float | None = None,
+    ) -> list[dict[str, Any]]:
         final_top_k = top_k or settings.KB_TOP_K
         recall_top_n = max(final_top_k, settings.RERANK_TOP_N)
+        vector_threshold = (settings.KB_VECTOR_SIMILARITY_THRESHOLD
+                            if vector_similarity_threshold is None else vector_similarity_threshold)
+        rerank_threshold = (settings.KB_RERANK_RELEVANCE_THRESHOLD
+                            if rerank_relevance_threshold is None else rerank_relevance_threshold)
         embedding = self.embedder.embed_query(query)
-        results = self.vector_store.search(embedding, recall_top_n)
+        results = [row for row in self.vector_store.search(embedding, recall_top_n)
+                   if float(row.get("score") or 0.0) >= vector_threshold]
         if not self.reranker:
             return results[:final_top_k]
         try:
-            return self.reranker.rerank(query, results, final_top_k)
+            reranked = self.reranker.rerank(query, results, final_top_k)
+            return [row for row in reranked
+                    if float(row.get("score") or 0.0) >= rerank_threshold][:final_top_k]
         except Exception:
             logger.exception("DashScope rerank failed; using vector search ordering.")
             return results[:final_top_k]

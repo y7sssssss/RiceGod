@@ -2,9 +2,14 @@
 
 import re
 
-from ricegod.application.agents.state import QueryPlan
+from ricegod.application.agents.state import QueryPlan, RecipeOperationSpec
 from ricegod.domain.recipe_ranking import build_recipe_request
+from ricegod.domain.graph_v2 import canonical_ingredient
 from ricegod.application.performance import record_event
+
+
+SIMILAR_WORDS = ("相似", "类似", "差不多", "同类", "相近")
+SUBSTITUTE_WORDS = ("替代", "代替", "替换", "平替", "换掉", "换成")
 
 
 def _meal_spans(question: str) -> list[tuple[int, int]]:
@@ -34,6 +39,78 @@ def _exact_span(text: str, question: str) -> tuple[int, int] | None:
     if start < 0 or question.find(text, start + 1) >= 0:
         return None
     return start, start + len(text)
+
+
+def _known_mentions(text: str, values: list[str]) -> list[str]:
+    remaining = text
+    found = []
+    for value in sorted(values, key=len, reverse=True):
+        if value and value in remaining:
+            found.append(value)
+            remaining = remaining.replace(value, " " * len(value))
+    return found
+
+
+def _ground_operation(task, local, catalog) -> str:
+    """Resolve a task operation and validate planner-provided graph targets."""
+    text = task.source_text or task.question
+    has_similar = any(word in text for word in SIMILAR_WORDS)
+    has_substitute = any(word in text for word in SUBSTITUTE_WORDS)
+    hint = task.operation_spec
+    task.operation_error = None
+    if has_similar and has_substitute:
+        task.operation_spec = RecipeOperationSpec(operation="search")
+        task.operation_error = "同一句中同时出现了相似菜和食材替代要求，请分别说明要查询的菜名和要替代的食材。"
+        return "search"
+    operation = "similar" if has_similar else "substitute" if has_substitute else (
+        hint.operation if hint is not None else "search")
+    if operation == "search":
+        task.operation_spec = RecipeOperationSpec(operation="search")
+        return operation
+
+    if operation == "similar":
+        dishes = _known_mentions(text, list(getattr(catalog, "recipe_names", [])))
+        hinted = hint.dish_name if hint and hint.operation == "similar" else None
+        if hinted not in getattr(catalog, "recipe_names", []):
+            hinted = None
+        if len(dishes) == 1:
+            target = dishes[0]
+        elif hinted and hinted in dishes:
+            target = hinted
+        else:
+            target = None
+        task.operation_spec = RecipeOperationSpec(operation="similar", dish_name=target)
+        if target is None:
+            task.operation_error = ("检测到多个可能的菜名，请明确要查询哪道菜的相似菜。"
+                                    if len(dishes) > 1 else "请明确要查询哪道菜的相似菜。")
+        else:
+            local.dish_name = target
+        return operation
+
+    mentioned = _known_mentions(text, list(getattr(catalog, "ingredients", [])))
+    canonical_mentions = list(dict.fromkeys(canonical_ingredient(value) for value in mentioned))
+    hinted_target = canonical_ingredient(hint.ingredient) if hint and hint.ingredient else None
+    hinted_replacement = canonical_ingredient(hint.replacement) if hint and hint.replacement else None
+    known_ingredients = {canonical_ingredient(value) for value in getattr(catalog, "ingredients", [])}
+    if hinted_target not in known_ingredients or hinted_target not in canonical_mentions:
+        hinted_target = None
+    if hinted_replacement not in known_ingredients or hinted_replacement not in canonical_mentions:
+        hinted_replacement = None
+    if len(canonical_mentions) == 1:
+        target = canonical_mentions[0]
+    elif hinted_target:
+        target = hinted_target
+    else:
+        target = None
+    replacement = hinted_replacement if hinted_replacement != target else None
+    task.operation_spec = RecipeOperationSpec(
+        operation="substitute", ingredient=target, replacement=replacement)
+    if target is None:
+        task.operation_error = ("检测到多个可能的食材，请明确要替代哪一种食材。"
+                                if len(canonical_mentions) > 1 else "请明确需要替代的食材。")
+    else:
+        local.required_ingredients = [target]
+    return operation
 
 
 def _ground_recipe_sources(recipes, question, meal_spans):
@@ -137,9 +214,11 @@ def ground_task_conditions(plan: QueryPlan, question: str, catalog, memories: li
             named = catalog.extract_constraints(task.question, []).dish_name
             if named and named in task.source_text:
                 local.dish_name = named
+        operation = _ground_operation(task, local, catalog)
         task.constraints = local
         request = build_recipe_request(task.source_text, local, memories=memories,
-                                       flavors=catalog.flavors, methods=catalog.methods)
+                                       flavors=catalog.flavors, methods=catalog.methods,
+                                       operation=operation)
         common_request = build_recipe_request(shared_text, local)
         if request.requested_count is None and common_request.requested_count is not None:
             request.limit = common_request.limit
@@ -155,11 +234,15 @@ def ground_task_conditions(plan: QueryPlan, question: str, catalog, memories: li
     if len(recipes) > 1:
         for key in ("required_ingredients", "flavors", "methods", "dish_types"):
             covered = {value for task in recipes for value in getattr(task.constraints, key)}
+            if key == "required_ingredients":
+                covered.update(task.operation_spec.replacement for task in recipes
+                               if task.operation_spec and task.operation_spec.replacement)
             if set(getattr(original, key)) - covered:
                 raise ValueError("Recipe scopes omit an explicit condition")
     # Compatibility for existing single-recipe consumers; multi-task conditions
     # are always on PlannedTask, while this field represents shared conditions.
     plan.constraints = recipes[0].constraints if len(recipes) == 1 else shared
-    plan.recipe_request = build_recipe_request(question, plan.constraints, memories=memories,
-                                               flavors=catalog.flavors, methods=catalog.methods)
+    plan.recipe_request = (recipes[0].recipe_request if len(recipes) == 1 else
+        build_recipe_request(question, plan.constraints, memories=memories,
+                             flavors=catalog.flavors, methods=catalog.methods))
     return plan

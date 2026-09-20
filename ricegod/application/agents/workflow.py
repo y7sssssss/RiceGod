@@ -2,7 +2,6 @@
 
 import asyncio
 import logging
-import inspect
 from typing import Any
 
 from langgraph.checkpoint.memory import InMemorySaver
@@ -19,11 +18,34 @@ from ricegod.application.performance import measure_stage, record_event
 logger = logging.getLogger(__name__)
 
 
-def build_graph(analyze_intent, general_query, additional_query, model_factory, graph_repository, local_repository,
+def build_graph(general_query, additional_query, model_factory, graph_repository, local_repository,
                 *, checkpointer: BaseCheckpointSaver | None = None):
+    task_slots: asyncio.Semaphore | None = None
+    task_slots_loop = None
+    detached_tasks: set[asyncio.Task] = set()
+
+    def execution_slots() -> asyncio.Semaphore:
+        nonlocal task_slots, task_slots_loop
+        loop = asyncio.get_running_loop()
+        if task_slots is None or task_slots_loop is not loop:
+            task_slots = asyncio.Semaphore(settings.AGENT_MAX_CONCURRENT_TASKS)
+            task_slots_loop = loop
+        return task_slots
+
+    def observe_detached_task(task: asyncio.Task) -> None:
+        detached_tasks.discard(task)
+        if task.cancelled():
+            return
+        error = task.exception()
+        if error is not None:
+            logger.error("Detached timed-out task ended with an error.",
+                         exc_info=(type(error), error, error.__traceback__))
+
     async def plan_tasks(state: AgentState):
         plan = await planner.make_plan(state, graph_repository, model_factory)
-        return {"plan": plan, "task_results": Overwrite({}), "sources": [], "answer": ""}
+        question = state.question or (str(state.messages[-1].content) if state.messages else "")
+        return {"plan": plan, "router": planner.router_summary(plan, question),
+                "task_results": Overwrite({}), "sources": [], "answer": ""}
 
     def dispatch(state: AgentState):
         pending = [task for task in state.plan.tasks if task.id not in state.task_results]
@@ -52,7 +74,21 @@ def build_graph(analyze_intent, general_query, additional_query, model_factory, 
                 return result
             stage_name = {"recipe_query": "recipe_retrieval", "food_knowledge": "knowledge_retrieval"}.get(task.route, "conversation")
             with measure_stage(stage_name, task_id=task.id):
-                result = await asyncio.wait_for(run(), timeout=settings.AGENT_TASK_TIMEOUT_SECONDS)
+                async def bounded_run():
+                    # Sync drivers cannot be force-cancelled once dispatched to a
+                    # worker thread. Keep timed-out work alive and cap its total
+                    # concurrency instead of pretending wait_for stopped it.
+                    async with execution_slots():
+                        return await run()
+
+                worker = asyncio.create_task(bounded_run())
+                try:
+                    result = await asyncio.wait_for(
+                        asyncio.shield(worker), timeout=settings.AGENT_TASK_TIMEOUT_SECONDS)
+                except (TimeoutError, asyncio.TimeoutError):
+                    detached_tasks.add(worker)
+                    worker.add_done_callback(observe_detached_task)
+                    raise
         except Exception as exc:
             logger.exception("Task failed: %s", task.id)
             result = TaskResult(task_id=task.id, route=task.route, question=task.question, status="failed",
@@ -68,25 +104,16 @@ def build_graph(analyze_intent, general_query, additional_query, model_factory, 
         with measure_stage("answer"):
             return await answer.synthesize_answer(state, model_factory)
 
-    async def timed_intent(state: AgentState):
-        with measure_stage("router"):
-            if inspect.iscoroutinefunction(analyze_intent):
-                return await analyze_intent(state)
-            result = await asyncio.to_thread(analyze_intent, state)
-            return await result if inspect.isawaitable(result) else result
-
     async def timed_plan(state: AgentState):
         with measure_stage("planner"):
             return await plan_tasks(state)
 
     builder = StateGraph(AgentState, input_schema=InputState)
-    builder.add_node("analyze_intent", timed_intent)
     builder.add_node("plan_tasks", timed_plan)
     builder.add_node("execute_task", execute_task)
     builder.add_node("finish_round", finish_round)
     builder.add_node("synthesize_answer", synthesize_answer)
-    builder.add_edge(START, "analyze_intent")
-    builder.add_edge("analyze_intent", "plan_tasks")
+    builder.add_edge(START, "plan_tasks")
     builder.add_conditional_edges("plan_tasks", dispatch, ["execute_task", "synthesize_answer"])
     builder.add_edge("execute_task", "finish_round")
     builder.add_conditional_edges("finish_round", dispatch, ["execute_task", "synthesize_answer"])

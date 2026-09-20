@@ -28,6 +28,15 @@ class Router(BaseModel):
         return routes or ["general_query"]
 
 
+class RecipeOperationSpec(BaseModel):
+    """Planner hint for one recipe task; execution validates every entity."""
+
+    operation: Literal["search", "similar", "substitute"] = "search"
+    dish_name: str | None = None
+    ingredient: str | None = None
+    replacement: str | None = None
+
+
 class PlannedTask(BaseModel):
     id: str
     route: RouteType
@@ -35,16 +44,20 @@ class PlannedTask(BaseModel):
     depends_on: list[str] = PydanticField(default_factory=list)
     # Exact span of the current user turn, used to ground this task's filters/count.
     source_text: str = ""
+    operation_spec: RecipeOperationSpec | None = None
+    operation_error: str | None = None
     constraints: RecipeConstraints | None = None
     recipe_request: RecipeRequest | None = None
 
 
 class QueryPlan(BaseModel):
     tasks: list[PlannedTask] = PydanticField(default_factory=list, max_length=4)
+    decision_source: Literal["rules", "model", "fallback", "selection"] = "rules"
     constraints: RecipeConstraints = PydanticField(default_factory=RecipeConstraints)
     recipe_request: RecipeRequest = PydanticField(default_factory=RecipeRequest)
     selected_recipe_name: str | None = None
     recipe_selection_error: str | None = None
+    clarification: str | None = None
 
 
 class TaskResult(BaseModel):

@@ -1,8 +1,13 @@
 from __future__ import annotations
 
+import hashlib
+import json
+import math
+import threading
 from typing import Any
 
 import psycopg
+from psycopg.conninfo import make_conninfo
 from psycopg.rows import dict_row
 
 from ricegod.application.memory.models import (
@@ -36,16 +41,36 @@ MEMORY_TYPES: tuple[MemoryType, ...] = (
 )
 
 
+class PostgresAdvisoryLock:
+    """A session-scoped PostgreSQL lock whose connection stays open until release."""
+
+    def __init__(self, conn: psycopg.Connection, lock_key: int) -> None:
+        self._conn = conn
+        self._lock_key = lock_key
+        self._released = False
+        self._guard = threading.Lock()
+
+    def release(self) -> None:
+        with self._guard:
+            if self._released:
+                return
+            self._released = True
+            try:
+                self._conn.execute("SELECT pg_advisory_unlock(%s)", (self._lock_key,))
+            finally:
+                self._conn.close()
+
+
 class MemoryStore:
     """PostgreSQL store for raw messages and distilled long-term memories."""
 
     def __init__(self, dsn: str | None = None) -> None:
-        self.dsn = dsn or settings.POSTGRES_DSN or (
-            f"host={settings.POSTGRES_HOST} "
-            f"port={settings.POSTGRES_PORT} "
-            f"dbname={settings.POSTGRES_DB} "
-            f"user={settings.POSTGRES_USER} "
-            f"password={settings.POSTGRES_PASSWORD}"
+        self.dsn = dsn or settings.POSTGRES_DSN or make_conninfo(
+            host=settings.POSTGRES_HOST,
+            port=settings.POSTGRES_PORT,
+            dbname=settings.POSTGRES_DB,
+            user=settings.POSTGRES_USER,
+            password=settings.POSTGRES_PASSWORD,
         )
         self.init_schema()
 
@@ -81,6 +106,15 @@ class MemoryStore:
             )
             conn.execute("CREATE INDEX IF NOT EXISTS idx_messages_user_conversation_created "
                          "ON messages (user_id, conversation_id, created_at)")
+            conn.execute("ALTER TABLE messages ADD COLUMN IF NOT EXISTS request_id VARCHAR(128)")
+            conn.execute("ALTER TABLE messages ADD COLUMN IF NOT EXISTS turn_status VARCHAR(16)")
+            conn.execute("ALTER TABLE messages ADD COLUMN IF NOT EXISTS turn_response JSONB")
+            conn.execute("ALTER TABLE messages ADD COLUMN IF NOT EXISTS turn_error VARCHAR(64)")
+            conn.execute(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_messages_user_conversation_request "
+                "ON messages (user_id, conversation_id, request_id) "
+                "WHERE role = 'user' AND request_id IS NOT NULL"
+            )
             conn.execute(
                 f"""
                 CREATE TABLE IF NOT EXISTS memories (
@@ -118,6 +152,94 @@ class MemoryStore:
         if not row:
             raise RuntimeError("Failed to insert message.")
         return MessageRecord.model_validate(row)
+
+    def begin_turn(self, *, conversation_id: str, user_id: str, request_id: str,
+                   content: str) -> dict[str, Any]:
+        """Create one durable user turn, or return the prior result for an idempotent retry."""
+        with self._connect(register_pgvector=False) as conn:
+            row = conn.execute(
+                """
+                INSERT INTO messages
+                    (conversation_id, user_id, role, content, request_id, turn_status)
+                VALUES (%s, %s, 'user', %s, %s, 'processing')
+                ON CONFLICT (user_id, conversation_id, request_id)
+                    WHERE role = 'user' AND request_id IS NOT NULL
+                DO NOTHING
+                RETURNING id, conversation_id, user_id, role, content, created_at,
+                          request_id, turn_status, turn_response, turn_error
+                """,
+                (conversation_id, user_id, content, request_id),
+            ).fetchone()
+            if row is None:
+                row = conn.execute(
+                    """
+                    SELECT id, conversation_id, user_id, role, content, created_at,
+                           request_id, turn_status, turn_response, turn_error
+                    FROM messages
+                    WHERE user_id = %s AND conversation_id = %s
+                      AND request_id = %s AND role = 'user'
+                    """,
+                    (user_id, conversation_id, request_id),
+                ).fetchone()
+                if row is None:
+                    raise RuntimeError("Failed to load idempotent chat turn.")
+                if row["content"] != content:
+                    raise ValueError("A request_id cannot be reused with different content.")
+                if row["turn_status"] == "failed":
+                    row = conn.execute(
+                        """
+                        UPDATE messages
+                        SET turn_status = 'processing', turn_error = NULL, turn_response = NULL
+                        WHERE id = %s
+                        RETURNING id, conversation_id, user_id, role, content, created_at,
+                                  request_id, turn_status, turn_response, turn_error
+                        """,
+                        (row["id"],),
+                    ).fetchone()
+        if row is None:
+            raise RuntimeError("Failed to start chat turn.")
+        return dict(row)
+
+    def complete_turn(self, message_id: int, response: dict[str, Any], *, assistant_content: str) -> None:
+        with self._connect(register_pgvector=False) as conn:
+            with conn.transaction():
+                conn.execute(
+                    """
+                    INSERT INTO messages (conversation_id, user_id, role, content)
+                    SELECT conversation_id, user_id, 'assistant', %s
+                    FROM messages
+                    WHERE id = %s AND role = 'user' AND turn_status = 'processing'
+                    """,
+                    (assistant_content, message_id),
+                )
+                updated = conn.execute(
+                    "UPDATE messages SET turn_status = 'completed', turn_response = %s::jsonb, turn_error = NULL "
+                    "WHERE id = %s AND role = 'user' AND turn_status = 'processing' RETURNING id",
+                    (json.dumps(response, ensure_ascii=False, allow_nan=False), message_id),
+                ).fetchone()
+                if updated is None:
+                    raise RuntimeError("Chat turn was not in processing state.")
+
+    def fail_turn(self, message_id: int, error_code: str = "chat_execution_failed") -> None:
+        with self._connect(register_pgvector=False) as conn:
+            conn.execute(
+                "UPDATE messages SET turn_status = 'failed', turn_error = %s "
+                "WHERE id = %s AND role = 'user'",
+                (error_code, message_id),
+            )
+
+    def acquire_conversation_lock(self, *, user_id: str, conversation_id: str) -> "PostgresAdvisoryLock":
+        """Serialize one conversation across workers and application replicas."""
+        identity = json.dumps([user_id, conversation_id], ensure_ascii=False, separators=(",", ":"))
+        lock_key = int.from_bytes(hashlib.sha256(identity.encode("utf-8")).digest()[:8],
+                                  byteorder="big", signed=True)
+        conn = self._connect(register_pgvector=False)
+        try:
+            conn.execute("SELECT pg_advisory_lock(%s)", (lock_key,))
+        except BaseException:
+            conn.close()
+            raise
+        return PostgresAdvisoryLock(conn, lock_key)
 
     def get_recent_messages(self, conversation_id: str, limit: int, *, user_id: str) -> list[dict[str, Any]]:
         with self._connect() as conn:
@@ -174,7 +296,7 @@ class MemoryStore:
             ).fetchone()
         if not row:
             return None
-        return MemorySearchResult.model_validate(row)
+        return _memory_search_result(row)
 
     @staticmethod
     def _require_user_evidence(conn, *, user_id: str, source_message_id: int, evidence: str, content: str) -> str:
@@ -283,10 +405,10 @@ class MemoryStore:
 
         by_id: dict[int, MemorySearchResult] = {}
         for row in semantic_rows:
-            item = MemorySearchResult.model_validate(row)
+            item = _memory_search_result(row)
             by_id[item.id] = item
         for row in priority_rows:
-            item = MemorySearchResult.model_validate(row)
+            item = _memory_search_result(row)
             current = by_id.get(item.id)
             if not current:
                 by_id[item.id] = item
@@ -333,3 +455,10 @@ class MemoryStore:
 
 def _to_vector_literal(values: list[float]) -> str:
     return "[" + ",".join(f"{float(v):.8f}" for v in values) + "]"
+
+
+def _memory_search_result(row: Any) -> MemorySearchResult:
+    result = MemorySearchResult.model_validate(row)
+    if not math.isfinite(float(result.score)):
+        result = result.model_copy(update={"score": 0.0})
+    return result

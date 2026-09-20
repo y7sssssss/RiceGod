@@ -6,7 +6,7 @@ from langchain_core.messages import HumanMessage
 
 from ricegod.application.agents import planner, recipe_retrieval
 from ricegod.config import settings
-from ricegod.application.agents.state import AgentState, PlannedTask, QueryPlan, RecommendationGroup, Router, TaskResult
+from ricegod.application.agents.state import AgentState, PlannedTask, QueryPlan, RecommendationGroup, TaskResult
 from ricegod.domain.recipe_ranking import (
     CANDIDATE_LIMIT, RecipeRequest, build_recipe_request, rank_recipes,
 )
@@ -52,6 +52,20 @@ def test_graph_operations_are_distinct_from_normal_recommendations():
     assert similar.recommendation and similar.limit == 3
     assert substitute.operation == "substitute"
     assert not substitute.recommendation
+
+
+@pytest.mark.parametrize("word", ["相似", "类似", "同类", "相近"])
+def test_similarity_operation_synonyms(word):
+    request = build_recipe_request(
+        f"找和西红柿炒鸡蛋{word}的菜", RecipeConstraints(dish_name="西红柿炒鸡蛋"))
+    assert request.operation == "similar"
+
+
+@pytest.mark.parametrize("word", ["替代", "代替", "替换", "平替", "换掉", "换成"])
+def test_substitution_operation_synonyms(word):
+    request = build_recipe_request(
+        f"玉米淀粉可以用什么{word}", RecipeConstraints(required_ingredients=["玉米淀粉"]))
+    assert request.operation == "substitute"
 
 
 def test_main_ingredient_is_preferred_to_auxiliary_ingredient():
@@ -163,7 +177,7 @@ def test_planner_rewrite_cannot_change_original_dish_count(tmp_path, monkeypatch
                              recipe_request=RecipeRequest(query="wrong", limit=1))
 
     question = "推荐五道鸡蛋菜，并介绍川菜的历史"
-    state = AgentState(messages=[HumanMessage(content=question)], router=Router(type=["recipe_query", "food_knowledge"]))
+    state = AgentState(messages=[HumanMessage(content=question)])
     plan = asyncio.run(planner.make_plan(state, graph, lambda **kwargs: Model()))
     assert plan.recipe_request.limit == 5
     assert plan.recipe_request.query == question
@@ -206,7 +220,6 @@ def test_user_can_select_second_recipe_from_previous_ranked_results(tmp_path, mo
     _, graph, local = catalog(tmp_path)
     monkeypatch.setattr(settings, "LLM_API_KEY", None)
     state = AgentState(messages=[HumanMessage(content="第二道菜怎么做？给出材料和步骤。")],
-        router=Router(type=["recipe_query"]),
         last_recommendations=[RecommendationGroup(task_id="recipe", records=[
             recipe("鸡蛋快炒"), recipe("鸡蛋蒸羹", method="蒸")])])
     plan = asyncio.run(planner.make_plan(state, graph, None))

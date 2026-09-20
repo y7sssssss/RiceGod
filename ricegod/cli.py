@@ -26,7 +26,7 @@ async def _interactive_main(runtime) -> None:
 
         router = result.get("router")
         if router:
-            print("\nRouter:")
+            print("\nRoute summary:")
             print(router.model_dump_json(indent=2))
 
         messages = result.get("messages", [])

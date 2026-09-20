@@ -12,7 +12,7 @@ from types import SimpleNamespace
 import pytest
 from langchain_core.messages import AIMessage, HumanMessage
 
-from ricegod.application.agents import conversation, router, workflow
+from ricegod.application.agents import conversation, workflow
 from ricegod.application.agents.state import QueryPlan, RecommendationGroup, TaskResult
 from ricegod.application.chat.models import ChatRequest
 from ricegod.application.chat.service import ChatService, _thread_key
@@ -44,6 +44,8 @@ def persisted_graph(tmp_path, monkeypatch):
     path = tmp_path / "recipes.json"
     path.write_text(json.dumps(rows, ensure_ascii=False), encoding="utf-8")
     catalog, local = RecipeGraphRepository(data_path=path), RecipeRepository(str(path))
+    monkeypatch.setattr(catalog, "query_ranked_candidates", lambda *args: [])
+    monkeypatch.setattr(catalog, "query_by_cypher", lambda *args: [])
     user = "state-integration-" + uuid4().hex
     keys = set()
 
@@ -53,8 +55,8 @@ def persisted_graph(tmp_path, monkeypatch):
         return {"configurable": {"thread_id": key}}
 
     def graph(saver):
-        return workflow.build_graph(router.analyze_intent, conversation.general_query,
-                                    conversation.additional_query, router._build_llm,
+        return workflow.build_graph(conversation.general_query,
+                                    conversation.additional_query, None,
                                     catalog, local, checkpointer=saver)
 
     yield user, config, graph
@@ -183,6 +185,28 @@ def test_confirmed_answer_and_message_history_survive_restart(persisted_graph):
         service = ChatService(graph, NoRecoveryStore())
         asyncio.run(service.chat(ChatRequest(user_id=user, message="谢谢")))
         assert len(asyncio.run(graph.aget_state(cfg)).values["messages"]) == 4
+
+
+def test_chat_turn_idempotency_and_completion_survive_service_restart(persisted_graph):
+    user, config, build = persisted_graph
+    conversation_id = "idempotency"
+    config(conversation_id)
+    store = MemoryStore()
+    request = ChatRequest(request_id="retry-" + uuid4().hex, user_id=user,
+                          conversation_id=conversation_id, message="你好")
+
+    with open_checkpointer() as saver:
+        graph = build(saver)
+        first = asyncio.run(ChatService(graph, store).chat(request))
+        second = asyncio.run(ChatService(graph, store).chat(request))
+
+    turn = store.begin_turn(conversation_id=conversation_id, user_id=user,
+                            request_id=request.request_id, content=request.message)
+    messages = store.get_messages(conversation_id, user_id=user)
+    assert first.answer == second.answer
+    assert turn["turn_status"] == "completed"
+    assert turn["turn_response"]["answer"] == first.answer
+    assert [message.role for message in messages] == ["user", "assistant"]
 
 
 def operation_service(store):

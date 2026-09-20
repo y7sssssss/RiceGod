@@ -41,7 +41,8 @@ def _number(text: str) -> int:
 def build_recipe_request(query: str, constraints: RecipeConstraints, *,
                          memories: list[dict[str, Any]] | None = None,
                          flavors: list[str] | None = None,
-                         methods: list[str] | None = None) -> RecipeRequest:
+                         methods: list[str] | None = None,
+                         operation: Literal["search", "similar", "substitute"] | None = None) -> RecipeRequest:
     # Quantities of eggs / servings and ordinal references are not dish counts.
     matches = list(re.finditer(r"(?<![第\d一二两三四五六七八九十])"
         r"(\d+|[一二两三四五六七八九十]{1,3})\s*"
@@ -49,11 +50,12 @@ def build_recipe_request(query: str, constraints: RecipeConstraints, *,
     count = _number(matches[-1].group(1)) if matches else None
     if count is not None and count <= 0:
         count = None
-    operation: Literal["search", "similar", "substitute"] = "search"
-    if constraints.dish_name and any(word in query for word in ("相似", "类似", "差不多")):
-        operation = "similar"
-    elif constraints.required_ingredients and any(word in query for word in ("替代", "代替", "替换")):
-        operation = "substitute"
+    if operation is None:
+        operation = "search"
+        if any(word in query for word in ("相似", "类似", "差不多", "同类", "相近")):
+            operation = "similar"
+        elif any(word in query for word in ("替代", "代替", "替换", "平替", "换掉", "换成")):
+            operation = "substitute"
     recommendation = operation == "similar" or any(word in query for word in
         ("推荐", "有哪些", "有什么", "吃什么", "能做什么", "找几道", "做哪些")) or (
         constraints.dish_name is None and bool(count or constraints.required_ingredients

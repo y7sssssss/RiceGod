@@ -35,8 +35,8 @@ services:
       - "7474:7474"
       - "7687:7687"
     environment:
-      NEO4J_USER: ${NEO4J_USER:-neo4j}
-      NEO4J_PASSWORD: ${NEO4J_PASSWORD:?Set NEO4J_PASSWORD in .env}
+      AUTH_USER: ${NEO4J_USER:-neo4j}
+      AUTH_PASSWORD: ${NEO4J_PASSWORD:?Set NEO4J_PASSWORD in .env}
       NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:?Set NEO4J_PASSWORD in .env}
       NEO4J_PLUGINS: '["apoc"]'
     volumes:
@@ -46,7 +46,7 @@ services:
     healthcheck:
       test:
         - CMD-SHELL
-        - "cypher-shell -u $${NEO4J_USER:-neo4j} -p '${NEO4J_PASSWORD}' 'RETURN 1' >/dev/null 2>&1"
+        - 'cypher-shell -u "$${AUTH_USER:-neo4j}" -p "$${AUTH_PASSWORD}" "RETURN 1" >/dev/null 2>&1'
       interval: 10s
       timeout: 5s
       retries: 15

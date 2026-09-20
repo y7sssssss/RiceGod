@@ -46,7 +46,7 @@ async def chat(request: ChatRequest, service: ChatService = Depends(get_chat_ser
     try:
         return await service.chat(request)
     except ChatExecutionError as exc:
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+        raise HTTPException(status_code=500, detail="Chat service is temporarily unavailable.") from exc
 
 
 def list_memories(user_id: str, store: MemoryStore = Depends(get_memory_store)) -> list[dict[str, Any]]:

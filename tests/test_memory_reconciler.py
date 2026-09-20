@@ -46,7 +46,11 @@ class FakeExtractor:
 
 
 class FakeEmbedder:
+    def __init__(self) -> None:
+        self.calls = 0
+
     def embed_query(self, text: str) -> list[float]:
+        self.calls += 1
         return [float(len(text) % 10), 1.0]
 
 
@@ -205,6 +209,7 @@ def test_reconciler_fallback_without_llm_adds_when_not_similar(monkeypatch):
     changed = asyncio.run(service.extract_and_store(user_id="u1", conversation_id="c1"))
 
     assert any(call[0] == "add" for call in store.calls)
+    assert service.embedder.calls == 1
     assert changed
 
 

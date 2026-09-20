@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from ricegod.application.agents.state import PlannedTask, QueryPlan, Router, TaskResult
+from ricegod.application.agents.state import PlannedTask, QueryPlan, TaskResult
 from ricegod.evaluation.cases import EvaluationSuite, RecipeExpectation, Turn
 from ricegod.evaluation.scoring import compare_reports, distribution, score_turn, satisfies_fields, summarize
 

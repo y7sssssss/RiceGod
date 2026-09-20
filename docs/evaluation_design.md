@@ -43,7 +43,7 @@
 | `memory_operation` | 召回前的明确更正或遗忘 |
 | `memory_recall` | 记忆向量召回和完整限制记忆读取 |
 | `graph` | 完整图调用，包含图调度、节点和 Checkpoint 开销 |
-| `router` / `planner` | 路由和规划，包括输入构建、模型调用、校验与规则回退 |
+| `planner` | 统一领域识别和任务规划，包括输入构建、模型调用、校验与规则回退 |
 | `recipe_retrieval` / `knowledge_retrieval` | 每个检索任务；保留任务 id |
 | `conversation` / `answer` | 普通对话任务与统一回答节点；确定性短路也按实际执行计时 |
 | `memory_extraction` | 答复后的提取、去重协调和实际记忆写入 |
@@ -54,7 +54,7 @@
 
 父子跨度重叠、检索可能并行，所以各阶段平均值和 `total_work_ms` 不能相加作为用户等待时间。请求总耗时只取 `total`。报告也分别汇总普通图请求、序号选择、直接记忆操作，避免低耗时短路请求掩盖正常推荐延迟。
 
-事件区分路由/规划的 `rules`、`selection`、`model`、`fallback`，规划回退记录 `context/model/validation` 阶段和异常类型，任务记录 `ok/empty/degraded/failed/blocked`。上下文事件包含估算输入长度和预算，不是提供商精确 token 数。性能日志和事件不记录用户 id、原话、凭证或完整异常文本。
+Planner 事件区分 `rules`、`selection`、`model`、`fallback`，规划回退记录 `context/model/validation` 阶段和异常类型，任务记录 `ok/empty/degraded/failed/blocked`。上下文事件包含估算输入长度和预算，不是提供商精确 token 数。性能日志和事件不记录用户 id、原话、凭证或完整异常文本。
 
 ## 指标定义
 
@@ -74,21 +74,33 @@
 $env:LANGGRAPH_STRICT_MSGPACK='true'
 $env:LANGSMITH_TRACING='false'
 $env:LANGCHAIN_TRACING_V2='false'
-.\.venv\Scripts\python.exe -m scripts.evaluate_fixed_suite --mode offline
-.\.venv\Scripts\python.exe -m scripts.evaluate_fixed_suite --mode live
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.evaluate_fixed_suite --mode offline
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.evaluate_fixed_suite --mode live
 
 # 真实模式会产生模型/Embedding 调用；可按独立场景选择。
-.\.venv\Scripts\python.exe -m scripts.evaluate_fixed_suite --mode live --scenario followups --output docs/followups_evaluation.json
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.evaluate_fixed_suite --mode live --scenario followups --output docs/followups_evaluation.json
 
 # 同一固定集、模式、数据、案例和重复次数的报告才能比较。
-.\.venv\Scripts\python.exe -m scripts.evaluate_fixed_suite --mode live --repeats 3 --output docs/baseline_live.json
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.evaluate_fixed_suite --mode live --repeats 3 --output docs/baseline_live.json
 # 优化之后按相同参数复跑。
-.\.venv\Scripts\python.exe -m scripts.evaluate_fixed_suite --mode live --repeats 3 --output docs/optimized_live.json --compare docs/baseline_live.json
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.evaluate_fixed_suite --mode live --repeats 3 --output docs/optimized_live.json --compare docs/baseline_live.json
 ```
 
 输出 JSON 保存逐轮问题、答案、检查、实际任务证据与计时；同名 Markdown 展示摘要和失败案例，CSV 导出阶段耗时。报告包含数据和代码 hash、模型与上下文配置、包版本、开始/结束时间及清理状态，不保存 API key 或 DSN。模型和配置可以变更，但比较结果会提示配置差异；需自行控制数据库内容、机器负载和服务商状态，不能仅凭一次差值断言某项改动带来提升。
 
 当前离线结果见 [固定离线评测](fixed_evaluation_offline.md)，真实结果见 [固定真实评测](fixed_evaluation_live.md)。全量回归 **257 passed**，包含八项真实 PostgreSQL 用例；新增覆盖请求隔离、并行跨度、失败与取消、严格评测数据、独立字段判断、分母与分位数、报告比较和离线运行。固定题目允许按照明确产品规则版本化修订，不允许为隐藏真实失败而放宽标准。
+
+## 文化检索专项评测
+
+文化检索使用 [42 条固定案例](../data/evaluation/culture_retrieval_cases.json)，直接以当前切分后的 `data.txt_<chunk_index>` 作为相关性标注，不额外创建逻辑文档。案例覆盖食材与烹饪历史、命名来历、古代菜单、文学饮食、依赖菜谱的连续追问，以及知识库无答案和域外干扰问题。
+
+运行时先用向量相似度阈值过滤候选，再按 Rerank 相关度阈值过滤最终片段；全部低于阈值时主链路返回 empty，由回答节点明确说明知识库没有可靠依据。当前固定集的无阈值校准中，有答案案例最低 Rerank 分为 0.741，无答案案例最高为 0.269，因此默认阈值采用向量 0.35、Rerank 0.50，在两组之间保留余量。该数值是当前模型、语料和题集下的经验阈值，模型或语料变化后应重新评测。
+
+专项报告统计 Recall@K、MRR、无答案识别率和已有 `source/chunk_index` 字段的覆盖率，并保存固定集、原始语料的 SHA-256 与切分参数，避免语料或切分变化后继续比较失效编号。
+
+```powershell
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.evaluate_culture_retrieval
+```
 
 实际 TCP HTTP 验收 **13/13** 项通过，覆盖响应计时、并行阶段区间、不同请求 trace 隔离、计时不进入持久化 State、推荐与连续选择，以及 PostgreSQL 中的回答一致性。本轮测试用户数据已清理，见 [HTTP 验收记录](performance_http_verification.json)。
 
@@ -104,12 +116,22 @@ $env:LANGCHAIN_TRACING_V2='false'
 
 ## Planner 优化后实测
 
-同一固定集版本 1.2、相同模型与上下文配置下，重新实际执行：真实 **36/36**、离线 **30/31**。这次报告没有重新评分，模型与数据库请求是真实运行。真实字段检查 **53/53**、连续序号选择 **4/4**、记忆断言 **15/15** 通过，测试数据已清理。离线唯一失败仍是已有的鸡蛋冲突澄清，生产 Router 本轮未改动。
+同一固定集版本 1.2、相同模型与上下文配置下，重新实际执行：真实 **36/36**、离线 **30/31**。这次报告没有重新评分，模型与数据库请求是真实运行。真实字段检查 **53/53**、连续序号选择 **4/4**、记忆断言 **15/15** 通过，测试数据已清理。离线唯一失败仍是已有的鸡蛋冲突澄清。该结果来自 Router/Planner 合并前，作为历史基线保留。
 
-原固定题目的 Planner 模型路径次数从 **21 次降为 0 次**，本轮走规则规划 25 次、序号选择 7 次；并非关闭整个系统的模型。Router、回答与必要的记忆提取仍使用实际模型。由于这轮模型规划分母为零，回退率为 null，不能把它写成“模型规划成功率 100%”。复杂规划另外使用补充题目验收。
+原固定题目的 Planner 模型路径次数从 **21 次降为 0 次**，本轮走规则规划 25 次、序号选择 7 次；并非关闭整个系统的模型。回答与必要的记忆提取仍使用实际模型。由于这轮模型规划分母为零，回退率为 null，不能把它写成“模型规划成功率 100%”。复杂规划另外使用补充题目验收。此处的独立 Router 阶段耗时只属于历史报告，当前阶段统计统一记为 `planner`。
 
 普通图请求平均耗时由 **12.77 秒降至 6.26 秒**；全部 36 次请求平均由 **9.18 秒降至 4.68 秒**，P95 由 **18.10 秒降至 8.84 秒**。Planner 阶段平均由 **5.17 秒降至 65.89 毫秒**（都含规则和序号选择）。对照身份检查通过且配置未变化；单次小样本、数据库和提供商状态仍可能影响差异，这些是本轮观测，不能当作普遍性能保证。
 
 实现与复杂规划补充验收见 [Planner 优化设计](planner_optimization_design.md)。如需统一无模型或模型故障时的澄清行为，后续仍需给确定性路径补冲突检测。
 
 补充复杂规划评测 **3/3** 通过，三次实际模型规划、零回退，记录字段 **6/6** 和数量 **5/5** 通过。平均总耗时 **19.38 秒**，复杂规划仍需后续优化；结果见 [复杂规划报告](planner_evaluation_live.md)。本地 API 已重启，当前实际 HTTP 验收 **13/13** 项通过。
+
+## 统一 Planner 当前离线验收
+
+Router 合并后使用 GustoBot Conda 环境重跑固定集，并连接包含 19,669 道菜的真实 Neo4j 数据。结果为 **31/31 案例、283/283 检查通过**；其中 Planner 规则路径 20 次、序号选择路径 7 次，没有模型规划样本。`用鸡蛋推荐两道菜，不要鸡蛋` 现在确定性进入 `additional_query` 并返回冲突澄清，不执行菜谱检索；分餐中的相反条件继续按任务独立处理。
+
+本轮另以真实 Neo4j 执行 `search/similar/substitute` 集成用例，2/2 通过。报告见 [统一 Planner 离线评测](fixed_evaluation_offline_unified.md)。该报告不调用外部模型，不代表复杂语义 Planner 或文化检索的线上效果；需要模型的三条复杂规划题由开发者按上面的 `planner_cases.json` 命令手动复测。
+
+```powershell
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.evaluate_fixed_suite --mode live --suite data/evaluation/planner_cases.json --output docs/planner_evaluation_live_unified.json
+```

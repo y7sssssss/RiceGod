@@ -1,6 +1,6 @@
 # RiceGod
 
-RiceGod 是一个面向菜谱问答的 GraphRAG + RAG 后端项目。系统使用 LangGraph 做意图路由，使用 Neo4j 存储结构化菜谱知识图谱，使用 Milvus 存储饮食文化长文本向量知识库，并通过 FastAPI 提供统一问答接口。
+RiceGod 是一个面向菜谱问答的 GraphRAG + RAG 后端项目。系统使用 LangGraph 编排统一任务规划与依赖执行，使用 Neo4j 存储结构化菜谱知识图谱，使用 Milvus 存储饮食文化长文本向量知识库，并通过 FastAPI 提供统一问答接口。
 
 > 当前定位：可复现的本地作品集项目。还没有用户身份认证，不应直接暴露给不受信任的公网流量，详见 [安全政策](SECURITY.md)。
 
@@ -23,7 +23,8 @@ docker compose run --rm knowledge-init
 
 ## 项目亮点
 
-- 基于 LangGraph 的任务编排：识别意图、规划子任务、并行执行独立检索，按依赖结果检索并汇总证据。
+- 基于 LangGraph 的任务编排：统一 Planner 完成领域识别、子任务拆分和依赖规划；明确请求走规则快速路径，复杂请求只调用一次规划模型。
+- 菜谱操作识别：`search/similar/substitute` 采用高置信规则、Planner 结构化补充和实体校验，目标缺失或歧义时先澄清。
 - Neo4j GraphRAG：支持菜谱做法、食材、口味、工艺、类型和按条件找菜。
 - Graph V2：规范化食材别名，增加食材分类、过敏原、替代关系和来源节点，支持相似菜与过敏原多跳查询；模型与迁移方式见 [Graph V2 设计](docs/graph_v2_design.md)。
 - Graph V1/V2 与 JSON 量化评测：24 个固定问题分别衡量 V1→V2 的能力与召回变化，以及原始 `recipe.json`→Graph V2 的总体效果；增强 JSON 用于分离数据治理与查询引擎的收益，结果见 [Graph V2 固定评测](docs/graph_v2_evaluation.md)。
@@ -32,6 +33,7 @@ docker compose run --rm knowledge-init
 - 开发兜底：Neo4j 不可用时，菜谱查询可回退到本地 `recipe.json` 检索，便于本地演示。
 - 个性化检索：过敏、忌口完整召回，已识别的食材和口味约束同时用于图查询与本地兜底。
 - 独立任务条件：多个菜谱需求分别保留食材、口味、数量和详情要求，共同继承全局限制。
+- 条件冲突澄清：同一范围既要求又排除同一食材时直接澄清，不调用 Planner 模型或菜谱检索；不同分餐仍保留各自条件。
 - 会话推荐列表：State 保留最近一次推荐的分组与顺序，寒暄、文化查询和详情追问后仍可按序号选择；分组不明确或序号越界时澄清。
 - 会话 State 持久化：官方 PostgreSQL Checkpointer 保存消息、任务计划和推荐列表，重启后使用同一用户与会话继续追问。
 - 模型上下文管理：完整历史持续保存，模型读取最近对话窗口；按节点控制输入预算，保留推荐编号和相关记忆，更正或遗忘后隔离旧历史。
@@ -57,8 +59,7 @@ docker compose run --rm knowledge-init
 flowchart LR
     U[User] --> API[FastAPI /chat]
     API --> M[Memory recall]
-    M --> R[LangGraph router]
-    R --> P[Task planner]
+    M --> P[Unified task planner]
     P --> G[Neo4j GraphRAG]
     P --> V[Milvus RAG]
     P --> C[General conversation]
@@ -94,10 +95,10 @@ data/data.txt    -> python -m scripts.ingest_food_knowledge_to_milvus -> Milvus
 支持 Python 3.10–3.13。`pyproject.toml` 是顶层依赖的唯一声明，`requirements.lock` 是已验证环境的精确快照。常规开发使用锁文件：
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m uvicorn ricegod.main:app --reload --host 127.0.0.1 --port 8000
+conda activate GustoBot
+python -m pip install -r requirements-dev.txt
+C:\Anaconda\envs\GustoBot\python.exe -m pytest -q
+C:\Anaconda\envs\GustoBot\python.exe -m uvicorn ricegod.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
 仅安装顶层生产依赖时，可使用 `python -m pip install .`。
@@ -151,7 +152,7 @@ docker compose run --rm knowledge-init
 
 ## 启动 API
 
-Compose 模式已自动启动 API。本机开发模式可运行 `\.\.venv\Scripts\python.exe -m uvicorn ricegod.main:app --reload --host 127.0.0.1 --port 8000`。
+Compose 模式已自动启动 API。本机开发模式可运行 `C:\Anaconda\envs\GustoBot\python.exe -m uvicorn ricegod.main:app --reload --host 127.0.0.1 --port 8000`。
 
 健康检查：
 
@@ -191,8 +192,8 @@ curl -X POST http://127.0.0.1:8000/chat `
 ## 测试
 
 ```powershell
-.\.venv\Scripts\python.exe -m flake8 ricegod scripts tests
-.\.venv\Scripts\python.exe -m pytest tests -q
+C:\Anaconda\envs\GustoBot\python.exe -m flake8 ricegod scripts tests
+C:\Anaconda\envs\GustoBot\python.exe -m pytest tests -q
 ```
 
 GitHub Actions 在 Python 3.10 下运行语法/未定义名称检查、全量单元测试和真实 PostgreSQL/pgvector 集成测试。
@@ -200,7 +201,7 @@ GitHub Actions 在 Python 3.10 下运行语法/未定义名称检查、全量单
 数据库和模型配置完成后，可额外运行真实服务验收（会调用外部模型和 Embedding，产生相应费用）：
 
 ```powershell
-.\.venv\Scripts\python.exe -m scripts.verify_end_to_end --output docs/end_to_end_verification.json
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.verify_end_to_end --output docs/end_to_end_verification.json
 ```
 
 验收脚本使用独立 UUID 测试用户，验证真实菜谱与文化检索、跨会话记忆和用户隔离，完成后仅删除该测试用户的消息、记忆与 Checkpoint。完整结果保存为 JSON，包含实际来源、规划、任务状态和耗时。
@@ -210,7 +211,7 @@ GitHub Actions 在 Python 3.10 下运行语法/未定义名称检查、全量单
 ```powershell
 $env:RICEGOD_TEST_POSTGRES='1'
 $env:LANGGRAPH_STRICT_MSGPACK='true'
-.\.venv\Scripts\python.exe -m pytest tests -q
+C:\Anaconda\envs\GustoBot\python.exe -m pytest tests -q
 ```
 
 ## 演示问题
@@ -223,6 +224,7 @@ $env:LANGGRAPH_STRICT_MSGPACK='true'
 - 对 19,669 道菜谱进行食材实体规范化和过敏原关系建模，在 24 题固定集上将完全匹配率从 12.5% 提升至 100%、宏召回率从 22.8% 提升至 100%。
 - 基于 PostgreSQL、pgvector 和 LangGraph Checkpointer 实现可追溯长期记忆、跨重启多轮会话、更正/遗忘和用户隔离。
 - 通过规则优先规划和上下文裁剪，将同一 36 题在线固定集的平均耗时从 9.18 秒降至 4.68 秒，P95 从 18.10 秒降至 8.84 秒。
+- 合并 Router 与 Planner，以规则快速路径和一次结构化模型调用统一生成任务领域、依赖和菜谱操作，并用原文与图谱实体校验模型输出。
 
 ## Long-Term Memory
 

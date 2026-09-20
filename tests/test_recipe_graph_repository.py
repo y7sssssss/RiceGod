@@ -68,3 +68,16 @@ def test_graph_v2_builds_similarity_and_substitution_queries():
     assert "shared_ingredients" in similar.cypher and similar.params["dish_name"] == "香肠炒菜干"
     assert substitute is not None and substitute.source == "graph_v2_substitutions"
     assert substitute.params["ingredient"] == "玉米淀粉"
+
+
+def test_substitution_query_can_filter_a_planner_validated_replacement():
+    repository = RecipeGraphRepository()
+    request = repository.build_substitution_cypher(
+        "玉米淀粉", replacement="马铃薯淀粉")
+
+    assert "$replacement IS NULL OR replacement.name = $replacement" in request.cypher
+    assert request.params == {
+        "ingredient": "玉米淀粉",
+        "replacement": "马铃薯淀粉",
+        "limit": 5,
+    }

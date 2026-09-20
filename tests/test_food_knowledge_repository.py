@@ -37,6 +37,11 @@ class FakeReranker:
         return ranked[:top_k]
 
 
+class ScorePreservingReranker:
+    def rerank(self, query, rows, top_k):
+        return rows[:top_k]
+
+
 def test_food_knowledge_repository_builds_rows_from_chunks():
     repository = FoodKnowledgeRepository(
         embedder=FakeEmbedder(),
@@ -97,3 +102,48 @@ def test_food_knowledge_repository_reranks_vector_results(monkeypatch):
     assert vector_store.searched_top_k == 3
     assert [item["id"] for item in results] == ["3", "2"]
     assert all(item["score"] == 0.99 for item in results)
+
+
+def test_food_knowledge_repository_filters_low_vector_scores(monkeypatch):
+    monkeypatch.setattr("ricegod.infrastructure.food_knowledge_repository.settings.RERANK_TOP_N", 3)
+    vector_store = FakeVectorStore()
+    vector_store.rows = [
+        {"id": "1", "content": "相关", "score": 0.8, "source": "data.txt", "chunk_index": 1},
+        {"id": "2", "content": "低相似", "score": 0.2, "source": "data.txt", "chunk_index": 2},
+    ]
+    repository = FoodKnowledgeRepository(
+        embedder=FakeEmbedder(),
+        vector_store=vector_store,
+        reranker=ScorePreservingReranker(),
+    )
+
+    results = repository.search("问题", top_k=2, vector_similarity_threshold=0.5,
+                                rerank_relevance_threshold=0.0)
+
+    assert [item["id"] for item in results] == ["1"]
+
+
+def test_food_knowledge_repository_filters_low_rerank_scores(monkeypatch):
+    monkeypatch.setattr("ricegod.infrastructure.food_knowledge_repository.settings.RERANK_TOP_N", 3)
+    vector_store = FakeVectorStore()
+    vector_store.rows = [
+        {"id": "1", "content": "相关", "score": 0.9, "source": "data.txt", "chunk_index": 1},
+        {"id": "2", "content": "干扰", "score": 0.8, "source": "data.txt", "chunk_index": 2},
+    ]
+
+    class Reranker:
+        def rerank(self, query, rows, top_k):
+            rows[0]["score"] = 0.85
+            rows[1]["score"] = 0.1
+            return rows
+
+    repository = FoodKnowledgeRepository(
+        embedder=FakeEmbedder(),
+        vector_store=vector_store,
+        reranker=Reranker(),
+    )
+
+    results = repository.search("问题", top_k=2, vector_similarity_threshold=0.0,
+                                rerank_relevance_threshold=0.25)
+
+    assert [item["id"] for item in results] == ["1"]

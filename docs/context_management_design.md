@@ -4,15 +4,14 @@
 
 ## 窗口与预算
 
-Router、Planner、普通对话、补充追问和最终回答统一调用 `build_model_context`。保留当前用户消息，默认选取最近六个已完成的用户/助手对话轮次；孤立助手、历史系统消息和未完成旧轮次不传入。窗口设为零时只提供当前请求和必要数据。
+统一 Planner、普通对话、补充追问和最终回答调用 `build_model_context`。保留当前用户消息，默认选取最近六个已完成的用户/助手对话轮次；孤立助手、历史系统消息和未完成旧轮次不传入。窗口设为零时只提供当前请求和必要数据。
 
-Router 不读取长期记忆，避免历史偏好影响意图分类。Planner、对话和回答读取本轮召回的 `memory_context`。最近推荐列表单独提供分组、编号和真实菜名，不包含整份菜谱做法。序号选择仍由原有确定性逻辑解析，完整推荐快照仍在 State 中。
+Planner、对话和回答读取本轮召回的 `memory_context`；任务领域与操作仍需由当前用户原文支持，避免历史偏好改变本轮意图。最近推荐列表单独提供分组、编号和真实菜名，不包含整份菜谱做法。序号选择仍由确定性逻辑解析，完整推荐快照仍在 State 中。
 
 处理过明确记忆操作的混合请求，模型读取 `state.question` 中剩余业务问题；完整原文保留在消息中。结构化检索条件仍从原文核验，不把历史消息或上下文摘要当作本轮指令。
 
 ```env
 CONTEXT_RECENT_TURNS=6
-CONTEXT_ROUTER_TOKEN_BUDGET=8000
 CONTEXT_PLANNER_TOKEN_BUDGET=16000
 CONTEXT_ANSWER_TOKEN_BUDGET=32000
 ```
@@ -21,7 +20,7 @@ CONTEXT_ANSWER_TOKEN_BUDGET=32000
 
 超过预算先移除最旧的完整对话轮次。保护内容包括系统提示、当前请求、全部已召回记忆、推荐名称列表和必要证据，不静默截断过敏和忌口。
 
-必要内容本身无法容纳时，抛出 `ContextBudgetExceeded`，不发送超预算的模型消息：Router 回退规则分类，Planner 回退规则规划；普通对话/追问请求用户缩短或拆分问题；最终回答使用完整的确定性证据格式。预算只限制上述节点的模型输入，不等同于整个业务请求大小限制。
+必要内容本身无法容纳时，抛出 `ContextBudgetExceeded`，不发送超预算的模型消息：Planner 回退规则规划；普通对话/追问请求用户缩短或拆分问题；最终回答使用完整的确定性证据格式。预算只限制上述节点的模型输入，不等同于整个业务请求大小限制。
 
 ## 检索证据压缩
 
@@ -41,13 +40,13 @@ CONTEXT_ANSWER_TOKEN_BUDGET=32000
 
 上下文管理版本验收时全量回归 **229 passed**，其中八项真实 PostgreSQL 集成用例。新增覆盖四类节点窗口、整轮裁剪、零窗口、受保护内容超预算兜底、原文/业务问题分离、证据概要与详情、记忆操作成功/失败边界、长对话连续选择及新连接池恢复。最新全量结果见 [固定评测设计](evaluation_design.md)。
 
-真实模型验收 **17/17** 项通过。脚本显式构造 30 轮历史夹具，然后运行真实模型、Embedding、Neo4j 和 PostgreSQL 请求，检查长历史窗口、推荐、更正、遗忘与新 Runtime 恢复，测试用户数据已清理。首轮模型输入保留六轮历史，Router 的 61 条 State 消息对应 14 条输入消息，Planner 和回答各 16 条（含必要数据）。历史夹具不是三十轮真实模型对话；实际结果见 [验收记录](context_management_verification.json)。这验证具体行为，不代表总体准确率或延迟改善比例。
+合并前的真实模型验收 **17/17** 项通过。脚本显式构造 30 轮历史夹具，然后运行真实模型、Embedding、Neo4j 和 PostgreSQL 请求，检查长历史窗口、推荐、更正、遗忘与新 Runtime 恢复，测试用户数据已清理。当时的报告仍包含独立 Router 阶段，作为历史基线保留；当前架构只保留 Planner 和回答的模型上下文。实际结果见 [验收记录](context_management_verification.json)。这验证具体行为，不代表总体准确率或延迟改善比例。
 
 ```powershell
 $env:LANGGRAPH_STRICT_MSGPACK='true'
 $env:LANGSMITH_TRACING='false'
 $env:LANGCHAIN_TRACING_V2='false'
 $env:RICEGOD_TEST_POSTGRES='1'
-.\.venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
-.\.venv\Scripts\python.exe -m scripts.verify_context_management
+C:\Anaconda\envs\GustoBot\python.exe -m pytest -q -p no:cacheprovider
+C:\Anaconda\envs\GustoBot\python.exe -m scripts.verify_context_management
 ```

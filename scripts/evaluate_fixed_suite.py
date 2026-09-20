@@ -48,8 +48,8 @@ def evaluate(suite_path: Path, mode: str, output: Path, *, repeats=1, scenario_i
         "configuration": {"model": settings.LLM_MODEL if mode == "live" else None,
             "embedding_model": settings.EMBEDDING_MODEL if mode == "live" else None,
             "context_turns": settings.CONTEXT_RECENT_TURNS,
-            "context_budgets": [settings.CONTEXT_ROUTER_TOKEN_BUDGET, settings.CONTEXT_PLANNER_TOKEN_BUDGET, settings.CONTEXT_ANSWER_TOKEN_BUDGET],
-            "llm_router": settings.USE_LLM_ROUTER, "llm_thinking": settings.LLM_ENABLE_THINKING,
+            "context_budgets": [settings.CONTEXT_PLANNER_TOKEN_BUDGET, settings.CONTEXT_ANSWER_TOKEN_BUDGET],
+            "planning_architecture": "unified_task_planner", "llm_thinking": settings.LLM_ENABLE_THINKING,
             "task_timeout": settings.AGENT_TASK_TIMEOUT_SECONDS},
         "packages": {p: version(p) for p in ("langgraph", "langchain-core", "langgraph-checkpoint-postgres")}},
         "cases": [], "test_rows_cleaned": False}

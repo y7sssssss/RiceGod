@@ -10,7 +10,7 @@ from ricegod import bootstrap
 from ricegod.main import create_app
 
 
-def test_importing_api_and_router_does_not_construct_resources():
+def test_importing_api_and_planner_does_not_construct_resources():
     code = """
 from unittest.mock import patch
 with patch('ricegod.infrastructure.recipe_graph_repository.RecipeGraphRepository', side_effect=AssertionError('catalog constructed')), \
@@ -18,9 +18,9 @@ with patch('ricegod.infrastructure.recipe_graph_repository.RecipeGraphRepository
      patch('ricegod.infrastructure.memory_store.MemoryStore', side_effect=AssertionError('store constructed')), \
      patch('ricegod.application.agents.workflow.build_graph', side_effect=AssertionError('graph constructed')):
     import ricegod.main as api
-    from ricegod.application.agents import router
+    from ricegod.application.agents import planner
     assert not hasattr(api.app.state, 'runtime')
-    assert not hasattr(router, 'graph')
+    assert not hasattr(planner, 'graph')
 """
     result = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=30)
     assert result.returncode == 0, result.stderr
@@ -116,4 +116,5 @@ def test_chat_execution_error_is_mapped_to_http_500():
     with TestClient(create_app(lambda: runtime)) as client:
         response = client.post("/chat", json={"message": "hello"})
         assert response.status_code == 500
-        assert response.json()["detail"] == "Graph invocation failed"
+        assert response.json()["detail"] == "Chat service is temporarily unavailable."
+        assert "Graph invocation failed" not in response.text

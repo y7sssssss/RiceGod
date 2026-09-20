@@ -112,6 +112,7 @@ class MemoryService:
                 query=candidate.content,
                 top_k=settings.MEMORY_RECONCILE_TOP_K,
                 include_constraints=False,
+                query_embedding=candidate_embedding,
             )
             # Compare only facts of the same type; exclusions must not be treated
             # as duplicates of ordinary preferences and lose complete recall.
@@ -241,15 +242,17 @@ class MemoryService:
                     changed.append(fallback_record)
 
     def recall(
-        self, *, user_id: str, query: str, top_k: int | None = None, include_constraints: bool = True
+        self, *, user_id: str, query: str, top_k: int | None = None, include_constraints: bool = True,
+        query_embedding: list[float] | None = None,
     ) -> list[MemorySearchResult]:
         k = top_k or self.top_k
         if not query.strip():
             return []
         recalled = None
-        if self.embedder:
+        if query_embedding is not None or self.embedder:
             try:
-                query_embedding = self.embedder.embed_query(query)
+                if query_embedding is None:
+                    query_embedding = self.embedder.embed_query(query)
                 recalled = self.store.search_memories(user_id=user_id, query_embedding=query_embedding, top_k=k)
             except Exception as exc:
                 logger.warning("Semantic memory recall unavailable (%s); using stored memories.", type(exc).__name__)

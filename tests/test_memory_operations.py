@@ -6,7 +6,7 @@ from types import SimpleNamespace
 import pytest
 from langchain_core.messages import AIMessage
 
-from ricegod.application.agents import conversation, router, workflow
+from ricegod.application.agents import conversation, workflow
 from ricegod.application.agents.context import build_model_context
 from ricegod.application.agents.state import AgentState
 from ricegod.application.chat.models import ChatRequest
@@ -117,8 +117,10 @@ def chat(tmp_path, monkeypatch):
     path = tmp_path / "recipes.json"
     path.write_text(json.dumps(rows, ensure_ascii=False), encoding="utf-8")
     catalog, local = RecipeGraphRepository(data_path=path), RecipeRepository(str(path))
-    graph = workflow.build_graph(router.analyze_intent, conversation.general_query,
-                                conversation.additional_query, router._build_llm, catalog, local)
+    monkeypatch.setattr(catalog, "query_ranked_candidates", lambda *args: [])
+    monkeypatch.setattr(catalog, "query_by_cypher", lambda *args: [])
+    graph = workflow.build_graph(conversation.general_query,
+                                conversation.additional_query, None, catalog, local)
     store = Store()
     memories = memory_service(store)
     yield ChatService(graph, store, memories), store, memories

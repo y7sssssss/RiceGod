@@ -33,6 +33,10 @@ async def retrieve_recipe(
         return TaskResult(task_id=task.id, route=task.route, question=task.question,
                           status="blocked", content=plan.recipe_selection_error,
                           error_code="recipe_selection_unresolved")
+    if task.operation_error:
+        return TaskResult(task_id=task.id, route=task.route, question=task.question,
+                          status="blocked", content=task.operation_error,
+                          error_code="recipe_operation_unresolved")
     filters = task.constraints if task.constraints is not None else plan.constraints
     request = task.recipe_request or (plan.recipe_request if plan.recipe_request.query
                                      else build_recipe_request(task.question, filters))
@@ -40,24 +44,24 @@ async def retrieve_recipe(
     # Structured filters always take the composed template path, never arbitrary generated Cypher.
     has_filters = any(value for value in filters.model_dump().values())
     graph_operation = request.operation in ("similar", "substitute")
-    if not settings.LLM_API_KEY and not graph_operation:
-        rows = await asyncio.to_thread(local_repository.search_recipes, task.question,
-            limit=limit, constraints=filters, request=request)
-        return _local_result(task, rows, "llm_unconfigured", request=request)
     try:
         if request.operation == "similar":
-            if not filters.dish_name:
+            dish_name = task.operation_spec.dish_name if task.operation_spec else filters.dish_name
+            if not dish_name:
                 return _operation_target_missing(task, "similar_recipe_missing_dish",
                                                  "请明确要查找哪道菜的相似菜。")
-            cypher_request = graph_repository.build_similar_recipe_cypher(filters.dish_name, limit)
+            cypher_request = graph_repository.build_similar_recipe_cypher(dish_name, limit)
             rows = await asyncio.to_thread(graph_repository.query_by_cypher,
                                            cypher_request.cypher, cypher_request.params)
         elif request.operation == "substitute":
-            if not filters.required_ingredients:
+            ingredient = task.operation_spec.ingredient if task.operation_spec else (
+                filters.required_ingredients[0] if filters.required_ingredients else None)
+            if not ingredient:
                 return _operation_target_missing(task, "substitution_missing_ingredient",
                                                  "请明确需要替代的食材。")
             cypher_request = graph_repository.build_substitution_cypher(
-                filters.required_ingredients[0], limit)
+                ingredient, limit, replacement=(task.operation_spec.replacement
+                                                if task.operation_spec else None))
             rows = await asyncio.to_thread(graph_repository.query_by_cypher,
                                            cypher_request.cypher, cypher_request.params)
         elif request.recommendation:
@@ -70,12 +74,22 @@ async def retrieve_recipe(
             cypher_request = graph_repository.build_predefined_cypher(task.question)
             if cypher_request:
                 cypher, params = cypher_request.cypher, cypher_request.params
+            elif not settings.LLM_API_KEY:
+                rows = await asyncio.to_thread(local_repository.search_recipes, task.question,
+                    limit=limit, constraints=filters, request=request)
+                return _local_result(task, rows, "llm_unconfigured", request=request)
             else:
                 cypher = await _generate_cypher(task.question, graph_repository, model_factory)
                 params = {}
         if not graph_operation and not request.recommendation:
             rows = await asyncio.to_thread(graph_repository.query_by_cypher, cypher, params)
             rows = [row for row in rows if not has_filters or filters.matches(row)][:limit]
+        if not rows and not graph_operation:
+            local_rows = await asyncio.to_thread(local_repository.search_recipes, task.question,
+                limit=limit, constraints=filters, request=request)
+            if local_rows:
+                return _local_result(task, local_rows, "recipe_graph_empty", request=request)
+        rows = [{**row, "name": row.get("name") or row.get("菜名", "")} for row in rows]
         sources = _graph_sources(rows, request)
         return TaskResult(task_id=task.id, route=task.route, question=task.question,
                           status="ok" if rows else "empty", records=rows,

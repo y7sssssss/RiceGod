@@ -1,17 +1,16 @@
 import asyncio
+import threading
 
 from langchain_core.messages import AIMessage, HumanMessage
 
 from ricegod.application.agents import planner, recipe_retrieval, knowledge_retrieval, conversation
 from ricegod.config import settings
-from ricegod.application.agents import router, workflow
-from ricegod.application.agents.state import AgentState, PlannedTask, QueryPlan, Router, TaskResult
+from ricegod.application.agents import workflow
+from ricegod.application.agents.state import AgentState, PlannedTask, QueryPlan, TaskResult
 
 
-def _graph(catalog, local, routes):
-    async def intent(state):
-        return {"router": Router(type=routes)}
-    return workflow.build_graph(intent, conversation.general_query, conversation.additional_query, router._build_llm,
+def _graph(catalog, local):
+    return workflow.build_graph(conversation.general_query, conversation.additional_query, None,
                                 catalog, local)
 
 
@@ -33,7 +32,7 @@ def test_graph_fans_out_independent_tasks_and_merges_sources(monkeypatch, catalo
 
         monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", evidence)
         monkeypatch.setattr(knowledge_retrieval, "retrieve_knowledge", evidence)
-        result = await _graph(catalog, local, ["recipe_query", "food_knowledge"]).ainvoke(
+        result = await _graph(catalog, local).ainvoke(
             {"messages": [HumanMessage(content="推荐一道菜并介绍川菜历史")]},
             {"configurable": {"thread_id": "parallel"}},
         )
@@ -62,7 +61,7 @@ def test_dependent_culture_task_receives_real_recipe_records(monkeypatch, catalo
 
     monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", recipe)
     monkeypatch.setattr(knowledge_retrieval, "retrieve_knowledge", culture)
-    result = asyncio.run(_graph(catalog, local, ["food_knowledge", "recipe_query"]).ainvoke(
+    result = asyncio.run(_graph(catalog, local).ainvoke(
         {"messages": [HumanMessage(content="推荐一道菜并介绍它的来历")]},
         {"configurable": {"thread_id": "dependency"}},
     ))
@@ -82,7 +81,7 @@ def test_failure_in_one_task_keeps_other_task_evidence(monkeypatch, catalog, loc
 
     monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", recipe)
     monkeypatch.setattr(knowledge_retrieval, "retrieve_knowledge", culture)
-    result = asyncio.run(_graph(catalog, local, ["recipe_query", "food_knowledge"]).ainvoke(
+    result = asyncio.run(_graph(catalog, local).ainvoke(
         {"messages": [HumanMessage(content="推荐菜并介绍川菜历史")]},
         {"configurable": {"thread_id": "failure"}},
     ))
@@ -100,11 +99,43 @@ def test_task_timeout_is_bounded_and_reported(monkeypatch, catalog, local):
         await asyncio.Event().wait()
 
     monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", hanging)
-    result = asyncio.run(_graph(catalog, local, ["recipe_query"]).ainvoke(
+    result = asyncio.run(_graph(catalog, local).ainvoke(
         {"messages": [HumanMessage(content="推荐菜")]},
         {"configurable": {"thread_id": "timeout"}},
     ))
     assert result["task_results"]["task_0"].error_code == "task_timeout"
+
+
+def test_timed_out_thread_work_is_observed_until_it_finishes(monkeypatch, catalog, local):
+    monkeypatch.setattr(settings, "LLM_API_KEY", None)
+    monkeypatch.setattr(settings, "AGENT_TASK_TIMEOUT_SECONDS", 0.02)
+    started = threading.Event()
+    release = threading.Event()
+
+    async def slow_thread_work(task, *args):
+        def blocking_read():
+            started.set()
+            release.wait(1)
+
+        await asyncio.to_thread(blocking_read)
+        completed.set()
+        return TaskResult(task_id=task.id, route=task.route, question=task.question, content="late")
+
+    async def scenario():
+        nonlocal completed
+        completed = asyncio.Event()
+        monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", slow_thread_work)
+        result = await _graph(catalog, local).ainvoke(
+            {"messages": [HumanMessage(content="推荐菜")]},
+            {"configurable": {"thread_id": "thread-timeout"}},
+        )
+        assert started.is_set()
+        assert result["task_results"]["task_0"].error_code == "task_timeout"
+        release.set()
+        await asyncio.wait_for(completed.wait(), 1)
+
+    completed = None
+    asyncio.run(scenario())
 
 
 def test_similar_and_substitute_operations_reach_graph_templates(monkeypatch, catalog, local):
@@ -119,7 +150,7 @@ def test_similar_and_substitute_operations_reach_graph_templates(monkeypatch, ca
                  "shared_main_count": 1, "shared_ingredients": ["香肠"]}]
 
     monkeypatch.setattr(catalog, "query_by_cypher", query_by_cypher)
-    graph = _graph(catalog, local, ["recipe_query"])
+    graph = _graph(catalog, local)
 
     similar = asyncio.run(graph.ainvoke(
         {"messages": [HumanMessage(content="找一道和香肠炒菜干相似的菜")]},
@@ -138,6 +169,42 @@ def test_similar_and_substitute_operations_reach_graph_templates(monkeypatch, ca
     assert "CAN_SUBSTITUTE" in calls[1][0]
 
 
+def test_unresolved_operation_returns_clarification_without_database_query(monkeypatch, catalog, local):
+    monkeypatch.setattr(settings, "LLM_API_KEY", None)
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("An unresolved operation must not query Neo4j")
+
+    monkeypatch.setattr(catalog, "query_by_cypher", forbidden)
+    result = asyncio.run(_graph(catalog, local).ainvoke(
+        {"messages": [HumanMessage(content="找一道同类菜")]},
+        {"configurable": {"thread_id": "operation-clarification"}},
+    ))
+
+    task_result = result["task_results"]["task_0"]
+    assert task_result.status == "blocked"
+    assert task_result.error_code == "recipe_operation_unresolved"
+    assert "明确" in task_result.content
+
+
+def test_conflicting_recipe_constraints_clarify_without_recipe_execution(monkeypatch, catalog, local):
+    monkeypatch.setattr(settings, "LLM_API_KEY", None)
+
+    async def forbidden(*args, **kwargs):
+        raise AssertionError("A conflicting request must not execute recipe retrieval")
+
+    monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", forbidden)
+    result = asyncio.run(_graph(catalog, local).ainvoke(
+        {"messages": [HumanMessage(content="用鸡蛋推荐菜，但不要鸡蛋")]},
+        {"configurable": {"thread_id": "constraint-conflict"}},
+    ))
+
+    assert result["router"].type == ["additional_query"]
+    assert result["plan"].clarification
+    assert "矛盾" in result["answer"] and result["answer"].endswith("？")
+    assert result["sources"] == []
+
+
 def test_next_turn_replaces_transient_results_and_sources(monkeypatch, catalog, local):
     monkeypatch.setattr(settings, "LLM_API_KEY", None)
 
@@ -148,7 +215,7 @@ def test_next_turn_replaces_transient_results_and_sources(monkeypatch, catalog, 
     monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", recipe)
 
     async def scenario():
-        graph = _graph(catalog, local, ["recipe_query"])
+        graph = _graph(catalog, local)
         config = {"configurable": {"thread_id": "two-turns"}}
         await graph.ainvoke({"messages": [HumanMessage(content="第一轮推荐菜")]}, config)
         result = await graph.ainvoke({"messages": [HumanMessage(content="第二轮推荐菜")]}, config)
@@ -171,8 +238,7 @@ def test_invalid_dependency_plan_falls_back_and_preserves_exclusions(monkeypatch
             return QueryPlan(tasks=[PlannedTask(id="cycle", route="recipe_query", question="推荐菜",
                                                depends_on=["cycle"])])
 
-    state = AgentState(messages=[HumanMessage(content="不要香菜，推荐一道菜，并介绍川菜的历史")],
-                       router=Router(type=["recipe_query", "food_knowledge"]))
+    state = AgentState(messages=[HumanMessage(content="不要香菜，推荐一道菜，并介绍川菜的历史")])
     plan = asyncio.run(planner.make_plan(state, catalog, lambda **kwargs: Model()))
     assert plan.tasks[0].id == "task_0"
     assert "香菜" in plan.constraints.excluded_ingredients
@@ -242,8 +308,7 @@ def test_grounded_synthesis_uses_evidence_and_returns_actual_sources(monkeypatch
 
     monkeypatch.setattr(planner, "make_plan", plan)
     monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", recipe)
-    graph = workflow.build_graph(lambda state: {"router": Router(type=["recipe_query"])},
-                                conversation.general_query, conversation.additional_query, lambda **kwargs: Model(),
+    graph = workflow.build_graph(conversation.general_query, conversation.additional_query, lambda **kwargs: Model(),
                                 catalog, local)
     result = asyncio.run(graph.ainvoke({"messages": [HumanMessage(content="推荐一道菜")]},
                                       {"configurable": {"thread_id": "synthesis"}}))

@@ -27,6 +27,9 @@ logger = logging.getLogger(__name__)
 class ChatExecutionError(RuntimeError):
     """Graph execution failed; the transport decides how to report it."""
 
+    def __init__(self) -> None:
+        super().__init__("Chat execution failed.")
+
 
 class ChatService:
     def __init__(self, graph, memory_store: MemoryStore | None = None,
@@ -49,9 +52,25 @@ class ChatService:
                 with measure_stage("total"):
                     with measure_stage("lock_wait"):
                         await lock.acquire()
+                    distributed_lock = None
                     try:
+                        if self.memory_store and hasattr(self.memory_store, "acquire_conversation_lock"):
+                            distributed_lock = await timed_call(
+                                "distributed_lock_wait",
+                                asyncio.to_thread,
+                                self.memory_store.acquire_conversation_lock,
+                                user_id=request.user_id,
+                                conversation_id=request.conversation_id,
+                            )
                         response = await self._chat_locked(request)
+                    except ChatExecutionError:
+                        raise
+                    except Exception:
+                        logger.exception("Chat turn failed outside graph execution.")
+                        raise ChatExecutionError() from None
                     finally:
+                        if distributed_lock is not None:
+                            await asyncio.to_thread(distributed_lock.release)
                         lock.release()
             finally:
                 logger.info("Chat performance: %s", timings.report().model_dump_json())
@@ -62,6 +81,25 @@ class ChatService:
         used_memories: list[MemorySearchResult] = []
         memory_prompt = ""
         recovered_history_messages: list[BaseMessage] = []
+        turn_message_id: int | None = None
+        logged_message = None
+        user_logged = False
+        durable_turn = bool(self.memory_store and hasattr(self.memory_store, "begin_turn"))
+        if durable_turn:
+            turn = await timed_call(
+                "user_message_write",
+                asyncio.to_thread,
+                self.memory_store.begin_turn,
+                conversation_id=request.conversation_id,
+                user_id=request.user_id,
+                request_id=request.request_id,
+                content=request.message,
+            )
+            if turn.get("turn_status") == "completed" and turn.get("turn_response"):
+                return ChatResponse.model_validate(turn["turn_response"])
+            turn_message_id = int(turn["id"])
+            logged_message = turn
+            user_logged = True
         config = {"configurable": {"thread_id": _thread_key(request.user_id, request.conversation_id)}}
         try:
             snapshot = await timed_call("checkpoint_read", self.graph.aget_state, config)
@@ -78,14 +116,14 @@ class ChatService:
                     user_id=request.user_id,
                     limit=settings.RECENT_CONTEXT_MESSAGES,
                 )
+                if turn_message_id is not None:
+                    recent_history = [row for row in recent_history if row.get("id") != turn_message_id]
                 recovered_history_messages = _records_to_graph_messages(recent_history)
             except Exception:
                 logger.exception("Failed to recover recent chat history from PostgreSQL messages table.")
                 recovered_history_messages = []
 
-        user_logged = False
-        logged_message = None
-        if self.memory_store:
+        if self.memory_store and not durable_turn:
             try:
                 record = await timed_call("user_message_write", asyncio.to_thread, self.memory_store.add_message,
                     conversation_id=request.conversation_id,
@@ -125,7 +163,8 @@ class ChatService:
             except Exception:
                 logger.exception("Memory recall failed; continuing with current user message.")
 
-        current_message = HumanMessage(content=request.message, id=str(uuid4()))
+        current_message_id = (f"request:{request.request_id}" if durable_turn else str(uuid4()))
+        current_message = HumanMessage(content=request.message, id=current_message_id)
         graph_messages = [current_message]
         context_update = ({"context_history_after": current_message.id}
                           if receipt.operation and receipt.operation.status == "applied" else {})
@@ -159,7 +198,12 @@ class ChatService:
                 )
         except Exception as exc:
             logger.exception("LangGraph chat invocation failed.")
-            raise ChatExecutionError(str(exc)) from exc
+            if turn_message_id is not None:
+                try:
+                    await asyncio.to_thread(self.memory_store.fail_turn, turn_message_id)
+                except Exception:
+                    logger.exception("Failed to mark durable chat turn as failed.")
+            raise ChatExecutionError() from exc
 
         messages = result.get("messages", [])
         answer = str(messages[-1].content) if messages else ""
@@ -205,18 +249,7 @@ class ChatService:
             except Exception:
                 logger.exception("Failed to update checkpoint with memory-confirmed answer.")
         answer = confirmed_answer
-        if self.memory_store:
-            try:
-                await timed_call("assistant_message_write", asyncio.to_thread, self.memory_store.add_message,
-                    conversation_id=request.conversation_id,
-                    user_id=request.user_id,
-                    role="assistant",
-                    content=answer,
-                )
-            except Exception:
-                logger.exception("Failed to persist assistant message.")
-
-        return ChatResponse(
+        response = ChatResponse(
             answer=answer,
             route=router.type[0] if len(router.type) == 1 else "+".join(router.type),
             logic=router.logic,
@@ -227,6 +260,27 @@ class ChatService:
             ],
             memory_write=receipt,
         )
+        if self.memory_store and durable_turn and turn_message_id is not None:
+            await timed_call(
+                "turn_completion_write",
+                asyncio.to_thread,
+                self.memory_store.complete_turn,
+                turn_message_id,
+                response.model_dump(mode="json"),
+                assistant_content=answer,
+            )
+        elif self.memory_store:
+            try:
+                await timed_call("assistant_message_write", asyncio.to_thread, self.memory_store.add_message,
+                    conversation_id=request.conversation_id,
+                    user_id=request.user_id,
+                    role="assistant",
+                    content=answer,
+                )
+            except Exception:
+                logger.exception("Failed to persist assistant message.")
+
+        return response
 
 
 def _thread_key(user_id: str, conversation_id: str) -> str:

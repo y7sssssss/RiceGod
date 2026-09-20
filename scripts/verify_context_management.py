@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 from langchain_core.messages import AIMessage, HumanMessage
 from langsmith import tracing_context
 
-from ricegod.application.agents import answer, conversation, planner, router
+from ricegod.application.agents import answer, conversation, planner
 from ricegod.application.agents.context import estimate_tokens
 from ricegod.application.chat.service import _thread_key
 from ricegod.main import create_app
@@ -26,7 +26,7 @@ def main():
               "test_rows_cleaned": False}
     captured = []
     replacement_runtime = None
-    originals = {module: module.build_model_context for module in (router, planner, conversation, answer)}
+    originals = {module: module.build_model_context for module in (planner, conversation, answer)}
 
     def wrap(original):
         def build(state, purpose, **kwargs):
@@ -99,7 +99,7 @@ def main():
                 check("stale_preference_absent_from_model_input", all("清淡" not in str(msgs)
                       for _, msgs, _ in captured[count:]))
                 check("current_memory_present", all("喜欢麻辣口味" in str(msgs)
-                      for purpose, msgs, _ in captured[count:] if purpose != "router"))
+                      for _, msgs, _ in captured[count:]))
                 count = len(captured)
                 body, state = chat(client, app, "忘掉麻辣口味偏好")
                 check("forget_does_not_call_dialogue_models", len(captured) == count

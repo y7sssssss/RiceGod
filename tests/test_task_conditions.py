@@ -7,7 +7,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from ricegod.application.agents import planner, recipe_retrieval
 from ricegod.config import settings
 from ricegod.application.agents import workflow
-from ricegod.application.agents.state import AgentState, PlannedTask, QueryPlan, Router
+from ricegod.application.agents.state import AgentState, PlannedTask, QueryPlan
 from ricegod.domain.recipes import RecipeConstraints, extract_constraints
 from ricegod.infrastructure.recipe_repository import RecipeRepository
 
@@ -38,8 +38,7 @@ class Planner:
 
 def plan_for(monkeypatch, question, tasks=None, memories=None):
     monkeypatch.setattr(settings, "LLM_API_KEY", "test" if tasks else None)
-    state = AgentState(messages=[HumanMessage(content=question)],
-                       router=Router(type=["recipe_query"]), user_memories=memories or [])
+    state = AgentState(messages=[HumanMessage(content=question)], user_memories=memories or [])
     return asyncio.run(planner.make_plan(state, Catalog(), lambda **kw: Planner(tasks)))
 
 
@@ -86,8 +85,7 @@ def test_named_dish_queries_keep_independent_dish_names(monkeypatch):
 
 def test_recipe_task_disambiguates_a_dish_from_a_different_culture_dish(monkeypatch):
     monkeypatch.setattr(settings, "LLM_API_KEY", "test")
-    state = AgentState(messages=[HumanMessage(content="鸡蛋蒸羹怎么做，土豆丝有什么历史？")],
-                       router=Router(type=["recipe_query", "food_knowledge"]))
+    state = AgentState(messages=[HumanMessage(content="鸡蛋蒸羹怎么做，土豆丝有什么历史？")])
     model = Planner([
         PlannedTask(id="recipe", route="recipe_query", question="鸡蛋蒸羹怎么做"),
         PlannedTask(id="culture", route="food_knowledge", question="土豆丝有什么历史")])
@@ -169,8 +167,7 @@ def test_actual_graph_synthesizes_with_per_task_conditions(monkeypatch):
                           content=task.source_text, sources=[task.id])
 
     monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", retrieve)
-    graph = workflow.build_graph(lambda state: {"router": Router(type=["recipe_query"])},
-                                None, None, None, Catalog(), None)
+    graph = workflow.build_graph(None, None, None, Catalog(), None)
     result = asyncio.run(graph.ainvoke({"messages": [HumanMessage(
         content="早餐用鸡蛋，晚餐用土豆，各推荐一道菜。") ]},
         {"configurable": {"thread_id": "independent-conditions"}}))

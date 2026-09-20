@@ -17,9 +17,9 @@ async def retrieve_knowledge(task: PlannedTask, upstream: list[TaskResult]) -> T
             return TaskResult(task_id=task.id, route=task.route, question=query, status="blocked",
                               error_code="missing_recipe_evidence")
         query = "、".join(names) + "的历史、来历与典故。" + task.question
-    if not settings.LLM_API_KEY:
+    if not (settings.EMBEDDING_API_KEY or settings.LLM_API_KEY):
         return TaskResult(task_id=task.id, route=task.route, question=query, status="failed",
-                          error_code="llm_unconfigured")
+                          error_code="embedding_unconfigured")
 
     def search():
         repository = FoodKnowledgeRepository()

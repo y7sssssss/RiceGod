@@ -3,8 +3,8 @@ import asyncio
 import pytest
 from langchain_core.messages import AIMessage, HumanMessage
 
-from ricegod.application.agents import conversation, knowledge_retrieval, recipe_retrieval, router, workflow
-from ricegod.application.agents.state import Router, TaskResult
+from ricegod.application.agents import conversation, knowledge_retrieval, planner, recipe_retrieval, workflow
+from ricegod.application.agents.state import PlannedTask, QueryPlan, TaskResult
 from ricegod.application.chat.models import ChatRequest
 from ricegod.application.chat.service import ChatExecutionError, ChatService
 from ricegod.application.performance import measure_stage, performance_scope, record_event
@@ -52,9 +52,12 @@ def test_concurrent_requests_have_separate_trace_and_stage_collections(monkeypat
     monkeypatch.setattr(settings, "LLM_API_KEY", None)
     entered, release = asyncio.Event(), asyncio.Event()
 
-    async def intent(state):
+    async def plan(state, *args):
         record_event("test", mode=state.question)
-        return {"router": Router(type=["recipe_query", "food_knowledge"])}
+        return QueryPlan(tasks=[
+            PlannedTask(id="recipe", route="recipe_query", question=state.question, source_text=state.question),
+            PlannedTask(id="culture", route="food_knowledge", question=state.question),
+        ])
 
     async def retrieval(task, *args):
         entered.set()
@@ -63,8 +66,9 @@ def test_concurrent_requests_have_separate_trace_and_stage_collections(monkeypat
 
     monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", retrieval)
     monkeypatch.setattr(knowledge_retrieval, "retrieve_knowledge", retrieval)
-    graph = workflow.build_graph(intent, conversation.general_query, conversation.additional_query,
-                                 router._build_llm, catalog, local)
+    monkeypatch.setattr(planner, "make_plan", plan)
+    graph = workflow.build_graph(conversation.general_query, conversation.additional_query,
+                                 None, catalog, local)
     service = ChatService(graph)
 
     async def run():
@@ -78,7 +82,7 @@ def test_concurrent_requests_have_separate_trace_and_stage_collections(monkeypat
     for response, expected in zip(responses, ("one", "two")):
         report = response.performance
         assert [e["mode"] for e in report.events if e["kind"] == "test"] == [expected]
-        assert {"router", "planner", "recipe_retrieval", "knowledge_retrieval", "answer", "total"} <= {s.name for s in report.stages}
+        assert {"planner", "recipe_retrieval", "knowledge_retrieval", "answer", "total"} <= {s.name for s in report.stages}
         assert all(s.duration_ms >= 0 and s.start_ms >= 0 for s in report.stages)
         assert all(s.task_id for s in report.stages if s.name.endswith("retrieval"))
         assert not graph.get_state({"configurable": {"thread_id": '["' + expected + '","default"]'}}).values.get("performance")
@@ -102,11 +106,15 @@ def test_parallel_task_intervals_overlap_without_summing_into_total(monkeypatch,
         monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", retrieval)
         monkeypatch.setattr(knowledge_retrieval, "retrieve_knowledge", retrieval)
 
-        async def intent(state):
-            return {"router": Router(type=["recipe_query", "food_knowledge"])}
+        async def plan(state, *args):
+            return QueryPlan(tasks=[
+                PlannedTask(id="recipe", route="recipe_query", question=state.question, source_text=state.question),
+                PlannedTask(id="culture", route="food_knowledge", question=state.question),
+            ])
 
-        graph = workflow.build_graph(intent, conversation.general_query, conversation.additional_query,
-                                     router._build_llm, catalog, local)
+        monkeypatch.setattr(planner, "make_plan", plan)
+        graph = workflow.build_graph(conversation.general_query, conversation.additional_query,
+                                     None, catalog, local)
         response = await ChatService(graph).chat(ChatRequest(message="推荐鸡蛋菜并介绍川菜历史"))
         spans = [s for s in response.performance.stages if s.name.endswith("retrieval")]
         assert len(spans) == 2

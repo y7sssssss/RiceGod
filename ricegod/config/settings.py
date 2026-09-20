@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     KB_CHUNK_SIZE: int = 800
     KB_CHUNK_OVERLAP: int = 120
     KB_TOP_K: int = 4
+    KB_VECTOR_SIMILARITY_THRESHOLD: float = Field(default=0.35, ge=-1.0, le=1.0)
+    KB_RERANK_RELEVANCE_THRESHOLD: float = Field(default=0.50, ge=0.0, le=1.0)
     RERANK_MODEL: str = Field(..., min_length=1)
     RERANK_API_KEY: str | None = None
     RERANK_ENDPOINT: str = "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
@@ -61,12 +63,11 @@ class Settings(BaseSettings):
     MEMORY_RECONCILE_TOP_K: int = 5
     RECENT_CONTEXT_MESSAGES: int = 8
     CONTEXT_RECENT_TURNS: int = Field(default=6, ge=0, le=50)
-    CONTEXT_ROUTER_TOKEN_BUDGET: int = Field(default=8000, ge=256)
     CONTEXT_PLANNER_TOKEN_BUDGET: int = Field(default=16000, ge=256)
     CONTEXT_ANSWER_TOKEN_BUDGET: int = Field(default=32000, ge=256)
 
-    USE_LLM_ROUTER: bool = True
     AGENT_TASK_TIMEOUT_SECONDS: float = Field(default=45.0, gt=0)
+    AGENT_MAX_CONCURRENT_TASKS: int = Field(default=8, ge=1, le=64)
     CYPHER_MAX_ATTEMPTS: int = Field(default=2, ge=1, le=3)
 
     model_config = SettingsConfigDict(

@@ -3,14 +3,15 @@ from fastapi.testclient import TestClient
 
 from ricegod.main import create_app, health
 from ricegod.bootstrap import Runtime
-from ricegod.application.agents import conversation, router, workflow
+from ricegod.application.agents import conversation, workflow
+from ricegod.config import settings
 
 
 @pytest.fixture
 def client(monkeypatch, catalog, local):
-    monkeypatch.setattr(router.settings, "LLM_API_KEY", None)
-    graph = workflow.build_graph(router.analyze_intent, conversation.general_query,
-                                 conversation.additional_query, router._build_llm, catalog, local)
+    monkeypatch.setattr(settings, "LLM_API_KEY", None)
+    graph = workflow.build_graph(conversation.general_query,
+                                 conversation.additional_query, None, catalog, local)
     with TestClient(create_app(lambda: Runtime(graph, catalog, local))) as client:
         yield client
 

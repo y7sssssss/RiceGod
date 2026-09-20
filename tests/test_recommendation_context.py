@@ -6,10 +6,10 @@ from langchain_core.messages import AIMessage, HumanMessage
 
 from ricegod.application.agents import planner, recipe_retrieval, knowledge_retrieval, conversation
 from ricegod.config import settings
-from ricegod.application.agents import router, workflow
+from ricegod.application.agents import workflow
 from ricegod.application.agents.recommendations import is_recipe_selection, select_recommendation
 from ricegod.application.agents.state import (
-    AgentState, PlannedTask, QueryPlan, RecommendationGroup, Router, TaskResult,
+    AgentState, PlannedTask, QueryPlan, RecommendationGroup, TaskResult,
 )
 from ricegod.domain.recipe_ranking import RecipeRequest
 from ricegod.domain.recipes import RecipeConstraints
@@ -30,9 +30,13 @@ def graph(tmp_path, monkeypatch):
     path = tmp_path / "recipes.json"
     path.write_text(json.dumps({row["name"]: row for row in rows}, ensure_ascii=False), encoding="utf-8")
     catalog = RecipeGraphRepository(data_path=path)
+    # These tests verify conversation continuity against the fixture catalog,
+    # not whichever Neo4j instance happens to be running on the developer host.
+    monkeypatch.setattr(catalog, "query_ranked_candidates", lambda *args: [])
+    monkeypatch.setattr(catalog, "query_by_cypher", lambda *args: [])
     local = RecipeRepository(str(path))
-    return workflow.build_graph(router.analyze_intent, conversation.general_query, conversation.additional_query,
-                                router._build_llm, catalog, local)
+    return workflow.build_graph(conversation.general_query, conversation.additional_query,
+                                None, catalog, local)
 
 
 async def _turn(graph, message, thread="continuity", **inputs):
@@ -180,11 +184,8 @@ def test_selection_does_not_depend_on_llm_routing_or_planning(graph, monkeypatch
     monkeypatch.setattr(settings, "LLM_API_KEY", "test")
     def forbidden(**kwargs):
         raise AssertionError("Ordinal routing/planning should use the stored snapshot")
-    monkeypatch.setattr(router, "_build_llm", forbidden)
-    state = AgentState(messages=[HumanMessage(content="第二道菜怎么做")], router=Router(type=["recipe_query"]),
+    state = AgentState(messages=[HumanMessage(content="第二道菜怎么做")],
                        last_recommendations=initial["last_recommendations"])
-    intent = asyncio.run(router.analyze_intent(state))
-    assert intent["router"].type == ["recipe_query"]
     plan = asyncio.run(planner.make_plan(state, catalog, forbidden))
     assert plan.selected_recipe_name == _names(state.last_recommendations)[0][1]
     assert plan.recipe_request.limit == 1 and not plan.recipe_request.recommendation
@@ -204,8 +205,7 @@ def test_snapshot_matches_displayed_order_when_llm_omits_or_reorders_recipes(gra
             return AIMessage(content=answer)
     monkeypatch.setattr(planner, "make_plan", plan)
     monkeypatch.setattr(recipe_retrieval, "retrieve_recipe", evidence)
-    graph = workflow.build_graph(lambda state: {"router": Router(type=["recipe_query"])}, None, None,
-                                lambda **kwargs: Model(), catalog, None)
+    graph = workflow.build_graph(None, None, lambda **kwargs: Model(), catalog, None)
     result = asyncio.run(_turn(graph, "推荐两道菜"))
     assert result["answer"].index("菜谱甲") < result["answer"].index("菜谱乙")
     assert _names(result["last_recommendations"]) == [["菜谱甲", "菜谱乙"]]

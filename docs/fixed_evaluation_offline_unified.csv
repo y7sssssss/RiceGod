@@ -1,0 +1,17 @@
+﻿stage,samples,mean_ms,p50_ms,p95_ms,errors,total_work_ms
+answer,27,0.225,0.192,0.368,0,6.086
+assistant_message_write,31,0.254,0.257,0.392,0,7.866
+checkpoint_read,31,0.741,0.739,1.771,0,22.976
+checkpoint_write,8,0.799,0.793,1.097,0,6.394
+conversation,3,0.613,0.651,0.654,0,1.84
+graph,27,171.503,155.89,346.063,0,4630.572
+history_recovery,6,0.322,0.297,0.459,0,1.933
+lock_wait,31,0.011,0.01,0.019,0,0.349
+memory_confirmation,35,0.083,0.061,0.188,0,2.921
+memory_extraction,18,0.388,0.367,0.72,0,6.986
+memory_operation,5,0.589,0.4,1.571,0,2.946
+memory_recall,31,0.224,0.201,0.402,0,6.956
+planner,27,93.293,90.449,149.93,0,2518.912
+recipe_retrieval,28,82.015,60.805,240.796,0,2296.408
+total,31,152.292,124.713,348.134,0,4721.055
+user_message_write,31,0.302,0.275,0.559,0,9.359
