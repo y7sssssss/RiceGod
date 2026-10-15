@@ -21,6 +21,43 @@ docker compose run --rm recipe-init
 docker compose run --rm knowledge-init
 ```
 
+## 前后端独立启动（新版 Web）
+
+新版桌面前端位于 `frontend/`，使用 Vue 3、TypeScript、Vite 和 Element Plus。需要 Node.js 20.19+（20.x）或 22.12+，以及已安装项目依赖的 Python 环境。先按上文准备 `.env`，再从项目根目录启动数据库与检索依赖：
+
+```powershell
+docker compose up -d neo4j postgres milvus
+```
+
+终端一：在项目根目录启动 FastAPI 后端。
+
+```powershell
+conda activate GustoBot
+python -m uvicorn ricegod.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+如果使用项目已有的 `.venv`，可将上面的后端命令替换为：
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn ricegod.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+终端二：从项目根目录进入前端目录并启动 Vite。
+
+```powershell
+cd frontend
+npm ci
+npm run dev
+```
+
+- 新版 Web 前端：<http://127.0.0.1:5173/>。
+- 后端健康检查：<http://127.0.0.1:8000/health>；API 文档：<http://127.0.0.1:8000/docs>。
+- 前端通过 Vite 将 `/api/*` 代理到 `http://127.0.0.1:8000/*`；更换地址请配置 `frontend/.env.local` 中的 `API_PROXY_TARGET`。
+- 已通过 `docker compose up -d --build` 启动 `app` 时，可直接运行前端，无需再次启动本机 Uvicorn，以免占用同一端口。
+- 首次使用还需按下文导入菜谱和饮食文化数据；PostgreSQL 不可用会导致默认后端启动失败。
+
+前端类型检查、测试、构建及隐私边界见 [前端独立启动文档](frontend/README.md)，实际联调状态见 [前端开发验收报告](frontend/docs/DEVELOPMENT_REPORT.md)。
+
 ## 项目亮点
 
 - 基于 LangGraph 的任务编排：统一 Planner 完成领域识别、子任务拆分和依赖规划；明确请求走规则快速路径，复杂请求只调用一次规划模型。
